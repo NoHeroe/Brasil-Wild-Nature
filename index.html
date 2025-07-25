@@ -173,11 +173,18 @@
 </head>
 <body>
   <header>
+    <div id="google_translate_element" style="display: none;"></div>
+
+  <header>
     <div class="logo">Brasil Wild Nature</div>
     <nav>
       <a href="#pacotes">Pacotes</a>
-      <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
+      <div class="flags">
+        <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="changeLanguage('pt')">
+        <img src="https://flagcdn.com/w40/us.png" alt="English" onclick="changeLanguage('en')">
+        <img src="https://flagcdn.com/w40/de.png" alt="Deutsch" onclick="changeLanguage('de')">
+      </div>
     </nav>
   </header>
 
@@ -239,5 +246,20 @@
   <footer>
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'pt'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script>
+    function changeLanguage(lang) {
+      const select = document.querySelector(".goog-te-combo");
+      if (!select) return;
+      select.value = lang;
+      select.dispatchEvent(new Event("change"));
+    }
+  </script>
 </body>
 </html>

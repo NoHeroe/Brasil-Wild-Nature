@@ -54,14 +54,14 @@
     }
 
     .lang-toggle img {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
     }
 
     .lang-menu {
       position: absolute;
-      top: 32px;
+      top: 36px;
       right: 0;
       background: #1a1a1a;
       padding: 10px;
@@ -71,6 +71,7 @@
       flex-direction: column;
       gap: 10px;
       z-index: 9999;
+      box-shadow: 0 0 10px #000;
     }
 
     .lang-menu img {
@@ -129,24 +130,93 @@
       color: #1a1a1a;
     }
 
-    footer {
-      background-color: #0b0d0a;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+    .carousel-section {
+      padding: 60px 20px;
+      background-color: #121613;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero p { font-size: 1rem; }
-      nav { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .carousel-section h2 {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      color: #d6c177;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-card {
+      flex: 0 0 auto;
+      width: 280px;
+      margin: 0 10px;
+      background-color: #1a1f1a;
+      border-radius: 10px;
+      scroll-snap-align: start;
+      overflow: hidden;
+    }
+
+    .carousel-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .carousel-card .info {
+      padding: 15px;
+    }
+
+    .carousel-card .info h3 {
+      font-family: 'Cinzel', serif;
+      color: #e6d8a5;
+      margin-bottom: 8px;
+    }
+
+    .carousel-card .info p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .about, .contact {
+      padding: 60px 20px;
+      background-color: #0f110f;
+    }
+
+    .about h2, .contact h2 {
+      text-align: center;
+      color: #d6c177;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 30px;
+    }
+
+    .about p, .contact p {
+      max-width: 700px;
+      margin: auto;
+      color: #ccc;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0b0d0a;
+      color: #777;
+      font-size: 0.8rem;
     }
 
     #google_translate_element { display: none; }
   </style>
 </head>
 <body>
+
   <div id="google_translate_element"></div>
 
   <header>
@@ -178,6 +248,50 @@
     </div>
   </section>
 
+  <section class="carousel-section" id="pacotes">
+    <h2>Pacotes de Viagem</h2>
+    <div class="carousel">
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/XY3l2cq.jpg" alt="Jaguar Safari" />
+        <div class="info">
+          <h3>Safari da Onça</h3>
+          <p>Explore o habitat natural da onça-pintada com segurança.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/Z4RnCiy.jpg" alt="Ritual Ayahuasca" />
+        <div class="info">
+          <h3>Ritual de Ayahuasca</h3>
+          <p>Experiência ancestral guiada por líderes espirituais locais.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/s5yim8S.jpg" alt="Poço Azul" />
+        <div class="info">
+          <h3>Poço Azul</h3>
+          <p>Banho sagrado em águas cristalinas dentro de cavernas.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/d6dnAwq.jpg" alt="Expedição Noturna" />
+        <div class="info">
+          <h3>Expedição Noturna</h3>
+          <p>Caminhada guiada em floresta sob a luz das estrelas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="sobre">
+    <h2>Sobre o Guia</h2>
+    <p>Com anos de vivência no ecoturismo, nosso guia local oferece experiências seguras e transformadoras. Da observação da fauna ao mergulho cultural, nossa missão é conectar você à verdadeira essência do Brasil.</p>
+  </section>
+
+  <section class="contact" id="contato">
+    <h2>Fale Conosco</h2>
+    <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
+  </section>
+
   <footer>
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
@@ -194,36 +308,33 @@
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <!-- Custom Language Switcher -->
+  <!-- Idioma e UI -->
   <script>
     function toggleLangMenu() {
       const menu = document.getElementById("lang-menu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
 
     function setLang(lang, el) {
       const combo = document.querySelector(".goog-te-combo");
-      if (combo) {
-        combo.value = lang;
-        combo.dispatchEvent(new Event("change"));
-      }
+      if (!combo) return;
 
-      // Update active flag
+      combo.value = lang;
+      combo.dispatchEvent(new Event("change"));
+
+      // Marca bandeira ativa
       document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
       el.classList.add("active");
-
-      // Update icon in header
       document.getElementById("active-lang").src = el.src;
 
-      // Close menu
+      // Fecha modal
       document.getElementById("lang-menu").style.display = "none";
     }
 
-    // Oculta barra do Google Tradutor injetada
     const observer = new MutationObserver(() => {
-      const frame = document.querySelector("iframe.goog-te-banner-frame");
-      if (frame) frame.style.display = "none";
+      const iframe = document.querySelector("iframe.goog-te-banner-frame");
       const skip = document.querySelector(".goog-te-gadget");
+      if (iframe) iframe.style.display = "none";
       if (skip) skip.style.display = "none";
     });
 

@@ -337,16 +337,6 @@
 
     setTimeout(() => waitForTranslate(callback, tries + 1), 200);
   }
-
-  // Esconde UI do Google Translate
-  const observer = new MutationObserver(() => {
-    const banner = document.querySelector("iframe.goog-te-banner-frame");
-    const gadget = document.querySelector(".goog-te-gadget");
-    if (banner) banner.style.display = "none";
-    if (gadget) gadget.style.display = "none";
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
 </html>

@@ -91,7 +91,7 @@
       font-weight: 500;
       transition: 0.3s;
     }
-    .hero-img-wrap {
+.hero-img-wrapper {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -102,55 +102,80 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
+  object-position: center top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-.hero-overlay {
+/* Máscara escura com gradiente (blur visual) */
+.hero-mask {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
+  z-index: 2;
   width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85));
+}
+
+/* Camada de conteúdo */
+.hero-overlay {
+  position: relative;
+  z-index: 3;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 40px 20px;
 }
 
+/* Texto */
 .hero-text {
+  text-align: center;
   color: #d3f8af;
   max-width: 700px;
-  text-align: left;
 }
 
 .hero-text h1 {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 3.2rem;
+  font-size: clamp(2rem, 6vw, 3.6rem);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 20px;
 }
 
 .hero-text p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   color: #d1e6c4;
-  font-size: 1.2rem;
   margin-bottom: 30px;
 }
-    .buttons a {
-      text-decoration: none;
-      color: #d3f8af;
-      border: 2px solid #d3f8af;
-      background: transparent;
-      padding: 10px 24px;
-      margin: 0 10px;
-      border-radius: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      transition: 0.3s;
-    }
-    .buttons a:hover {
-      background-color: #d3f8af;
-      color: #101510;
-    }
+
+/* Botões */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.buttons a {
+  padding: 10px 22px;
+  border: 2px solid #d3f8af;
+  color: #d3f8af;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.buttons a:hover {
+  background: #d3f8af;
+  color: #102110;
+}
     .carousel-section {
       padding: 80px 20px 60px;
       background: linear-gradient(to bottom, #0d120d, #1a261a);
@@ -257,8 +282,9 @@
   </div>
   <div class="overlay" id="menuOverlay"></div>
 
-  <section class="hero-img-wrap">
-  <img src="./assets/images/hero.jpg" alt="Paisagem do Brasil Selvagem" class="hero-img">
+  <section class="hero-img-wrapper">
+  <img src="./assets/images/hero.jpg" alt="Paisagem do Brasil Selvagem" class="hero-img" />
+  <div class="hero-mask"></div>
   <div class="hero-overlay">
     <div class="hero-text">
       <h1>Explore o Brasil Selvagem</h1>

@@ -1,254 +1,266 @@
-<!DOCTYPE html>
-<html lang="pt">
+<!DOCTYPE html><html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brasil Wild Nature</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
   <style>
-     * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       color: #e6d8a5;
-  background-color: #2a2a1e;
-  background-image:
-    radial-gradient(circle at 20% 20%, #4a5e28 0%, transparent 40%),
-    radial-gradient(circle at 70% 30%, #5c4e2d 0%, transparent 35%),
-    radial-gradient(circle at 40% 70%, #3a3f1e 0%, transparent 45%),
-    conic-gradient(from 180deg at 50% 50%, #313318, #1c1c1c, #313318);
-  background-blend-mode: multiply;
-  background-size: 800px 800px;
-  background-repeat: repeat;
+      background-color: #2a2a1e;
+      background-image:
+        radial-gradient(circle at 20% 20%, #4a5e28 0%, transparent 40%),
+        radial-gradient(circle at 70% 30%, #5c4e2d 0%, transparent 35%),
+        radial-gradient(circle at 40% 70%, #3a3f1e 0%, transparent 45%),
+        conic-gradient(from 180deg at 50% 50%, #313318, #1c1c1c, #313318);
+      background-blend-mode: multiply;
+      background-size: 800px 800px;
+      background-repeat: repeat;
+    }header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; z-index: 1000;
+  background-color: rgba(10,12,10,0.95);
+  padding: 12px 30px;
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(6px);
 }
-    }
-    header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; z-index: 1000;
-      background-color: rgba(10,12,10,0.95);
-      padding: 12px 30px;
-      display: flex; justify-content: space-between; align-items: center;
-      backdrop-filter: blur(6px);
-    }
-    .logo {
-      font-family: 'Cinzel', serif;
-      font-size: 1.6rem;
-      color: #d6c177;
-    }
-    .hamburger {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #e6d8a5;
-      background: none;
-      border: none;
-    }
-    .modal-menu {
-      position: fixed;
-      top: 0; right: 0;
-      height: 100vh; width: 280px;
-      background: #121512;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.6);
-      transform: translateX(100%);
-      transition: transform 0.4s ease;
-      z-index: 9999;
-      padding: 40px 20px;
-    }
-    .modal-menu.active {
-      transform: translateX(0);
-    }
-    .modal-menu ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .modal-menu a {
-      color: #e6d8a5;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    .close-btn {
-      position: absolute;
-      top: 15px; right: 15px;
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      color: #e6d8a5;
-      cursor: pointer;
-    }
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 9998;
-      display: none;
-    }
-    .overlay.active {
-      display: block;
-    }
+.logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.6rem;
+  color: #d6c177;
+}
+.hamburger {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #e6d8a5;
+  background: none;
+  border: none;
+}
+.modal-menu {
+  position: fixed;
+  top: 0; right: 0;
+  height: 100vh; width: 280px;
+  background: #121512;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.6);
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  z-index: 9999;
+  padding: 40px 20px;
+}
+.modal-menu.active {
+  transform: translateX(0);
+}
+.modal-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.modal-menu a {
+  color: #e6d8a5;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.close-btn {
+  position: absolute;
+  top: 15px; right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #e6d8a5;
+  cursor: pointer;
+}
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9998;
+  display: none;
+}
+.overlay.active {
+  display: block;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+nav a {
+  text-decoration: none;
+  color: #e6d8a5;
+  font-weight: 500;
+  transition: 0.3s;
+}
+nav a:hover {
+  color: #ffed9f;
+}
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)),
+              url('https://i.imgur.com/pN1Nf6X.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 80px;
+}
+.hero .content {
+  padding: 40px 30px;
+  border-radius: 12px;
+  max-width: 600px;
+}
+.hero h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3rem;
+  margin-bottom: 16px;
+  color: #fff9cc;
+}
+.hero p {
+  color: #e3ddc0;
+  margin-bottom: 28px;
+  font-size: 1.2rem;
+}
+.buttons a {
+  text-decoration: none;
+  color: #e6d8a5;
+  border: 2px solid #e6d8a5;
+  background: transparent;
+  padding: 10px 22px;
+  margin: 0 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.buttons a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #e6d8a5;
+  z-index: -1;
+  transition: left 0.3s ease-in-out;
+}
+.buttons a:hover::before {
+  left: 0;
+}
+.buttons a:hover {
+  color: #1a1a1a;
+}
+.carousel-section {
+  padding: 80px 20px 60px;
+}
+.carousel-section h2 {
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+  color: #d6c177;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 10px;
+}
+.carousel-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, #e6d8a5, #d6c177);
+  transform: translateX(-50%);
+}
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 10px 0;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel-card {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 420px;
+  background: linear-gradient(to bottom, #1c1c1a, #121210);
+  border-radius: 12px;
+  scroll-snap-align: start;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.carousel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+.carousel-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+.carousel-card .info {
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.carousel-card .info h3 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #e6d8a5;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.carousel-card .info p {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+.about, .contact {
+  padding: 50px 20px;
+  background: linear-gradient(to bottom, rgba(20,20,15,0.85), rgba(5,5,5,0.95));
+  backdrop-filter: blur(4px);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.about h2, .contact h2 {
+  text-align: center;
+  color: #d6c177;
+  font-family: 'Cinzel Decorative', serif;
+  margin-bottom: 30px;
+}
+.about p, .contact p {
+  max-width: 700px;
+  margin: auto;
+  color: #ddd;
+  font-size: 1rem;
+  text-align: center;
+}
+footer {
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(to right, #0e0e0e, #0c0c0c);
+  color: #888;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #e6d8a5;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #ffed9f;
-    }
-
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)),
-                  url('https://i.imgur.com/pN1Nf6X.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 80px;
-    }
-
-    .hero .content {
-      padding: 40px 30px;
-      border-radius: 12px;
-      max-width: 600px;
-    }
-
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 3rem;
-      margin-bottom: 16px;
-      color: #fff9cc;
-    }
-
-    .hero p {
-      color: #e3ddc0;
-      margin-bottom: 28px;
-      font-size: 1.2rem;
-    }
-
-    .buttons a {
-      text-decoration: none;
-      color: #e6d8a5;
-      border: 2px solid #e6d8a5;
-      padding: 10px 22px;
-      margin: 0 10px;
-      border-radius: 6px;
-      display: inline-block;
-      transition: 0.3s;
-    }
-
-    .buttons a:hover {
-      background-color: #e6d8a5;
-      color: #1a1a1a;
-    }
-
-   .carousel-section {
-      padding: 80px 20px 60px;
-    }
-
-    .carousel-section h2 {
-      text-align: center;
-      font-family: 'Cinzel', serif;
-      color: #d6c177;
-      margin-bottom: 40px;
-      font-size: 2.2rem;
-    }
-
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 20px;
-      padding: 10px 0;
-    }
-
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .carousel-card {
-      flex: 0 0 auto;
-      width: 280px;
-      height: 420px;
-      background-color: #1a1f1a;
-      border-radius: 12px;
-      scroll-snap-align: start;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      transition: transform 0.3s;
-    }
-
-    .carousel-card:hover {
-      transform: scale(1.03);
-    }
-
-    .carousel-card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-
-    .carousel-card .info {
-      padding: 15px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .carousel-card .info h3 {
-      font-family: 'Cinzel', serif;
-      color: #e6d8a5;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .carousel-card .info p {
-      font-size: 0.95rem;
-      color: #ccc;
-    }
-
-    .about, .contact {
-      padding: 50px 20px;
-      background-color: rgba(15, 17, 15, 0.95);
-    }
-
-    .about h2, .contact h2 {
-      text-align: center;
-      color: #d6c177;
-      font-family: 'Cinzel', serif;
-      margin-bottom: 30px;
-    }
-
-    .about p, .contact p {
-      max-width: 700px;
-      margin: auto;
-      color: #ddd;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #0b0d0a;
-      color: #777;
-      font-size: 0.85rem;
-    }
   </style>
 </head>
 <body>

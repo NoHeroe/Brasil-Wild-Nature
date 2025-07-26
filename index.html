@@ -9,139 +9,244 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0b0d0a;
+      background: url('https://i.imgur.com/raekpjx.jpg') center/cover repeat;
       color: #e6d8a5;
     }
+
     header {
       position: fixed;
-      top: 0; width: 100%; z-index: 1000;
-      background-color: rgba(10, 12, 10, 0.85);
+      top: 0;
+      width: 100%;
+      background-color: rgba(10, 12, 10, 0.95);
       padding: 10px 30px;
-      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .logo {
       font-family: 'Cinzel', serif;
       font-size: 1.6rem;
       color: #d6c177;
     }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     nav a {
-      margin-left: 20px;
       text-decoration: none;
       color: #e6d8a5;
       font-weight: 500;
     }
-    .lang-toggle {
-      position: relative;
-    }
-    .lang-btn {
-      background: none; border: none; cursor: pointer;
-    }
-    .lang-dropdown {
-      position: absolute; top: 40px; right: 0;
-      background: #121212; border-radius: 8px;
-      display: none; flex-direction: column;
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
-    }
-    .lang-dropdown img {
-      width: 36px; height: 24px;
-      margin: 8px; cursor: pointer;
-      border-radius: 4px;
-    }
-    .lang-dropdown.show {
+
+    .hero {
+      height: 100vh;
+      background: url('https://i.imgur.com/pN1Nf6X.png') center/cover no-repeat;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px;
     }
-    #google_translate_element {
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
-      top: -9999px;
+
+    .hero .content {
+      background-color: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 10px;
     }
-    /* Remove a barra branca do Google Translate */
-    .goog-te-banner-frame.skiptranslate {
-      display: none !important;
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      color: #e6d8a5;
+      margin-bottom: 10px;
     }
-    body {
-      top: 0px !important;
+
+    .hero p {
+      color: #d9d4bf;
+      margin-bottom: 30px;
+      font-size: 1.2rem;
     }
-    .goog-logo-link, .goog-te-gadget span {
-      display: none !important;
+
+    .buttons a {
+      text-decoration: none;
+      color: #e6d8a5;
+      border: 2px solid #e6d8a5;
+      padding: 10px 20px;
+      margin: 0 10px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .buttons a:hover {
+      background-color: #e6d8a5;
+      color: #1a1a1a;
+    }
+
+    .carousel-section {
+      padding: 60px 20px;
+      background-color: rgba(18,22,19,0.85);
+    }
+
+    .carousel-section h2 {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      color: #d6c177;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding-bottom: 20px;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-card {
+      flex: 0 0 auto;
+      width: 250px;
+      height: 400px;
+      background-color: #1a1f1a;
+      border-radius: 16px;
+      scroll-snap-align: start;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 10px #00000066;
+    }
+
+    .carousel-card img {
+      width: 100%;
+      height: 55%;
+      object-fit: cover;
+    }
+
+    .carousel-card .info {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .carousel-card .info h3 {
+      font-family: 'Cinzel', serif;
+      color: #e6d8a5;
+      margin-bottom: 8px;
+    }
+
+    .carousel-card .info p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .about, .contact {
+      padding: 60px 20px;
+      background-color: rgba(15,17,15,0.9);
+    }
+
+    .about h2, .contact h2 {
+      text-align: center;
+      color: #d6c177;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 30px;
+    }
+
+    .about p, .contact p {
+      max-width: 700px;
+      margin: auto;
+      color: #ccc;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0b0d0a;
+      color: #777;
+      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <div id="google_translate_element"></div>
+
   <header>
     <div class="logo">Brasil Wild Nature</div>
     <nav>
       <a href="#pacotes">Pacotes</a>
       <a href="#contato">Contato</a>
-      <div class="lang-toggle">
-        <button class="lang-btn" onclick="toggleDropdown()">
-          <img id="current-flag" src="https://flagcdn.com/w40/br.png" alt="Idioma atual">
-        </button>
-        <div class="lang-dropdown" id="lang-dropdown">
-          <img src="https://flagcdn.com/w40/br.png" onclick="setLanguage('pt', this)">
-          <img src="https://flagcdn.com/w40/us.png" onclick="setLanguage('en', this)">
-          <img src="https://flagcdn.com/w40/de.png" onclick="setLanguage('de', this)">
-        </div>
-      </div>
     </nav>
   </header>
 
-  <section class="hero" style="background: url('https://i.imgur.com/pN1Nf6X.png') center center/cover no-repeat; height: 100vh; padding-top: 80px; display: flex; align-items: center; justify-content: center; text-align: center;">
-    <div class="content" style="background-color: rgba(0,0,0,0.6); padding: 40px; border-radius: 10px;">
+  <section class="hero">
+    <div class="content">
       <h1>Descubra o Brasil Selvagem</h1>
       <p>Experiências autênticas na natureza do Pantanal e Chapada</p>
       <div class="buttons">
-        <a href="#pacotes" style="text-decoration:none;color:#e6d8a5;border:2px solid #e6d8a5;padding:10px 20px;margin:0 10px;display:inline-block;">Ver Pacotes</a>
-        <a href="https://wa.me/seunumerowhatsapp" target="_blank" style="text-decoration:none;color:#e6d8a5;border:2px solid #e6d8a5;padding:10px 20px;margin:0 10px;display:inline-block;">Contato via WhatsApp</a>
+        <a href="#pacotes">Ver Pacotes</a>
+        <a href="https://wa.me/seunumerowhatsapp" target="_blank">Contato via WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <script>
-    function toggleDropdown() {
-      document.getElementById("lang-dropdown").classList.toggle("show");
-    }
+  <section class="carousel-section" id="pacotes">
+    <h2>Pacotes de Viagem</h2>
+    <div class="carousel">
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/XY3l2cq.jpg" alt="Jaguar Safari" />
+        <div class="info">
+          <h3>Safari da Onça</h3>
+          <p>Explore o habitat natural da onça-pintada com segurança.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/Z4RnCiy.jpg" alt="Ritual Ayahuasca" />
+        <div class="info">
+          <h3>Ritual de Ayahuasca</h3>
+          <p>Experiência ancestral guiada por líderes espirituais locais.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/s5yim8S.jpg" alt="Poço Azul" />
+        <div class="info">
+          <h3>Poço Azul</h3>
+          <p>Banho sagrado em águas cristalinas dentro de cavernas.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="https://i.imgur.com/d6dnAwq.jpg" alt="Expedição Noturna" />
+        <div class="info">
+          <h3>Expedição Noturna</h3>
+          <p>Caminhada guiada em floresta sob a luz das estrelas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    function setLanguage(lang, el) {
-      const select = document.querySelector("select.goog-te-combo");
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event("change"));
-        document.getElementById("current-flag").src = el.src;
-        document.getElementById("lang-dropdown").classList.remove("show");
-      } else {
-        console.warn("Google Translate select not ready yet.");
-      }
-    }
+  <section class="about" id="sobre">
+    <h2>Sobre o Guia</h2>
+    <p>Com anos de vivência no ecoturismo, nosso guia local oferece experiências seguras e transformadoras. Da observação da fauna ao mergulho cultural, nossa missão é conectar você à verdadeira essência do Brasil.</p>
+  </section>
 
-    function updateFlagByCookie() {
-      const match = document.cookie.match(/googtrans=\/pt\/(\w+)/);
-      if (match) {
-        const lang = match[1];
-        const flag = document.getElementById("current-flag");
-        if (lang === 'en') flag.src = "https://flagcdn.com/w40/us.png";
-        else if (lang === 'de') flag.src = "https://flagcdn.com/w40/de.png";
-        else flag.src = "https://flagcdn.com/w40/br.png";
-      }
-    }
+  <section class="contact" id="contato">
+    <h2>Fale Conosco</h2>
+    <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
+  </section>
 
-    const observer = new MutationObserver(updateFlagByCookie);
-    observer.observe(document.body, { childList: true, subtree: true });
+  <footer>
+    Site desenvolvido por NoHeroes Studio © 2025
+  </footer>
 
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'pt',
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-
-    window.addEventListener("load", () => {
-      const script = document.createElement("script");
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.body.appendChild(script);
-    });
-  </script>
 </body>
 </html>

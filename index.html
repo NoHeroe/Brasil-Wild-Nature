@@ -91,35 +91,50 @@
       font-weight: 500;
       transition: 0.3s;
     }
-    nav a:hover { color: #f4ffc2; }
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(5,10,5,0.9)),
-        url('https://i.imgur.com/pN1Nf6X.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 80px;
-    }
-    .hero .content {
-      padding: 40px 30px;
-      border-radius: 12px;
-      max-width: 600px;
-    }
-    .hero h1 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 3.2rem;
-      margin-bottom: 20px;
-      color: #d3f8af;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .hero p {
-      color: #c8d8c2;
-      margin-bottom: 28px;
-      font-size: 1.25rem;
-    }
+    .hero-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.hero-text {
+  color: #d3f8af;
+  max-width: 700px;
+  text-align: left;
+}
+
+.hero-text h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  color: #d1e6c4;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
     .buttons a {
       text-decoration: none;
       color: #d3f8af;

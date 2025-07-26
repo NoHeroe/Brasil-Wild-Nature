@@ -218,22 +218,22 @@
   <div id="google_translate_element"></div>
 
   <header>
-    <div class="logo">Brasil Wild Nature</div>
-    <nav>
-      <a href="#pacotes">Pacotes</a>
-      <a href="#contato">Contato</a>
-      <div class="lang-container">
-        <button class="lang-toggle" onclick="toggleLangMenu()">
-          <img id="active-lang" src="https://flagcdn.com/w40/br.png" alt="Idioma atual">
-        </button>
-        <div class="lang-menu" id="lang-menu">
-          <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="setLang('pt', this)">
-          <img src="https://flagcdn.com/w40/us.png" alt="English" onclick="setLang('en', this)">
-          <img src="https://flagcdn.com/w40/de.png" alt="Deutsch" onclick="setLang('de', this)">
-        </div>
+  <div class="logo">Brasil Wild Nature</div>
+  <nav>
+    <a href="#pacotes">Pacotes</a>
+    <a href="#contato">Contato</a>
+    <div class="lang-container">
+      <button class="lang-toggle" onclick="toggleLangMenu()">
+        <img id="active-lang" src="https://flagcdn.com/32x24/br.png" alt="Idioma atual">
+      </button>
+      <div class="lang-menu" id="lang-menu">
+        <img src="https://flagcdn.com/32x24/br.png" alt="Português" onclick="setLang('pt', this)">
+        <img src="https://flagcdn.com/32x24/us.png" alt="English" onclick="setLang('en', this)">
+        <img src="https://flagcdn.com/32x24/de.png" alt="Deutsch" onclick="setLang('de', this)">
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
 
   <section class="hero">
     <div class="content">
@@ -307,36 +307,40 @@
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <!-- Idioma e UI -->
-  <script>
-    function toggleLangMenu() {
-      const menu = document.getElementById("lang-menu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
+ <script>
+  function toggleLangMenu() {
+    const menu = document.getElementById("lang-menu");
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
 
-    function setLang(lang, el) {
-      const combo = document.querySelector(".goog-te-combo");
-      if (!combo) return;
+  function setLang(lang, el) {
+    const select = document.querySelector("select.goog-te-combo");
+    if (!select) return;
 
-      combo.value = lang;
-      combo.dispatchEvent(new Event("change"));
+    // Aplica o idioma
+    select.value = lang;
+    select.dispatchEvent(new Event("change"));
 
-      // Marca bandeira ativa
-      document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
-      el.classList.add("active");
-      document.getElementById("active-lang").src = el.src;
+    // Marca a bandeira ativa
+    document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
+    el.classList.add("active");
 
-      // Fecha modal
-      document.getElementById("lang-menu").style.display = "none";
-    }
+    // Atualiza ícone principal
+    document.getElementById("active-lang").src = el.src;
 
-    const observer = new MutationObserver(() => {
-      const iframe = document.querySelector("iframe.goog-te-banner-frame");
-      const skip = document.querySelector(".goog-te-gadget");
-      if (iframe) iframe.style.display = "none";
-      if (skip) skip.style.display = "none";
-    });
+    // Fecha o menu
+    document.getElementById("lang-menu").style.display = "none";
+  }
 
-    observer.observe(document.body, { childList: true, subtree: true });
-  </script>
+  // Remove barra do Google
+  const observer = new MutationObserver(() => {
+    const iframe = document.querySelector("iframe.goog-te-banner-frame");
+    const gadget = document.querySelector(".goog-te-gadget");
+    if (iframe) iframe.style.display = "none";
+    if (gadget) gadget.style.display = "none";
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+</script>
 </body>
 </html>

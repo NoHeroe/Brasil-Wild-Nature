@@ -11,8 +11,15 @@
     body {
       font-family: 'Inter', sans-serif;
       color: #e6d8a5;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="%232c2c2c"/><path d="M56,23 C96,40 150,15 200,35 C250,55 310,40 350,60 C390,80 450,75 500,95 C540,115 580,105 600,130 C600,200 0,200 0,130 C20,105 30,75 56,23 Z" fill="%233f5124"/><path d="M100,120 C140,130 170,90 230,110 C270,125 310,115 350,135 C390,155 440,160 480,175 C520,190 560,185 600,210 C600,300 0,300 0,210 C10,185 50,160 100,120 Z" fill="%235e6c2f"/></svg>');
-  background-size: cover;
+  background-color: #2a2a1e;
+  background-image:
+    radial-gradient(circle at 20% 20%, #4a5e28 0%, transparent 40%),
+    radial-gradient(circle at 70% 30%, #5c4e2d 0%, transparent 35%),
+    radial-gradient(circle at 40% 70%, #3a3f1e 0%, transparent 45%),
+    conic-gradient(from 180deg at 50% 50%, #313318, #1c1c1c, #313318);
+  background-blend-mode: multiply;
+  background-size: 800px 800px;
+  background-repeat: repeat;
 }
     }
     header {

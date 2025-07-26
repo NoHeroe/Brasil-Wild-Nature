@@ -294,42 +294,55 @@
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
 
-    <script>
+   <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'pt',
+      includedLanguages: 'pt,en,de',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
   function toggleLangMenu() {
     const menu = document.getElementById("lang-menu");
     menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
   }
 
-  function setLang(lang, el) {
-    const trySetLang = () => {
-      const select = document.querySelector("select.goog-te-combo");
-      if (!select) {
-        setTimeout(trySetLang, 100); // tenta novamente depois de 100ms
-        return;
-      }
+  function setLang(langCode, element) {
+    waitForTranslate(() => {
+      const combo = document.querySelector("select.goog-te-combo");
+      if (!combo) return;
 
-      // aplica o idioma
-      select.value = lang;
-      select.dispatchEvent(new Event("change"));
+      combo.value = langCode;
+      combo.dispatchEvent(new Event("change"));
 
-      // bandeira ativa
+      // Atualiza bandeira ativa
       document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
-      el.classList.add("active");
+      element.classList.add("active");
+      document.getElementById("active-lang").src = element.src;
 
-      // atualiza ícone principal
-      document.getElementById("active-lang").src = el.src;
-
-      // fecha o menu
+      // Fecha o menu
       document.getElementById("lang-menu").style.display = "none";
-    };
-
-    trySetLang();
+    });
   }
 
+  function waitForTranslate(callback, tries = 0) {
+    const combo = document.querySelector("select.goog-te-combo");
+    if (combo) return callback();
+
+    if (tries > 30) return console.error("Google Translate não carregou.");
+
+    setTimeout(() => waitForTranslate(callback, tries + 1), 200);
+  }
+
+  // Esconde UI do Google Translate
   const observer = new MutationObserver(() => {
-    const iframe = document.querySelector("iframe.goog-te-banner-frame");
+    const banner = document.querySelector("iframe.goog-te-banner-frame");
     const gadget = document.querySelector(".goog-te-gadget");
-    if (iframe) iframe.style.display = "none";
+    if (banner) banner.style.display = "none";
     if (gadget) gadget.style.display = "none";
   });
 

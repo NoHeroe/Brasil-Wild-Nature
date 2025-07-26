@@ -294,45 +294,38 @@
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
 
-  <!-- Google Translate -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'pt',
-        includedLanguages: 'pt,en,de',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-  </script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- Idioma e UI -->
- <script>
+    <script>
   function toggleLangMenu() {
     const menu = document.getElementById("lang-menu");
     menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
   }
 
   function setLang(lang, el) {
-    const select = document.querySelector("select.goog-te-combo");
-    if (!select) return;
+    const trySetLang = () => {
+      const select = document.querySelector("select.goog-te-combo");
+      if (!select) {
+        setTimeout(trySetLang, 100); // tenta novamente depois de 100ms
+        return;
+      }
 
-    // Aplica o idioma
-    select.value = lang;
-    select.dispatchEvent(new Event("change"));
+      // aplica o idioma
+      select.value = lang;
+      select.dispatchEvent(new Event("change"));
 
-    // Marca a bandeira ativa
-    document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
-    el.classList.add("active");
+      // bandeira ativa
+      document.querySelectorAll("#lang-menu img").forEach(img => img.classList.remove("active"));
+      el.classList.add("active");
 
-    // Atualiza ícone principal
-    document.getElementById("active-lang").src = el.src;
+      // atualiza ícone principal
+      document.getElementById("active-lang").src = el.src;
 
-    // Fecha o menu
-    document.getElementById("lang-menu").style.display = "none";
+      // fecha o menu
+      document.getElementById("lang-menu").style.display = "none";
+    };
+
+    trySetLang();
   }
 
-  // Remove barra do Google
   const observer = new MutationObserver(() => {
     const iframe = document.querySelector("iframe.goog-te-banner-frame");
     const gadget = document.querySelector(".goog-te-gadget");

@@ -61,7 +61,6 @@
       padding: 10px;
       border: 1px solid #333;
       border-radius: 6px;
-      display: none;
       flex-direction: column;
       gap: 10px;
       z-index: 9999;
@@ -215,7 +214,7 @@
 </head>
 <body>
 
-  <div id="google_translate_element"></div>
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
 
   <header>
   <div class="logo">Brasil Wild Nature</div>
@@ -333,7 +332,7 @@
     const combo = document.querySelector("select.goog-te-combo");
     if (combo) return callback();
 
-    if (tries > 30) return console.error("Google Translate não carregou.");
+    if (tries > 100) return console.error("Google Translate não carregou.");
 
     setTimeout(() => waitForTranslate(callback, tries + 1), 200);
   }

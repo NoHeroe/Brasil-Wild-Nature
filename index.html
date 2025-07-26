@@ -6,33 +6,81 @@
   <title>Brasil Wild Nature</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-  font-family: 'Inter', sans-serif;
-  color: #e6d8a5;
-  background: url('assets/images/camuflagem.jpg') center center / cover no-repeat fixed;
-  background-color: #0b0d0a; /* fallback */
-}
-
+      font-family: 'Inter', sans-serif;
+      color: #e6d8a5;
+      background: url('assets/images/camuflagem.jpg') center center / cover no-repeat fixed;
+      background-color: #0b0d0a;
+    }
     header {
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
+      width: 100%; z-index: 1000;
       background-color: rgba(10,12,10,0.95);
       padding: 12px 30px;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       backdrop-filter: blur(6px);
     }
-
     .logo {
       font-family: 'Cinzel', serif;
       font-size: 1.6rem;
       color: #d6c177;
+    }
+    .hamburger {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #e6d8a5;
+      background: none;
+      border: none;
+    }
+    .modal-menu {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh; width: 280px;
+      background: #121512;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+      z-index: 9999;
+      padding: 40px 20px;
+    }
+    .modal-menu.active {
+      transform: translateX(0);
+    }
+    .modal-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .modal-menu a {
+      color: #e6d8a5;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px; right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: #e6d8a5;
+      cursor: pointer;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9998;
+      display: none;
+    }
+    .overlay.active {
+      display: block;
     }
 
     nav {
@@ -201,12 +249,21 @@
 
   <header>
     <div class="logo">Brasil Wild Nature</div>
-    <nav>
-      <a href="#pacotes">Pacotes</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#contato">Contato</a>
-    </nav>
+    <button class="hamburger" id="openMenu">☰</button>
   </header>
+
+  <div class="modal-menu" id="menuModal">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="#hero" class="menu-link">Início</a></li>
+      <li><a href="#pacotes" class="menu-link">Passeios</a></li>
+      <li><a href="#sobre" class="menu-link">Guias</a></li>
+      <li><a href="#depoimentos" class="menu-link">Depoimentos</a></li>
+      <li><a href="#faq" class="menu-link">FAQ</a></li>
+      <li><a href="#contato" class="menu-link">Contato</a></li>
+    </ul>
+  </div>
+  <div class="overlay" id="menuOverlay"></div>
 
   <section class="hero">
     <div class="content">
@@ -266,6 +323,37 @@
   <footer>
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
+<script>
+const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const modal = document.getElementById('menuModal');
+    const overlay = document.getElementById('menuOverlay');
+    const links = document.querySelectorAll('.menu-link');
 
+    openBtn.onclick = () => {
+      modal.classList.add('active');
+      overlay.classList.add('active');
+    };
+    closeBtn.onclick = () => {
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+    };
+    overlay.onclick = () => {
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+    };
+
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      });
+    });
+</script>
 </body>
 </html>

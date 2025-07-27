@@ -244,41 +244,68 @@
     }
     .carousel::-webkit-scrollbar { display: none; }
     .carousel-card {
-      flex: 0 0 auto;
-      width: 280px;
-      height: 420px;
-      background-color: #151f15;
-      border-radius: 10px;
-      scroll-snap-align: start;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 12px rgba(0,0,0,0.6);
-      transition: transform 0.3s;
-    }
-    .carousel-card:hover { transform: scale(1.03); }
-    .carousel-card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-    .carousel-card .info {
-      padding: 15px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .carousel-card .info h3 {
-      font-family: 'Rajdhani', sans-serif;
-      color: #d3f8af;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .carousel-card .info p {
-      font-size: 0.95rem;
-      color: #ccc;
-    }
+  position: relative;
+  flex: 0 0 auto;
+  width: 280px;
+  height: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background-color: #000; /* fallback */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s;
+}
+
+.carousel-card:hover {
+  transform: scale(1.03);
+}
+
+/* Imagem como fundo absoluto */
+.carousel-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Camada escurecida para facilitar leitura */
+.carousel-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.2) 80%);
+  z-index: 1;
+}
+
+/* Texto por cima da imagem */
+.carousel-card .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 20px;
+  width: 100%;
+  background: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.carousel-card .info h3 {
+  font-family: 'Rajdhani', sans-serif;
+  color: #d3f8af;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.carousel-card .info p {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
     .about, .contact {
       padding: 50px 20px;
       background: linear-gradient(to bottom, #101610, #1c281c);

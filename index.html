@@ -336,6 +336,101 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
+.depoimentos {
+  padding: 80px 20px 60px;
+}
+
+.depoimentos h2 {
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  color: #b8d8a3;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Pinterest-style grid */
+.grid-depoimentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.depo-card {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.depo-card:hover {
+  transform: scale(1.03);
+}
+
+.depo-card img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Modal */
+.depo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+}
+
+.depo-modal.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 15, 15, 0.8);
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  z-index: 10;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 12px;
+  display: block;
+}
+
+.close-modal {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 2rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 20;
+}
   </style>
 </head>
 <body>
@@ -480,6 +575,38 @@
     <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
   </section>
 
+<section id="depoimentos" class="depoimentos">
+  <h2>Depoimentos</h2>
+  <div class="grid-depoimentos">
+    <div class="depo-card">
+      <img src="assets/images/depo1.jpg" alt="Depoimento 1">
+    </div>
+    <div class="depo-card">
+      <img src="assets/images/depo2.jpg" alt="Depoimento 2">
+    </div>
+    <div class="depo-card">
+      <img src="assets/images/depo3.jpg" alt="Depoimento 3">
+    </div>
+    <div class="depo-card">
+      <img src="assets/images/depo4.jpg" alt="Depoimento 4">
+    </div>
+    <div class="depo-card">
+      <img src="assets/images/depo5.jpg" alt="Depoimento 5">
+    </div>
+    <div class="depo-card">
+      <img src="assets/images/depo6.jpg" alt="Depoimento 6">
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="depoModal" class="depo-modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="close-modal">×</button>
+      <img id="modalImage" src="" alt="Depoimento Ampliado">
+    </div>
+  </div>
+</section>
   <footer>
     Site desenvolvido por NoHeroes Studio © 2025
   </footer>
@@ -514,6 +641,29 @@ const openBtn = document.getElementById('openMenu');
         }, 300);
       });
     });
+
+  const cards = document.querySelectorAll('.depo-card img');
+  const modal = document.getElementById('depoModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeBtn = document.querySelector('.close-modal');
+  const overlay = document.querySelector('.modal-overlay');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      modalImage.src = card.src;
+      modal.classList.remove('hidden');
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modalImage.src = '';
+  });
+
+  overlay.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modalImage.src = '';
+  });
 </script>
 </body>
 </html>

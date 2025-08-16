@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,429 +8,184 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-  font-family: 'Rajdhani', sans-serif;
-  color: #dbdbc3;
-  background-color: #000;
-}
+    body { font-family: 'Rajdhani', sans-serif; color: #dbdbc3; background-color: #000; }
+
     header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
       background-color: rgba(5, 10, 5, 0.85);
-      padding: 14px 40px;
-      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 40px; display: flex; justify-content: space-between; align-items: center;
       backdrop-filter: blur(6px);
     }
-    .logo {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.8rem;
-      color: #d3f8af;
-      letter-spacing: 2px;
-    }
-    .hamburger {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #d3f8af;
-      background: none;
-      border: none;
-    }
+    .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #d3f8af; letter-spacing: 2px; }
+    .hamburger { font-size: 2rem; cursor: pointer; color: #d3f8af; background: none; border: none; }
+
+    /* Menu lateral (mobile) */
     .modal-menu {
-      position: fixed;
-      top: 0; right: 0;
-      height: 100vh; width: 280px;
-      background: #121a12;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.6);
-      transform: translateX(100%);
-      transition: transform 0.4s ease;
-      z-index: 9999;
-      padding: 40px 20px;
+      position: fixed; top: 0; right: 0; height: 100vh; width: 280px;
+      background: #121a12; box-shadow: -2px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%); transition: transform 0.4s ease; z-index: 9999; padding: 40px 20px;
     }
     .modal-menu.active { transform: translateX(0); }
-    .modal-menu ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .modal-menu a {
-      color: #b8d8a3;
-      text-decoration: none;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 15px; right: 15px;
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      color: #b8d8a3;
-      cursor: pointer;
-    }
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 9998;
-      display: none;
-    }
+    .modal-menu ul { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+    .modal-menu a { color: #b8d8a3; text-decoration: none; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+    .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.6rem; color: #b8d8a3; cursor: pointer; }
+
+    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.5); z-index: 9998; display: none; }
     .overlay.active { display: block; }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+
+    nav { display: flex; align-items: center; gap: 20px; }
+    nav a { text-decoration: none; color: #d3f8af; font-weight: 500; transition: 0.3s; }
+
+    /* Hero */
+    .hero-img-wrapper { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; z-index: 1; }
+    @media (min-width: 1024px) { .hero-img { object-position: center 50%; } }
+
+    .hero-mask {
+      position: absolute; top: 0; left: 0; z-index: 2; width: 100%; height: 100%;
+      background:
+        linear-gradient(to top,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0.5) 30%,
+          rgba(0, 0, 0, 0.2) 60%,
+          rgba(0, 0, 0, 0.15) 80%,
+          rgba(0, 0, 0, 0.1) 90%);
+      background-color: rgba(0, 0, 0, 0.25);
+      pointer-events: none;
     }
-    nav a {
-      text-decoration: none;
-      color: #d3f8af;
-      font-weight: 500;
-      transition: 0.3s;
+
+    .hero-overlay { position: relative; z-index: 3; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .hero-text { text-align: center; color: #d3f8af; max-width: 700px; }
+    .hero-text h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 6vw, 3.6rem); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .hero-text p { font-size: clamp(1rem, 2.5vw, 1.3rem); color: #d1e6c4; margin-bottom: 30px; }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .buttons a { padding: 10px 22px; border: 2px solid #d3f8af; color: #d3f8af; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.95rem; border-radius: 6px; transition: 0.3s ease; }
+    .buttons a:hover { background: #d3f8af; color: #102110; }
+
+    @media (max-width: 768px) {
+      .hero-text { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; }
+      .hero-text h1 { margin-bottom: 8px; font-size: 2rem; }
+      .hero-text p { font-size: 1rem; margin-bottom: 30px; }
+      .buttons { margin-top: 80px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .buttons a { padding: 12px 22px; font-size: 0.95rem; }
     }
-.hero-img-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
 
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-/* ⬆️ Esse é o padrão para mobile e tablet */
-
-@media (min-width: 1024px) {
-  .hero-img {
-    object-position: center 50%;
-  }
-}
-
-.hero-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background: 
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 1) 0%,         /* base bem escura */
-      rgba(0, 0, 0, 0.5) 30%,      /* transição média */
-      rgba(0, 0, 0, 0.2) 60%,      /* início do sutil */
-      rgba(0, 0, 0, 0.15) 80%,     /* bem leve no topo */
-      rgba(0, 0, 0, 0.1) 90%
-    );
-  background-color: rgba(0, 0, 0, 0.25); /* leve escurecimento geral */
-  pointer-events: none;
-}
-
-/* Camada de conteúdo */
-.hero-overlay {
-  position: relative;
-  z-index: 3;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-}
-
-/* Texto */
-.hero-text {
-  text-align: center;
-  color: #d3f8af;
-  max-width: 700px;
-}
-
-.hero-text h1 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(2rem, 6vw, 3.6rem);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
-
-.hero-text p {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  color: #d1e6c4;
-  margin-bottom: 30px;
-}
-
-/* Botões */
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-.buttons a {
-  padding: 10px 22px;
-  border: 2px solid #d3f8af;
-  color: #d3f8af;
-  text-decoration: none;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.95rem;
-  border-radius: 6px;
-  transition: 0.3s ease;
-}
-
-.buttons a:hover {
-  background: #d3f8af;
-  color: #102110;
-}
-@media (max-width: 768px) {
-  .hero-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-top: 40px;
-  }
-
-  .hero-text h1 {
-    margin-bottom: 8px;
-    font-size: 2rem;
-  }
-
-  .hero-text p {
-    font-size: 1rem;
-    margin-bottom: 30px;
-  }
-
-  .buttons {
-    margin-top: 80px; /* aumenta para descer os botões */
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .buttons a {
-    padding: 12px 22px;
-    font-size: 0.95rem;
-  }
-}
-    .carousel-section {
-      padding: 80px 20px 60px;
-    }
+    /* Carousel */
+    .carousel-section { padding: 80px 20px 60px; }
     .carousel-section h2 {
-      text-align: center;
-      font-family: 'Rajdhani', sans-serif;
-      color: #b8d8a3;
-      margin-bottom: 40px;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      text-align: center; font-family: 'Rajdhani', sans-serif; color: #b8d8a3;
+      margin-bottom: 40px; font-size: 2.2rem; letter-spacing: 1px; text-transform: uppercase;
     }
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 20px;
-      padding: 10px 0;
-    }
+    .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 10px 0; }
     .carousel::-webkit-scrollbar { display: none; }
     .carousel-card {
-  position: relative;
-  flex: 0 0 auto;
-  width: 280px;
-  height: 420px;
-  border-radius: 10px;
-  overflow: hidden;
-  scroll-snap-align: start;
-  background-color: #000; /* fallback */
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s;
-}
+      position: relative; flex: 0 0 auto; width: 280px; height: 420px; border-radius: 10px; overflow: hidden;
+      scroll-snap-align: start; background-color: #000; box-shadow: 0 0 12px rgba(0, 0, 0, 0.6); transition: transform 0.3s;
+    }
+    .carousel-card:hover { transform: scale(1.03); }
+    .carousel-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .carousel-card::before { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.2) 80%); z-index: 1; }
+    .carousel-card .info { position: absolute; bottom: 0; left: 0; z-index: 2; padding: 20px; width: 100%; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; }
+    .carousel-card .info h3 { font-family: 'Rajdhani', sans-serif; color: #d3f8af; font-size: 1.2rem; margin-bottom: 10px; }
+    .carousel-card .info p { font-size: 0.95rem; color: #e0e0e0; }
 
-.carousel-card:hover {
-  transform: scale(1.03);
-}
+    /* Sobre/Contato */
+    .about, .contact { padding: 50px 20px; background: linear-gradient(to bottom, #101610, #1c281c); }
+    .about h2, .contact h2 { text-align: center; color: #c8e4a5; font-family: 'Rajdhani', sans-serif; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+    .about p, .contact p { max-width: 700px; margin: auto; color: #ccc; font-size: 1rem; text-align: center; }
 
-/* Imagem como fundo absoluto */
-.carousel-card img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
+    footer { text-align: center; padding: 25px; background: linear-gradient(to right, #0e0e0e, #0c0c0c); color: #777; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
 
-/* Camada escurecida para facilitar leitura */
-.carousel-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.2) 80%);
-  z-index: 1;
-}
+    * { -webkit-tap-highlight-color: transparent; }
 
-/* Texto por cima da imagem */
-.carousel-card .info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  padding: 20px;
-  width: 100%;
-  background: none;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
+    /* Depoimentos */
+    .depoimentos { padding: 80px 20px 60px; }
+    .depoimentos h2 { text-align: center; font-family: 'Rajdhani', sans-serif; color: #b8d8a3; margin-bottom: 40px; font-size: 2.2rem; letter-spacing: 1px; text-transform: uppercase; }
+    .grid-depoimentos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .depo-card { cursor: pointer; overflow: hidden; border-radius: 10px; transition: transform 0.3s ease; }
+    .depo-card:hover { transform: scale(1.03); }
+    .depo-card img { width: 100%; display: block; border-radius: 10px; object-fit: cover; }
 
-.carousel-card .info h3 {
-  font-family: 'Rajdhani', sans-serif;
+    .depo-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); z-index: 10000; }
+    .depo-modal.hidden { display: none; }
+    .modal-overlay { position: absolute; width: 100%; height: 100%; background-color: rgba(15, 15, 15, 0.8); cursor: pointer; }
+    .modal-content { position: relative; max-width: 90%; max-height: 90%; z-index: 10; }
+    .modal-content img { max-width: 100%; max-height: 80vh; border-radius: 12px; display: block; }
+    .close-modal { position: absolute; top: -20px; right: -20px; font-size: 2rem; background: #333; color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; z-index: 20; }
+
+    /* Evitar que o header cubra o topo ao ancorar */
+    section, .carousel-section, .about, .contact, .depoimentos { scroll-margin-top: 90px; }
+
+/* Botão pequeno dentro do card */
+.more-btn {
+  margin-top: 10px;
+  align-self: start;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #d3f8af;
   color: #d3f8af;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.carousel-card .info p {
-  font-size: 0.95rem;
-  color: #e0e0e0;
-}
-    .about, .contact {
-      padding: 50px 20px;
-      background: linear-gradient(to bottom, #101610, #1c281c);
-    }
-    .about h2, .contact h2 {
-      text-align: center;
-      color: #c8e4a5;
-      font-family: 'Rajdhani', sans-serif;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .about p, .contact p {
-      max-width: 700px;
-      margin: auto;
-      color: #ccc;
-      font-size: 1rem;
-      text-align: center;
-    }
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: linear-gradient(to right, #0e0e0e, #0c0c0c);
-      color: #777;
-      font-size: 0.85rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-.depoimentos {
-  padding: 80px 20px 60px;
-}
-
-.depoimentos h2 {
-  text-align: center;
-  font-family: 'Rajdhani', sans-serif;
-  color: #b8d8a3;
-  margin-bottom: 40px;
-  font-size: 2.2rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* Pinterest-style grid */
-.grid-depoimentos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.depo-card {
+  background: transparent;
+  border-radius: 6px;
   cursor: pointer;
-  overflow: hidden;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+  transition: .2s;
+}
+.more-btn:hover { background: #d3f8af; color: #102110; }
+
+/* Modal de Passeio (reaproveita o visual dos depoimentos) */
+.tour-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10001; }
+.tour-modal.active { display: flex; }
+.tour-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(2px); }
+
+.tour-box {
+  position: relative; z-index: 1;
+  width: min(920px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #0e140e;
+  border: 1px solid rgba(211,248,175,.18);
+  border-radius: 14px;
+  padding: 18px;
 }
 
-.depo-card:hover {
-  transform: scale(1.03);
+.tour-header { display: flex; gap: 16px; align-items: center; }
+.tour-cover {
+  width: 260px; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px;
+}
+.tour-title { font-family: 'Rajdhani', sans-serif; color: #d3f8af; font-size: 1.6rem; letter-spacing: 1px; }
+.tour-sub { color: #cfe7be; margin-top: 4px; }
+
+.tour-grid {
+  display: grid; gap: 16px; margin-top: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.tour-card {
+  background: linear-gradient(to bottom, #101610, #1a251a);
+  border: 1px solid rgba(211,248,175,.1);
+  border-radius: 10px; padding: 14px;
+}
+.tour-card h4 { color: #c8e4a5; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .5px; }
+.tour-card ul { padding-left: 18px; line-height: 1.5; color: #ddd; }
+
+.tour-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tour-actions a, .tour-actions button {
+  padding: 10px 14px; border-radius: 8px; border: 1px solid #d3f8af; color: #d3f8af; background: transparent; text-decoration: none; font-weight: 600;
+}
+.tour-actions a:hover, .tour-actions button:hover { background:#d3f8af; color:#102110; }
+
+.tour-close {
+  position: absolute; top: 10px; right: 10px;
+  background:#333; color:#fff; border:none; width: 40px; height: 40px;
+  border-radius: 50%; font-size: 1.2rem; cursor:pointer;
 }
 
-.depo-card img {
-  width: 100%;
-  display: block;
-  border-radius: 10px;
-  object-fit: cover;
-}
+/* Acessibilidade/foco */
+.tour-box:focus { outline: 2px solid #d3f8af; outline-offset: 4px; }
 
-/* Modal */
-.depo-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(3px);
-  z-index: 1000;
-}
-
-.depo-modal.hidden {
-  display: none;
-}
-
-.modal-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(15, 15, 15, 0.8);
-  cursor: pointer;
-}
-
-.modal-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  z-index: 10;
-}
-
-.modal-content img {
-  max-width: 100%;
-  max-height: 80vh;
-  border-radius: 12px;
-  display: block;
-}
-
-.close-modal {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  font-size: 2rem;
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  z-index: 20;
+@media (max-width: 720px) {
+  .tour-header { flex-direction: column; align-items: stretch; }
+  .tour-cover { width: 100%; }
 }
   </style>
 </head>
@@ -453,115 +209,625 @@
   </div>
   <div class="overlay" id="menuOverlay"></div>
 
-  <section class="hero-img-wrapper">
-  <img src="./assets/images/hero.jpg" alt="Paisagem do Brasil Selvagem" class="hero-img" />
-  <div class="hero-mask"></div>
-  <div class="hero-overlay">
-    <div class="hero-text">
-      <h1>Explore o Brasil Selvagem</h1>
-      <p>Aventuras autênticas no coração do Pantanal e Chapada dos Guimarães.</p>
-      <div class="buttons">
-        <a href="#pacotes">Ver Pacotes</a>
-        <a href="#sobre">Sobre o Guia</a>
+  <!-- HERO -->
+  <section class="hero-img-wrapper" id="hero">
+    <img src="./assets/images/hero.jpg" alt="Paisagem do Brasil Selvagem" class="hero-img" />
+    <div class="hero-mask"></div>
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <h1>Explore o Brasil Selvagem</h1>
+        <p>Aventuras autênticas no coração do Pantanal e Chapada dos Guimarães.</p>
+        <div class="buttons">
+          <a href="#pacotes">Ver Pacotes</a>
+          <a href="#sobre">Sobre o Guia</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- CARDS -->
   <section class="carousel-section" id="pacotes">
   <h2>Pacotes de Viagem</h2>
   <div class="carousel">
+
+    <!-- Pantanal: Passeio de Barco -->
     <div class="carousel-card">
-      <img src="assets/images/barco.jpg" alt="Passeio de Barco">
+      <img src="assets/images/barco.jpg" alt="Passeio de Barco" loading="lazy" decoding="async">
       <div class="info">
         <h3>Pantanal: Passeio de Barco</h3>
-        <p>Passeio tranquilo por rios do Pantanal para observação de fauna, flora e paisagens alagadas.</p>
+        <p>Passeio tranquilo por rios do Pantanal para observação de fauna e paisagens alagadas.</p>
+        <button class="more-btn" data-tour="barco">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="barco" hidden>
+        <img class="tour-cover" src="assets/images/barco.jpg" alt="Passeio de Barco no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Passeio de Barco</h3>
+        <p class="tour-sub">Duração média: 3–4h · Nível: Leve · Melhor época: Maio–Set</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Saída em horário combinado (amanhecer ou pôr do sol).</li>
+              <li>Avistamento de aves, capivaras e jacarés.</li>
+              <li>Paradas para fotos e interpretação ambiental.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia credenciado</li>
+              <li>Coletes salva-vidas</li>
+              <li>Água mineral</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Protetor solar e repelente</li>
+              <li>Chapéu/boné e óculos</li>
+              <li>Garrafa d’água extra</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-barco.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Pantanal: Safari de Caminhão -->
     <div class="carousel-card">
-      <img src="assets/images/caminhao.jpg" alt="Safari de Caminhão">
+      <img src="assets/images/caminhao.jpg" alt="Safari de Caminhão" loading="lazy" decoding="async">
       <div class="info">
         <h3>Pantanal: Safari de Caminhão</h3>
-        <p>Aventura sobre rodas com guias especializados para avistamento de animais em habitat natural.</p>
+        <p>Aventura sobre rodas com foco em avistamento de animais em habitat natural.</p>
+        <button class="more-btn" data-tour="caminhao">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="caminhao" hidden>
+        <img class="tour-cover" src="assets/images/caminhao.jpg" alt="Safari de caminhão no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Safari de Caminhão</h3>
+        <p class="tour-sub">Duração: 4–6h · Nível: Leve · Terreno: Estradas internas/ off-road</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Roteiro em áreas com alta biodiversidade.</li>
+              <li>Paradas estratégicas para observação e fotos.</li>
+              <li>Comentário ambiental do guia local.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia e motorista</li>
+              <li>Veículo apropriado</li>
+              <li>Água mineral</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupa leve e confortável</li>
+              <li>Protetor solar/repelente</li>
+              <li>Lanche leve</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-safari-caminhao.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Pantanal: Passeio a Cavalo -->
     <div class="carousel-card">
-      <img src="assets/images/cavalo.jpg" alt="Passeio a Cavalo">
+      <img src="assets/images/cavalo.jpg" alt="Passeio a Cavalo" loading="lazy" decoding="async">
       <div class="info">
         <h3>Pantanal: Passeio a Cavalo</h3>
-        <p>Cavalgada tradicional pelas planícies pantaneiras com contato próximo à natureza.</p>
+        <p>Cavalgada tradicional pelas planícies pantaneiras em contato direto com a natureza.</p>
+        <button class="more-btn" data-tour="cavalo">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cavalo" hidden>
+        <img class="tour-cover" src="assets/images/cavalo.jpg" alt="Passeio a cavalo no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Passeio a Cavalo</h3>
+        <p class="tour-sub">Duração: 2–3h · Nível: Leve a moderado · Acompanhamento: Peõs locais</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trilhas seguras, com briefing inicial.</li>
+              <li>Ritmo adaptado ao grupo.</li>
+              <li>Paradas para contemplação e fotos.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia montado</li>
+              <li>Equipamento básico</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calça confortável/ tênis ou bota</li>
+              <li>Repelente</li>
+              <li>Chapéu/boné</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-cavalo.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Pantanal: Trilhas Ecológicas -->
     <div class="carousel-card">
-      <img src="assets/images/trilha.jpg" alt="Trilhas Ecológicas">
+      <img src="assets/images/trilha.jpg" alt="Trilhas Ecológicas" loading="lazy" decoding="async">
       <div class="info">
         <h3>Pantanal: Trilhas Ecológicas</h3>
         <p>Caminhadas leves em trilhas preservadas com foco em biodiversidade.</p>
+        <button class="more-btn" data-tour="trilha">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="trilha" hidden>
+        <img class="tour-cover" src="assets/images/trilha.jpg" alt="Trilhas ecológicas" loading="lazy">
+        <h3 class="tour-title">Pantanal — Trilhas Ecológicas</h3>
+        <p class="tour-sub">Duração: 2–4h · Nível: Leve · Distância: 3–8 km</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Interpretação ambiental com guia.</li>
+              <li>Observação de fauna e flora.</li>
+              <li>Rotas variam por estação do ano.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia credenciado</li>
+              <li>Kit primeiros socorros</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Tênis aderente</li>
+              <li>Protetor/repelente</li>
+              <li>Garrafa d’água</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-trilhas.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Pantanal: Safari de Barco (Onças) -->
     <div class="carousel-card">
-      <img src="assets/images/onça.jpg" alt="Safari de Barco (Onças)">
+      <img src="assets/images/onça.jpg" alt="Safari de Barco (Onças)" loading="lazy" decoding="async">
       <div class="info">
         <h3>Pantanal: Safari de Barco (Onças)</h3>
-        <p>Expedição focada na observação de onças-pintadas à beira-rio com total segurança.</p>
+        <p>Expedição focada na observação de onças-pintadas à beira-rio com segurança.</p>
+        <button class="more-btn" data-tour="onca">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="onca" hidden>
+        <img class="tour-cover" src="assets/images/onça.jpg" alt="Safari de onça de barco" loading="lazy">
+        <h3 class="tour-title">Pantanal — Safari de Barco (Onças)</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Leve · Melhor época: Seca</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Busca ativa por rastros e movimentação na margem.</li>
+              <li>Fotografia de vida selvagem.</li>
+              <li>Rotas adaptadas às condições do dia.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia especializado</li>
+              <li>Embarcação equipada</li>
+              <li>Água/geladeira a bordo</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Lente/zoom, protetor, repelente</li>
+              <li>Chapéu/óculos</li>
+              <li>Lanche</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-onca.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Nobres: Flutuação com Snorkel -->
     <div class="carousel-card">
-      <img src="assets/images/snorkel.jpg" alt="Flutuação com Snorkel">
+      <img src="assets/images/snorkel.jpg" alt="Flutuação com Snorkel" loading="lazy" decoding="async">
       <div class="info">
         <h3>Nobres: Flutuação no Rio com Snorkel</h3>
-        <p>Experiência mágica flutuando em águas cristalinas entre peixes e vegetação aquática.</p>
+        <p>Experiência mágica em águas cristalinas entre peixes e vegetação.</p>
+        <button class="more-btn" data-tour="snorkel">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="snorkel" hidden>
+        <img class="tour-cover" src="assets/images/snorkel.jpg" alt="Flutuação em Nobres" loading="lazy">
+        <h3 class="tour-title">Nobres — Flutuação no Rio</h3>
+        <p class="tour-sub">Duração: 2–3h · Nível: Leve · Equipamento incluso</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trecho guiado por correnteza leve.</li>
+              <li>Orientação e segurança antes da atividade.</li>
+              <li>Água de visibilidade excepcional.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Máscara, snorkel e colete</li>
+              <li>Guia credenciado</li>
+              <li>Seguro</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupa de banho</li>
+              <li>Toalha e chinelo</li>
+              <li>Protetor solar</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/nobres-flutuacao.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Morro São Gerônimo -->
     <div class="carousel-card">
-      <img src="assets/images/geronimo.jpg" alt="Morro São Gerônimo">
+      <img src="assets/images/geronimo.jpg" alt="Morro São Gerônimo" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Morro São Gerônimo</h3>
-        <p>Trilha intensa até o ponto mais alto do parque, com vistas panorâmicas deslumbrantes.</p>
+        <p>Trilha intensa ao ponto mais alto, com visuais panorâmicos.</p>
+        <button class="more-btn" data-tour="geronimo">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="geronimo" hidden>
+        <img class="tour-cover" src="assets/images/geronimo.jpg" alt="Morro São Gerônimo" loading="lazy">
+        <h3 class="tour-title">Chapada — Morro São Gerônimo</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Moderado a intenso · Desnível acumulado</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Subida com trechos de lajeado e mirantes.</li>
+              <li>Paradas para descanso e lanche.</li>
+              <li>Vista de 360° no cume (clima mediante).</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Kit primeiros socorros</li>
+              <li>Orientações de segurança</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>2L de água, lanche, capa de chuva</li>
+              <li>Calçado aderente</li>
+              <li>Boné/protetor</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-geronimo.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Cavernas + Ponte de Pedra -->
     <div class="carousel-card">
-      <img src="assets/images/chapada-lagoa.jpg">
+      <img src="assets/images/chapada-lagoa.jpg" alt="Lagoa azul e cavernas" loading="lazy" decoding="async">
       <div class="info">
-        <h3>Chapada: Circuito Cavernas e Ponte de Pedra</h3>
-        <p>Tour por 4 cavernas, lagoa azul e ponte natural de pedra esculpida pelo tempo.</p>
+        <h3>Chapada: Cavernas e Ponte de Pedra</h3>
+        <p>Tour por 4 cavernas, lagoa azul e ponte natural de pedra.</p>
+        <button class="more-btn" data-tour="cavernas">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cavernas" hidden>
+        <img class="tour-cover" src="assets/images/chapada-lagoa.jpg" alt="Circuito cavernas e lagoa azul" loading="lazy">
+        <h3 class="tour-title">Chapada — Cavernas + Ponte de Pedra</h3>
+        <p class="tour-sub">Duração: 4–6h · Nível: Leve a moderado · Caminhadas e contemplação</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Visita guiada a formações rochosas.</li>
+              <li>Pausa para fotos na lagoa (sem banho, quando aplicável).</li>
+              <li>Ponte de Pedra e mirantes naturais.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Ingressos (quando aplicável)</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Tênis/ bota leve</li>
+              <li>Protetor/repelente</li>
+              <li>Garrafa d’água</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-cavernas-ponte.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Circuito das 5 Cachoeiras -->
     <div class="carousel-card">
-      <img src=assets/images/cachoeira1.jpg" alt="5 Cachoeiras">
+      <img src="assets/images/cachoeira1.jpg" alt="Circuito 5 cachoeiras" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Circuito das 5 Cachoeiras</h3>
-        <p>Rota de média intensidade com paisagens exuberantes e quedas d’água revitalizantes.</p>
+        <p>Rota de média intensidade com quedas d’água revitalizantes.</p>
+        <button class="more-btn" data-tour="cacho5">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cacho5" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira1.jpg" alt="Trilha das 5 cachoeiras" loading="lazy">
+        <h3 class="tour-title">Chapada — Circuito das 5 Cachoeiras</h3>
+        <p class="tour-sub">Duração: 5–7h · Nível: Moderado · Paradas para banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Sequência de cachoeiras com trechos de pedra.</li>
+              <li>Piscinas naturais para banho.</li>
+              <li>Trechos escorregadios: atenção redobrada.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Orientações de segurança</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calçado aderente</li>
+              <li>Toalha/roupa de banho</li>
+              <li>Lanche/água extra</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-circuito-5-cachoeiras.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Águas do Cerrado (7 cachoeiras) -->
     <div class="carousel-card">
-      <img src="assets/images/cachoeira2.jpg" alt="Águas do Cerrado">
+      <img src="assets/images/cachoeira2.jpg" alt="Águas do Cerrado (7 cachoeiras)" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Águas do Cerrado (7 Cachoeiras)</h3>
-        <p>Percurso imersivo por nascentes e cachoeiras do cerrado com poços para banho.</p>
+        <p>Percurso imersivo por nascentes e cachoeiras com poços para banho.</p>
+        <button class="more-btn" data-tour="aguas">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="aguas" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira2.jpg" alt="Águas do Cerrado" loading="lazy">
+        <h3 class="tour-title">Chapada — Águas do Cerrado (7 Cachoeiras)</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Moderado · Pontos de banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trilha com alternância de subidas/descidas.</li>
+              <li>Visuais de cânions e poços.</li>
+              <li>Banhos em locais autorizados.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Kit primeiros socorros</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calçado de trilha</li>
+              <li>Lanche reforçado</li>
+              <li>Roupas de banho</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-aguas-do-cerrado.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Circuito Paraíso (4 cachoeiras) -->
     <div class="carousel-card">
-      <img src="assets/images/cachoeira3.jpg" alt="Circuito Paraíso">
+      <img src="assets/images/cachoeira3.jpg" alt="Circuito Paraíso" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Circuito Paraíso (4 Cachoeiras)</h3>
-        <p>Trilha leve ideal para todas as idades, com cachoeiras acessíveis e paisagens de tirar o fôlego.</p>
+        <p>Trilha leve para todas as idades, com cachoeiras acessíveis.</p>
+        <button class="more-btn" data-tour="paraiso">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="paraiso" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira3.jpg" alt="Circuito Paraíso" loading="lazy">
+        <h3 class="tour-title">Chapada — Circuito Paraíso (4 Cachoeiras)</h3>
+        <p class="tour-sub">Duração: 3–5h · Nível: Leve · Paradas para banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trechos curtos e acessíveis.</li>
+              <li>Pontos de banho e contemplação.</li>
+              <li>Ideal para famílias.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Orientações de segurança</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Chinelo/toalha</li>
+              <li>Protetor/repelente</li>
+              <li>Lanche</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-circuito-paraiso.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Cidade de Pedras + Vale do Rio Claro -->
     <div class="carousel-card">
-      <img src="assets/images/pedra.jpg" alt="Vale do Rio Claro">
+      <img src="assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Cidade de Pedras + Vale do Rio Claro</h3>
-        <p>Exploração completa com flutuação, mirantes e travessia off-road em veículo 4x4.</p>
+        <p>Exploração completa com flutuação, mirantes e trechos 4x4.</p>
+        <button class="more-btn" data-tour="vale">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="vale" hidden>
+        <img class="tour-cover" src="assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro" loading="lazy">
+        <h3 class="tour-title">Chapada — Cidade de Pedras + Vale do Rio Claro</h3>
+        <p class="tour-sub">Duração: Dia inteiro · Nível: Leve a moderado · 4x4 incluso</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Mirantes, formações rochosas e flutuação.</li>
+              <li>Trechos de 4x4 com guia.</li>
+              <li>Paradas para fotos e banho (locais permitidos).</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia + 4x4</li>
+              <li>Máscara/snorkel (quando aplicável)</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>2L de água, lanche</li>
+              <li>Chinelo/toalha</li>
+              <li>Protetor/repelente</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-vale-rio-claro.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
+    <!-- Chapada: Ritual de Ayahuasca -->
     <div class="carousel-card">
-      <img src="assets/images/ayahuasca.jpg" alt="Ritual Ayahuasca">
+      <img src="assets/images/ayahuasca.jpg" alt="Ritual de Ayahuasca" loading="lazy" decoding="async">
       <div class="info">
         <h3>Chapada: Ritual de Ayahuasca</h3>
-        <p>Vivência espiritual conduzida por facilitadores oficialmente autorizados e ambiente seguro.</p>
+        <p>Vivência espiritual conduzida por facilitadores autorizados.</p>
+        <button class="more-btn" data-tour="ayahuasca">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="ayahuasca" hidden>
+        <img class="tour-cover" src="assets/images/ayahuasca.jpg" alt="Ritual de Ayahuasca" loading="lazy">
+        <h3 class="tour-title">Chapada — Ritual de Ayahuasca</h3>
+        <p class="tour-sub">Duração: 4–6h · Pré-requisitos: triagem/termo · Ambiente seguro</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Condução por equipe autorizada.</li>
+              <li>Orientações prévias e pós-experiência.</li>
+              <li>Ambiente preparado e acolhimento.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Facilitadores</li>
+              <li>Estrutura do local</li>
+              <li>Suporte durante a vivência</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupas confortáveis</li>
+              <li>Garrafa d’água</li>
+              <li>Agasalho leve</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-ayahuasca.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -570,100 +836,165 @@
     <p>Com anos de vivência no ecoturismo, nosso guia local oferece experiências seguras e transformadoras. Da observação da fauna ao mergulho cultural, nossa missão é conectar você à verdadeira essência do Brasil.</p>
   </section>
 
+  <section class="depoimentos" id="depoimentos">
+    <h2>Depoimentos</h2>
+    <div class="grid-depoimentos">
+      <div class="depo-card"><img src="./assets/images/depo1.jpg" alt="Depoimento 1"></div>
+      <div class="depo-card"><img src="./assets/images/depo2.jpg" alt="Depoimento 2"></div>
+      <div class="depo-card"><img src="./assets/images/depo3.jpg" alt="Depoimento 3"></div>
+      <div class="depo-card"><img src="./assets/images/depo4.jpg" alt="Depoimento 4"></div>
+      <div class="depo-card"><img src="./assets/images/depo5.jpg" alt="Depoimento 5"></div>
+      <div class="depo-card"><img src="./assets/images/depo6.jpg" alt="Depoimento 6"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="depoModal" class="depo-modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="close-modal">×</button>
+        <img id="modalImage" src="" alt="Depoimento Ampliado">
+      </div>
+    </div>
+  </section>
+
   <section class="contact" id="contato">
     <h2>Fale Conosco</h2>
     <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
   </section>
 
-<section id="depoimentos" class="depoimentos">
-  <h2>Depoimentos</h2>
-  <div class="grid-depoimentos">
-    <div class="depo-card">
-      <img src="assets/images/depo1.jpg" alt="Depoimento 1">
-    </div>
-    <div class="depo-card">
-      <img src="assets/images/depo2.jpg" alt="Depoimento 2">
-    </div>
-    <div class="depo-card">
-      <img src="assets/images/depo3.jpg" alt="Depoimento 3">
-    </div>
-    <div class="depo-card">
-      <img src="assets/images/depo4.jpg" alt="Depoimento 4">
-    </div>
-    <div class="depo-card">
-      <img src="assets/images/depo5.jpg" alt="Depoimento 5">
-    </div>
-    <div class="depo-card">
-      <img src="assets/images/depo6.jpg" alt="Depoimento 6">
-    </div>
-  </div>
+  <!-- FAQ (novo) -->
+  <section class="about" id="faq">
+    <h2>FAQ</h2>
+    <p><strong>Como funcionam os pacotes?</strong> Personalizamos conforme o seu perfil (família, aventura, fotografia). Consulte disponibilidade por temporada.</p>
+  </section>
 
-  <!-- Modal -->
-  <div id="depoModal" class="depo-modal hidden">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-      <button class="close-modal">×</button>
-      <img id="modalImage" src="" alt="Depoimento Ampliado">
-    </div>
+  <footer>Site desenvolvido por NoHeroes Studio © 2025</footer>
+
+<div id="tourModal" class="tour-modal" aria-hidden="true">
+  <div class="tour-backdrop" data-close="1"></div>
+  <div class="tour-box" role="dialog" aria-modal="true" tabindex="-1">
+    <button class="tour-close" aria-label="Fechar" data-close="1">×</button>
+    <!-- O conteúdo é injetado aqui via JS -->
+    <div id="tourContent"></div>
   </div>
-</section>
-  <footer>
-    Site desenvolvido por NoHeroes Studio © 2025
-  </footer>
-<script>
-const openBtn = document.getElementById('openMenu');
-    const closeBtn = document.getElementById('closeMenu');
-    const modal = document.getElementById('menuModal');
-    const overlay = document.getElementById('menuOverlay');
-    const links = document.querySelectorAll('.menu-link');
+</div>
+
+  <script>
+    // ===== Menu lateral =====
+    const openBtn = document.getElementById('openMenu');
+    const menuCloseBtn = document.getElementById('closeMenu');
+    const menuModal = document.getElementById('menuModal');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuLinks = document.querySelectorAll('.menu-link');
 
     openBtn.onclick = () => {
-      modal.classList.add('active');
-      overlay.classList.add('active');
+      menuModal.classList.add('active');
+      menuOverlay.classList.add('active');
     };
-    closeBtn.onclick = () => {
-      modal.classList.remove('active');
-      overlay.classList.remove('active');
+    menuCloseBtn.onclick = () => {
+      menuModal.classList.remove('active');
+      menuOverlay.classList.remove('active');
     };
-    overlay.onclick = () => {
-      modal.classList.remove('active');
-      overlay.classList.remove('active');
+    menuOverlay.onclick = () => {
+      menuModal.classList.remove('active');
+      menuOverlay.classList.remove('active');
     };
 
-    links.forEach(link => {
+    menuLinks.forEach(link => {
       link.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        modal.classList.remove('active');
-        overlay.classList.remove('active');
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
+        menuModal.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        if (target) {
+          setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 300);
+        }
       });
     });
 
-  const cards = document.querySelectorAll('.depo-card img');
-  const modal = document.getElementById('depoModal');
-  const modalImage = document.getElementById('modalImage');
-  const closeBtn = document.querySelector('.close-modal');
-  const overlay = document.querySelector('.modal-overlay');
+    // ===== Modal de depoimentos =====
+    const depoImages = document.querySelectorAll('.depo-card img');
+    const depoModal = document.getElementById('depoModal');
+    const modalImage = document.getElementById('modalImage');
+    const depoCloseBtn = document.querySelector('.close-modal');
+    const depoOverlay = document.querySelector('.modal-overlay');
 
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      modalImage.src = card.src;
-      modal.classList.remove('hidden');
+    depoImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImage.src = img.src;
+        depoModal.classList.remove('hidden');
+      });
     });
-  });
 
-  closeBtn.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    modalImage.src = '';
-  });
+    function closeDepoModal() {
+      depoModal.classList.add('hidden');
+      modalImage.src = '';
+    }
+    depoCloseBtn.addEventListener('click', closeDepoModal);
+    depoOverlay.addEventListener('click', closeDepoModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !depoModal.classList.contains('hidden')) closeDepoModal();
+    });
 
-  overlay.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    modalImage.src = '';
-  });
+const tourModal = document.getElementById('tourModal');
+const tourContent = document.getElementById('tourContent');
+
+// Monta link de WhatsApp com mensagem
+function buildWhatsLink(title) {
+  const phone = '5565999999999'; // << coloque seu número com DDI/DDD
+  const msg = encodeURIComponent(`Olá! Tenho interesse no passeio: ${title}. Pode me passar disponibilidade e valores?`);
+  return `https://wa.me/${phone}?text=${msg}`;
+}
+
+// Abre modal com base no data-tour do botão
+function openTourModal(key) {
+  // pega o bloco .more-info correspondente
+  const source = document.querySelector(`.more-info[data-tour="${key}"]`);
+  if (!source) return;
+
+  // clona o conteúdo para o modal
+  tourContent.innerHTML = '';
+  const cloned = source.cloneNode(true);
+  cloned.hidden = false;
+
+  // atualiza link do WhatsApp dinâmico
+  const title = cloned.querySelector('.tour-title')?.textContent?.trim() || 'Passeio';
+  const whats = cloned.querySelector('.whats-btn');
+  if (whats) whats.href = buildWhatsLink(title);
+
+  tourContent.appendChild(cloned);
+
+  // exibe modal
+  tourModal.classList.add('active');
+  tourModal.setAttribute('aria-hidden', 'false');
+  // foco acessível
+  tourModal.querySelector('.tour-box').focus();
+}
+
+// Fecha modal
+function closeTourModal() {
+  tourModal.classList.remove('active');
+  tourModal.setAttribute('aria-hidden', 'true');
+  tourContent.innerHTML = '';
+}
+
+// Delegação de eventos: botões “Mais informações”
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.more-btn');
+  if (btn && btn.dataset.tour) {
+    openTourModal(btn.dataset.tour);
+  }
+  if (e.target.dataset.close === '1' || e.target === tourModal) {
+    closeTourModal();
+  }
+});
+
+// ESC para fechar
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && tourModal.classList.contains('active')) {
+    closeTourModal();
+  }
+});
 </script>
 </body>
 </html>

@@ -187,6 +187,25 @@
   .tour-header { flex-direction: column; align-items: stretch; }
   .tour-cover { width: 100%; }
 }
+/* ===== Agência / Sobre ===== */
+.agency { padding: 70px 20px; background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%); }
+.agency-wrap { max-width: 1000px; margin: 0 auto; text-align: center; }
+.kicker { color: #a7b79b; text-transform: uppercase; letter-spacing: .12em; font-size: .9rem; margin-bottom: 8px; }
+.agency-title { font-family: 'Rajdhani', sans-serif; color: #d3f8af; font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: 1px; margin-bottom: 18px; }
+.agency-lead { color: #dcdcdc; line-height: 1.7; margin-bottom: 16px; font-size: 1.05rem; }
+
+.agency-photo { margin: 32px auto; max-width: 820px; border-radius: 14px; overflow: hidden; }
+.agency-photo img { width: 100%; height: auto; display: block; }
+
+.agency-cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 20px; }
+.btn-primary, .btn-ghost {
+  display: inline-block; text-decoration: none; font-weight: 600; border-radius: 8px; padding: 12px 20px;
+  border: 1px solid #d3f8af; transition: .2s ease; user-select: none;
+}
+.btn-primary { color: #102110; background: #d3f8af; }
+.btn-primary:hover { filter: brightness(0.95); }
+.btn-ghost { color: #d3f8af; background: transparent; }
+.btn-ghost:hover { background: rgba(211,248,175,.12); }
   </style>
 </head>
 <body>
@@ -201,7 +220,7 @@
     <ul>
       <li><a href="#hero" class="menu-link">Início</a></li>
       <li><a href="#pacotes" class="menu-link">Passeios</a></li>
-      <li><a href="#sobre" class="menu-link">Guias</a></li>
+      <li><a href="#sobre" class="menu-link">Sobre</a></li>
       <li><a href="#depoimentos" class="menu-link">Depoimentos</a></li>
       <li><a href="#faq" class="menu-link">FAQ</a></li>
       <li><a href="#contato" class="menu-link">Contato</a></li>
@@ -832,17 +851,29 @@
 </section>
 
   <section class="about" id="sobre">
-  <h2>Mais do que viagens. Experiências que transformam.</h2>
-  <p>
-    No Brasil Wild Nature, cada trilha, cada rio e cada pôr do sol são convites para sentir a essência do nosso país de perto.  
-    Trabalhamos apenas com <strong>turismo ecológico</strong>, guiados por quem nasceu e vive nessas terras — pessoas que conhecem os segredos do Pantanal, da Chapada dos Guimarães e de Nobres como ninguém.
-  </p>
-  <p>
-    Aqui, viajar é também preservar: ao escolher nossos roteiros, você apoia a conservação da natureza e fortalece as comunidades locais que mantêm viva essa riqueza.  
-    Mais do que um passeio, é uma experiência que conecta, inspira e deixa marcas verdadeiras.
-  </p>
-  <div style="text-align:center; margin-top:20px;">
-    <a href="#guias" class="btn-primary">Conheça nossos guias</a>
+  <div class="agency-wrap">
+    <p class="kicker">Sobre nós</p>
+    <h2 class="agency-title">Mais do que viagens. Experiências que transformam.</h2>
+
+    <p class="agency-lead">
+      No <strong>Brasil Wild Nature</strong>, cada trilha, cada rio e cada pôr do sol são convites para sentir a essência do Brasil de perto.  
+      Trabalhamos apenas com <strong>turismo ecológico</strong>, ao lado de guias locais que conhecem profundamente o Pantanal, a Chapada dos Guimarães e Nobres.
+    </p>
+
+    <p class="agency-lead">
+      Aqui, viajar é também preservar: ao escolher nossos roteiros, você apoia a conservação da natureza e fortalece as comunidades que mantêm vivas essas paisagens.  
+      Mais do que um passeio, é uma experiência que conecta, inspira e deixa marcas verdadeiras.
+    </p>
+
+    <div class="agency-photo">
+      <img src="assets/images/guias-panorama.jpg" alt="Equipe de guias Brasil Wild Nature" loading="lazy" decoding="async">
+    </div>
+
+    <div class="agency-cta">
+      <a href="#guias" class="btn-primary">Ver guias disponíveis</a>
+      <a href="https://wa.me/5565999999999?text=Olá! Quero saber mais sobre os guias e roteiros."
+         target="_blank" rel="noopener" class="btn-ghost">Falar no WhatsApp</a>
+    </div>
   </div>
 </section>
 

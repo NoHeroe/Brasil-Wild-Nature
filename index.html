@@ -206,6 +206,85 @@
 .btn-primary:hover { filter: brightness(0.95); }
 .btn-ghost { color: #d3f8af; background: transparent; }
 .btn-ghost:hover { background: rgba(211,248,175,.12); }
+/* ===== Contact Premium ===== */
+.contact-premium {
+  padding: 80px 20px;
+  background: radial-gradient(1000px 600px at 50% -10%, rgba(211,248,175,.06), transparent 60%),
+              linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+  border-top: 1px solid rgba(211,248,175,.10);
+}
+.contact-wrap { max-width: 1000px; margin: 0 auto; text-align: center; }
+
+.contact-title {
+  font-family: 'Rajdhani', sans-serif;
+  color: #d3f8af;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.kicker {
+  color: #a7b79b;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .9rem;
+  margin-bottom: 8px;
+}
+.contact-lead {
+  color: #dcdcdc;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  max-width: 760px;
+  margin: 0 auto 26px;
+}
+
+/* Botões */
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 14px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .02em;
+  user-select: none;
+
+  background: linear-gradient(180deg, #0b0b0b, #111);
+  border: 1px solid rgba(211,248,175,.18);
+  color: #d3f8af;
+
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  will-change: transform;
+}
+.contact-btn img { display: block; filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+.contact-btn span { transform: translateY(0.5px); } /* micro alinhamento óptico */
+
+.contact-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(211,248,175,.32);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+  background: linear-gradient(180deg, #0e0e0e, #141414);
+}
+.contact-btn:focus-visible {
+  outline: 2px solid #d3f8af;
+  outline-offset: 3px;
+}
+
+/* Acabamentos por canal (opcional, mantém a mesma paleta do site) */
+.contact-btn.is-whatsapp {}
+.contact-btn.is-instagram {}
+
+@media (max-width: 560px) {
+  .contact-actions { grid-template-columns: 1fr; max-width: 420px; }
+}
   </style>
 </head>
 <body>
@@ -895,10 +974,41 @@
     <p><strong>Como funcionam os pacotes?</strong> Personalizamos conforme o seu perfil (família, aventura, fotografia). Consulte disponibilidade por temporada.</p>
   </section>
 
-<section class="contact" id="contato">
-    <h2>Fale Conosco</h2>
-    <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
-  </section>
+<section class="contact contact-premium" id="contato">
+  <div class="contact-wrap">
+    <p class="kicker">Contato</p>
+    <h2 class="contact-title">Fale Conosco</h2>
+    <p class="contact-lead">
+      Dúvidas, reservas ou parcerias? Nossa equipe responde rápido e ajuda você a planejar a experiência ideal.
+    </p>
+
+    <div class="contact-actions" role="list">
+      <!-- WhatsApp -->
+      <a
+        role="listitem"
+        class="contact-btn is-whatsapp"
+        href="https://wa.me/5565999999999?text=Olá! Quero saber sobre os roteiros do Brasil Wild Nature."
+        target="_blank" rel="noopener"
+        aria-label="Falar pelo WhatsApp"
+      >
+        <img src="assets/icons/whatsapp.svg" alt="" width="28" height="28" loading="lazy" decoding="async" />
+        <span>WhatsApp</span>
+      </a>
+
+      <!-- Instagram -->
+      <a
+        role="listitem"
+        class="contact-btn is-instagram"
+        href="https://www.instagram.com/seu_perfil"
+        target="_blank" rel="noopener"
+        aria-label="Abrir Instagram"
+      >
+        <img src="assets/icons/instagram.svg" alt="" width="28" height="28" loading="lazy" decoding="async" />
+        <span>Instagram</span>
+      </a>
+    </div>
+  </div>
+</section>
 
   <section class="depoimentos" id="depoimentos">
     <h2>Depoimentos</h2>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brasil Wild Nature</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Rajdhani', sans-serif; color: #dbdbc3; background-color: #000; }
+
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background-color: rgba(5, 10, 5, 0.85);
+      padding: 14px 40px; display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(6px);
+    }
+    .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #d3f8af; letter-spacing: 2px; }
+    .hamburger { font-size: 2rem; cursor: pointer; color: #d3f8af; background: none; border: none; }
+
+    /* Menu lateral (mobile) */
+    .modal-menu {
+      position: fixed; top: 0; right: 0; height: 100vh; width: 280px;
+      background: #121a12; box-shadow: -2px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%); transition: transform 0.4s ease; z-index: 9999; padding: 40px 20px;
+    }
+    .modal-menu.active { transform: translateX(0); }
+    .modal-menu ul { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+    .modal-menu a { color: #b8d8a3; text-decoration: none; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+    .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.6rem; color: #b8d8a3; cursor: pointer; }
+
+    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.5); z-index: 9998; display: none; }
+    .overlay.active { display: block; }
+
+    nav { display: flex; align-items: center; gap: 20px; }
+    nav a { text-decoration: none; color: #d3f8af; font-weight: 500; transition: 0.3s; }
+
+    /* Hero */
+    .hero-img-wrapper { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; z-index: 1; }
+    @media (min-width: 1024px) { .hero-img { object-position: center 50%; } }
+
+    .hero-mask {
+      position: absolute; top: 0; left: 0; z-index: 2; width: 100%; height: 100%;
+      background:
+        linear-gradient(to top,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0.5) 30%,
+          rgba(0, 0, 0, 0.2) 60%,
+          rgba(0, 0, 0, 0.15) 80%,
+          rgba(0, 0, 0, 0.1) 90%);
+      background-color: rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+    }
+
+    .hero-overlay { position: relative; z-index: 3; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .hero-text { text-align: center; color: #d3f8af; max-width: 700px; }
+    .hero-text h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 6vw, 3.6rem); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .hero-text p { font-size: clamp(1rem, 2.5vw, 1.3rem); color: #d1e6c4; margin-bottom: 30px; }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .buttons a { padding: 10px 22px; border: 2px solid #d3f8af; color: #d3f8af; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.95rem; border-radius: 6px; transition: 0.3s ease; }
+    .buttons a:hover { background: #d3f8af; color: #102110; }
+
+    @media (max-width: 768px) {
+      .hero-text { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; }
+      .hero-text h1 { margin-bottom: 8px; font-size: 2rem; }
+      .hero-text p { font-size: 1rem; margin-bottom: 30px; }
+      .buttons { margin-top: 80px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .buttons a { padding: 12px 22px; font-size: 0.95rem; }
+    }
+
+    /* Carousel */
+    .carousel-section { padding: 80px 20px 60px; }
+    .carousel-section h2 {
+      text-align: center; font-family: 'Rajdhani', sans-serif; color: #b8d8a3;
+      margin-bottom: 40px; font-size: 2.2rem; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 10px 0; }
+    .carousel::-webkit-scrollbar { display: none; }
+    .carousel-card {
+      position: relative; flex: 0 0 auto; width: 280px; height: 420px; border-radius: 10px; overflow: hidden;
+      scroll-snap-align: start; background-color: #000; box-shadow: 0 0 12px rgba(0, 0, 0, 0.6); transition: transform 0.3s;
+    }
+    .carousel-card:hover { transform: scale(1.03); }
+    .carousel-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .carousel-card::before { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.2) 80%); z-index: 1; }
+    .carousel-card .info { position: absolute; bottom: 0; left: 0; z-index: 2; padding: 20px; width: 100%; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; }
+    .carousel-card .info h3 { font-family: 'Rajdhani', sans-serif; color: #d3f8af; font-size: 1.2rem; margin-bottom: 10px; }
+    .carousel-card .info p { font-size: 0.95rem; color: #e0e0e0; }
+
+    /* Sobre/Contato */
+    .about, .contact { padding: 50px 20px; background: linear-gradient(to bottom, #101610, #1c281c); }
+    .about h2, .contact h2 { text-align: center; color: #c8e4a5; font-family: 'Rajdhani', sans-serif; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+    .about p, .contact p { max-width: 700px; margin: auto; color: #ccc; font-size: 1rem; text-align: center; }
+
+    footer { text-align: center; padding: 25px; background: linear-gradient(to right, #0e0e0e, #0c0c0c); color: #777; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* Depoimentos */
+    .depoimentos { padding: 80px 20px 60px; }
+    .depoimentos h2 { text-align: center; font-family: 'Rajdhani', sans-serif; color: #b8d8a3; margin-bottom: 40px; font-size: 2.2rem; letter-spacing: 1px; text-transform: uppercase; }
+    .grid-depoimentos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .depo-card { cursor: pointer; overflow: hidden; border-radius: 10px; transition: transform 0.3s ease; }
+    .depo-card:hover { transform: scale(1.03); }
+    .depo-card img { width: 100%; display: block; border-radius: 10px; object-fit: cover; }
+
+    .depo-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); z-index: 10000; }
+    .depo-modal.hidden { display: none; }
+    .modal-overlay { position: absolute; width: 100%; height: 100%; background-color: rgba(15, 15, 15, 0.8); cursor: pointer; }
+    .modal-content { position: relative; max-width: 90%; max-height: 90%; z-index: 10; }
+    .modal-content img { max-width: 100%; max-height: 80vh; border-radius: 12px; display: block; }
+    .close-modal { position: absolute; top: -20px; right: -20px; font-size: 2rem; background: #333; color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; z-index: 20; }
+
+    /* Evitar que o header cubra o topo ao ancorar */
+    section, .carousel-section, .about, .contact, .depoimentos { scroll-margin-top: 90px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Brasil Wild Nature</div>
+    <button class="hamburger" id="openMenu">☰</button>
+  </header>
+
+  <div class="modal-menu" id="menuModal">
+    <button class="close-btn" id="closeMenu">×</button>
+    <ul>
+      <li><a href="#hero" class="menu-link">Início</a></li>
+      <li><a href="#pacotes" class="menu-link">Passeios</a></li>
+      <li><a href="#sobre" class="menu-link">Guias</a></li>
+      <li><a href="#depoimentos" class="menu-link">Depoimentos</a></li>
+      <li><a href="#faq" class="menu-link">FAQ</a></li>
+      <li><a href="#contato" class="menu-link">Contato</a></li>
+    </ul>
+  </div>
+  <div class="overlay" id="menuOverlay"></div>
+
+  <!-- HERO -->
+  <section class="hero-img-wrapper" id="hero">
+    <img src="./assets/images/hero.jpg" alt="Paisagem do Brasil Selvagem" class="hero-img" />
+    <div class="hero-mask"></div>
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <h1>Explore o Brasil Selvagem</h1>
+        <p>Aventuras autênticas no coração do Pantanal e Chapada dos Guimarães.</p>
+        <div class="buttons">
+          <a href="#pacotes">Ver Pacotes</a>
+          <a href="#sobre">Sobre o Guia</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="carousel-section" id="pacotes">
+    <h2>Pacotes de Viagem</h2>
+    <div class="carousel">
+      <div class="carousel-card">
+        <img src="./assets/images/barco.jpg" alt="Passeio de Barco">
+        <div class="info">
+          <h3>Pantanal: Passeio de Barco</h3>
+          <p>Passeio tranquilo por rios do Pantanal para observação de fauna, flora e paisagens alagadas.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/caminhao.jpg" alt="Safari de Caminhão">
+        <div class="info">
+          <h3>Pantanal: Safari de Caminhão</h3>
+          <p>Aventura sobre rodas com guias especializados para avistamento de animais em habitat natural.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/cavalo.jpg" alt="Passeio a Cavalo">
+        <div class="info">
+          <h3>Pantanal: Passeio a Cavalo</h3>
+          <p>Cavalgada tradicional pelas planícies pantaneiras com contato próximo à natureza.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/trilha.jpg" alt="Trilhas Ecológicas">
+        <div class="info">
+          <h3>Pantanal: Trilhas Ecológicas</h3>
+          <p>Caminhadas leves em trilhas preservadas com foco em biodiversidade.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/onca.jpg" alt="Safari de Barco (Onças)">
+        <div class="info">
+          <h3>Pantanal: Safari de Barco (Onças)</h3>
+          <p>Expedição focada na observação de onças-pintadas à beira-rio com total segurança.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/snorkel.jpg" alt="Flutuação com Snorkel">
+        <div class="info">
+          <h3>Nobres: Flutuação no Rio com Snorkel</h3>
+          <p>Experiência mágica flutuando em águas cristalinas entre peixes e vegetação aquática.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/geronimo.jpg" alt="Morro São Gerônimo">
+        <div class="info">
+          <h3>Chapada: Morro São Gerônimo</h3>
+          <p>Trilha intensa até o ponto mais alto do parque, com vistas panorâmicas deslumbrantes.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/chapada-lagoa.jpg" alt="Lagoa azul na Chapada">
+        <div class="info">
+          <h3>Chapada: Circuito Cavernas e Ponte de Pedra</h3>
+          <p>Tour por 4 cavernas, lagoa azul e ponte natural de pedra esculpida pelo tempo.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/cachoeira1.jpg" alt="5 Cachoeiras">
+        <div class="info">
+          <h3>Chapada: Circuito das 5 Cachoeiras</h3>
+          <p>Rota de média intensidade com paisagens exuberantes e quedas d’água revitalizantes.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/cachoeira2.jpg" alt="Águas do Cerrado">
+        <div class="info">
+          <h3>Chapada: Águas do Cerrado (7 Cachoeiras)</h3>
+          <p>Percurso imersivo por nascentes e cachoeiras do cerrado com poços para banho.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/cachoeira3.jpg" alt="Circuito Paraíso">
+        <div class="info">
+          <h3>Chapada: Circuito Paraíso (4 Cachoeiras)</h3>
+          <p>Trilha leve ideal para todas as idades, com cachoeiras acessíveis e paisagens de tirar o fôlego.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro">
+        <div class="info">
+          <h3>Chapada: Cidade de Pedras + Vale do Rio Claro</h3>
+          <p>Exploração completa com flutuação, mirantes e travessia off-road em veículo 4x4.</p>
+        </div>
+      </div>
+      <div class="carousel-card">
+        <img src="./assets/images/ayahuasca.jpg" alt="Ritual Ayahuasca">
+        <div class="info">
+          <h3>Chapada: Ritual de Ayahuasca</h3>
+          <p>Vivência espiritual conduzida por facilitadores oficialmente autorizados e ambiente seguro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="sobre">
+    <h2>Sobre o Guia</h2>
+    <p>Com anos de vivência no ecoturismo, nosso guia local oferece experiências seguras e transformadoras. Da observação da fauna ao mergulho cultural, nossa missão é conectar você à verdadeira essência do Brasil.</p>
+  </section>
+
+  <section class="depoimentos" id="depoimentos">
+    <h2>Depoimentos</h2>
+    <div class="grid-depoimentos">
+      <div class="depo-card"><img src="./assets/images/depo1.jpg" alt="Depoimento 1"></div>
+      <div class="depo-card"><img src="./assets/images/depo2.jpg" alt="Depoimento 2"></div>
+      <div class="depo-card"><img src="./assets/images/depo3.jpg" alt="Depoimento 3"></div>
+      <div class="depo-card"><img src="./assets/images/depo4.jpg" alt="Depoimento 4"></div>
+      <div class="depo-card"><img src="./assets/images/depo5.jpg" alt="Depoimento 5"></div>
+      <div class="depo-card"><img src="./assets/images/depo6.jpg" alt="Depoimento 6"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="depoModal" class="depo-modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="close-modal">×</button>
+        <img id="modalImage" src="" alt="Depoimento Ampliado">
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <h2>Fale Conosco</h2>
+    <p>Para dúvidas, reservas ou parcerias, entre em contato via WhatsApp ou Instagram. Estamos prontos para planejar sua jornada!</p>
+  </section>
+
+  <!-- FAQ (novo) -->
+  <section class="about" id="faq">
+    <h2>FAQ</h2>
+    <p><strong>Como funcionam os pacotes?</strong> Personalizamos conforme o seu perfil (família, aventura, fotografia). Consulte disponibilidade por temporada.</p>
+  </section>
+
+  <footer>Site desenvolvido por NoHeroes Studio © 2025</footer>
+
+  <script>
+    // ===== Menu lateral =====
+    const openBtn = document.getElementById('openMenu');
+    const menuCloseBtn = document.getElementById('closeMenu');
+    const menuModal = document.getElementById('menuModal');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuLinks = document.querySelectorAll('.menu-link');
+
+    openBtn.onclick = () => {
+      menuModal.classList.add('active');
+      menuOverlay.classList.add('active');
+    };
+    menuCloseBtn.onclick = () => {
+      menuModal.classList.remove('active');
+      menuOverlay.classList.remove('active');
+    };
+    menuOverlay.onclick = () => {
+      menuModal.classList.remove('active');
+      menuOverlay.classList.remove('active');
+    };
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        menuModal.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        if (target) {
+          setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 300);
+        }
+      });
+    });
+
+    // ===== Modal de depoimentos =====
+    const depoImages = document.querySelectorAll('.depo-card img');
+    const depoModal = document.getElementById('depoModal');
+    const modalImage = document.getElementById('modalImage');
+    const depoCloseBtn = document.querySelector('.close-modal');
+    const depoOverlay = document.querySelector('.modal-overlay');
+
+    depoImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImage.src = img.src;
+        depoModal.classList.remove('hidden');
+      });
+    });
+
+    function closeDepoModal() {
+      depoModal.classList.add('hidden');
+      modalImage.src = '';
+    }
+    depoCloseBtn.addEventListener('click', closeDepoModal);
+    depoOverlay.addEventListener('click', closeDepoModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !depoModal.classList.contains('hidden')) closeDepoModal();
+    });
+  </script>
+</body>
+</html>

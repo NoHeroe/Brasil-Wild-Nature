@@ -117,6 +117,76 @@
 
     /* Evitar que o header cubra o topo ao ancorar */
     section, .carousel-section, .about, .contact, .depoimentos { scroll-margin-top: 90px; }
+
+/* Botão pequeno dentro do card */
+.more-btn {
+  margin-top: 10px;
+  align-self: start;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #d3f8af;
+  color: #d3f8af;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .2s;
+}
+.more-btn:hover { background: #d3f8af; color: #102110; }
+
+/* Modal de Passeio (reaproveita o visual dos depoimentos) */
+.tour-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10001; }
+.tour-modal.active { display: flex; }
+.tour-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(2px); }
+
+.tour-box {
+  position: relative; z-index: 1;
+  width: min(920px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #0e140e;
+  border: 1px solid rgba(211,248,175,.18);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.tour-header { display: flex; gap: 16px; align-items: center; }
+.tour-cover {
+  width: 260px; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px;
+}
+.tour-title { font-family: 'Rajdhani', sans-serif; color: #d3f8af; font-size: 1.6rem; letter-spacing: 1px; }
+.tour-sub { color: #cfe7be; margin-top: 4px; }
+
+.tour-grid {
+  display: grid; gap: 16px; margin-top: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.tour-card {
+  background: linear-gradient(to bottom, #101610, #1a251a);
+  border: 1px solid rgba(211,248,175,.1);
+  border-radius: 10px; padding: 14px;
+}
+.tour-card h4 { color: #c8e4a5; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .5px; }
+.tour-card ul { padding-left: 18px; line-height: 1.5; color: #ddd; }
+
+.tour-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tour-actions a, .tour-actions button {
+  padding: 10px 14px; border-radius: 8px; border: 1px solid #d3f8af; color: #d3f8af; background: transparent; text-decoration: none; font-weight: 600;
+}
+.tour-actions a:hover, .tour-actions button:hover { background:#d3f8af; color:#102110; }
+
+.tour-close {
+  position: absolute; top: 10px; right: 10px;
+  background:#333; color:#fff; border:none; width: 40px; height: 40px;
+  border-radius: 50%; font-size: 1.2rem; cursor:pointer;
+}
+
+/* Acessibilidade/foco */
+.tour-box:focus { outline: 2px solid #d3f8af; outline-offset: 4px; }
+
+@media (max-width: 720px) {
+  .tour-header { flex-direction: column; align-items: stretch; }
+  .tour-cover { width: 100%; }
+}
   </style>
 </head>
 <body>
@@ -157,101 +227,609 @@
 
   <!-- CARDS -->
   <section class="carousel-section" id="pacotes">
-    <h2>Pacotes de Viagem</h2>
-    <div class="carousel">
-      <div class="carousel-card">
-        <img src="./assets/images/barco.jpg" alt="Passeio de Barco">
-        <div class="info">
-          <h3>Pantanal: Passeio de Barco</h3>
-          <p>Passeio tranquilo por rios do Pantanal para observação de fauna, flora e paisagens alagadas.</p>
-        </div>
+  <h2>Pacotes de Viagem</h2>
+  <div class="carousel">
+
+    <!-- Pantanal: Passeio de Barco -->
+    <div class="carousel-card">
+      <img src="assets/images/barco.jpg" alt="Passeio de Barco" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Pantanal: Passeio de Barco</h3>
+        <p>Passeio tranquilo por rios do Pantanal para observação de fauna e paisagens alagadas.</p>
+        <button class="more-btn" data-tour="barco">Mais informações</button>
       </div>
-      <div class="carousel-card">
-        <img src="./assets/images/caminhao.jpg" alt="Safari de Caminhão">
-        <div class="info">
-          <h3>Pantanal: Safari de Caminhão</h3>
-          <p>Aventura sobre rodas com guias especializados para avistamento de animais em habitat natural.</p>
+
+      <div class="more-info" data-tour="barco" hidden>
+        <img class="tour-cover" src="assets/images/barco.jpg" alt="Passeio de Barco no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Passeio de Barco</h3>
+        <p class="tour-sub">Duração média: 3–4h · Nível: Leve · Melhor época: Maio–Set</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Saída em horário combinado (amanhecer ou pôr do sol).</li>
+              <li>Avistamento de aves, capivaras e jacarés.</li>
+              <li>Paradas para fotos e interpretação ambiental.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia credenciado</li>
+              <li>Coletes salva-vidas</li>
+              <li>Água mineral</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Protetor solar e repelente</li>
+              <li>Chapéu/boné e óculos</li>
+              <li>Garrafa d’água extra</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/cavalo.jpg" alt="Passeio a Cavalo">
-        <div class="info">
-          <h3>Pantanal: Passeio a Cavalo</h3>
-          <p>Cavalgada tradicional pelas planícies pantaneiras com contato próximo à natureza.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/trilha.jpg" alt="Trilhas Ecológicas">
-        <div class="info">
-          <h3>Pantanal: Trilhas Ecológicas</h3>
-          <p>Caminhadas leves em trilhas preservadas com foco em biodiversidade.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/onca.jpg" alt="Safari de Barco (Onças)">
-        <div class="info">
-          <h3>Pantanal: Safari de Barco (Onças)</h3>
-          <p>Expedição focada na observação de onças-pintadas à beira-rio com total segurança.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/snorkel.jpg" alt="Flutuação com Snorkel">
-        <div class="info">
-          <h3>Nobres: Flutuação no Rio com Snorkel</h3>
-          <p>Experiência mágica flutuando em águas cristalinas entre peixes e vegetação aquática.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/geronimo.jpg" alt="Morro São Gerônimo">
-        <div class="info">
-          <h3>Chapada: Morro São Gerônimo</h3>
-          <p>Trilha intensa até o ponto mais alto do parque, com vistas panorâmicas deslumbrantes.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/chapada-lagoa.jpg" alt="Lagoa azul na Chapada">
-        <div class="info">
-          <h3>Chapada: Circuito Cavernas e Ponte de Pedra</h3>
-          <p>Tour por 4 cavernas, lagoa azul e ponte natural de pedra esculpida pelo tempo.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/cachoeira1.jpg" alt="5 Cachoeiras">
-        <div class="info">
-          <h3>Chapada: Circuito das 5 Cachoeiras</h3>
-          <p>Rota de média intensidade com paisagens exuberantes e quedas d’água revitalizantes.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/cachoeira2.jpg" alt="Águas do Cerrado">
-        <div class="info">
-          <h3>Chapada: Águas do Cerrado (7 Cachoeiras)</h3>
-          <p>Percurso imersivo por nascentes e cachoeiras do cerrado com poços para banho.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/cachoeira3.jpg" alt="Circuito Paraíso">
-        <div class="info">
-          <h3>Chapada: Circuito Paraíso (4 Cachoeiras)</h3>
-          <p>Trilha leve ideal para todas as idades, com cachoeiras acessíveis e paisagens de tirar o fôlego.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro">
-        <div class="info">
-          <h3>Chapada: Cidade de Pedras + Vale do Rio Claro</h3>
-          <p>Exploração completa com flutuação, mirantes e travessia off-road em veículo 4x4.</p>
-        </div>
-      </div>
-      <div class="carousel-card">
-        <img src="./assets/images/ayahuasca.jpg" alt="Ritual Ayahuasca">
-        <div class="info">
-          <h3>Chapada: Ritual de Ayahuasca</h3>
-          <p>Vivência espiritual conduzida por facilitadores oficialmente autorizados e ambiente seguro.</p>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-barco.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Pantanal: Safari de Caminhão -->
+    <div class="carousel-card">
+      <img src="assets/images/caminhao.jpg" alt="Safari de Caminhão" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Pantanal: Safari de Caminhão</h3>
+        <p>Aventura sobre rodas com foco em avistamento de animais em habitat natural.</p>
+        <button class="more-btn" data-tour="caminhao">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="caminhao" hidden>
+        <img class="tour-cover" src="assets/images/caminhao.jpg" alt="Safari de caminhão no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Safari de Caminhão</h3>
+        <p class="tour-sub">Duração: 4–6h · Nível: Leve · Terreno: Estradas internas/ off-road</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Roteiro em áreas com alta biodiversidade.</li>
+              <li>Paradas estratégicas para observação e fotos.</li>
+              <li>Comentário ambiental do guia local.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia e motorista</li>
+              <li>Veículo apropriado</li>
+              <li>Água mineral</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupa leve e confortável</li>
+              <li>Protetor solar/repelente</li>
+              <li>Lanche leve</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-safari-caminhao.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantanal: Passeio a Cavalo -->
+    <div class="carousel-card">
+      <img src="assets/images/cavalo.jpg" alt="Passeio a Cavalo" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Pantanal: Passeio a Cavalo</h3>
+        <p>Cavalgada tradicional pelas planícies pantaneiras em contato direto com a natureza.</p>
+        <button class="more-btn" data-tour="cavalo">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cavalo" hidden>
+        <img class="tour-cover" src="assets/images/cavalo.jpg" alt="Passeio a cavalo no Pantanal" loading="lazy">
+        <h3 class="tour-title">Pantanal — Passeio a Cavalo</h3>
+        <p class="tour-sub">Duração: 2–3h · Nível: Leve a moderado · Acompanhamento: Peõs locais</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trilhas seguras, com briefing inicial.</li>
+              <li>Ritmo adaptado ao grupo.</li>
+              <li>Paradas para contemplação e fotos.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia montado</li>
+              <li>Equipamento básico</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calça confortável/ tênis ou bota</li>
+              <li>Repelente</li>
+              <li>Chapéu/boné</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-cavalo.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantanal: Trilhas Ecológicas -->
+    <div class="carousel-card">
+      <img src="assets/images/trilha.jpg" alt="Trilhas Ecológicas" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Pantanal: Trilhas Ecológicas</h3>
+        <p>Caminhadas leves em trilhas preservadas com foco em biodiversidade.</p>
+        <button class="more-btn" data-tour="trilha">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="trilha" hidden>
+        <img class="tour-cover" src="assets/images/trilha.jpg" alt="Trilhas ecológicas" loading="lazy">
+        <h3 class="tour-title">Pantanal — Trilhas Ecológicas</h3>
+        <p class="tour-sub">Duração: 2–4h · Nível: Leve · Distância: 3–8 km</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Interpretação ambiental com guia.</li>
+              <li>Observação de fauna e flora.</li>
+              <li>Rotas variam por estação do ano.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia credenciado</li>
+              <li>Kit primeiros socorros</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Tênis aderente</li>
+              <li>Protetor/repelente</li>
+              <li>Garrafa d’água</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-trilhas.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantanal: Safari de Barco (Onças) -->
+    <div class="carousel-card">
+      <img src="assets/images/onça.jpg" alt="Safari de Barco (Onças)" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Pantanal: Safari de Barco (Onças)</h3>
+        <p>Expedição focada na observação de onças-pintadas à beira-rio com segurança.</p>
+        <button class="more-btn" data-tour="onca">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="onca" hidden>
+        <img class="tour-cover" src="assets/images/onça.jpg" alt="Safari de onça de barco" loading="lazy">
+        <h3 class="tour-title">Pantanal — Safari de Barco (Onças)</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Leve · Melhor época: Seca</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Busca ativa por rastros e movimentação na margem.</li>
+              <li>Fotografia de vida selvagem.</li>
+              <li>Rotas adaptadas às condições do dia.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia especializado</li>
+              <li>Embarcação equipada</li>
+              <li>Água/geladeira a bordo</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Lente/zoom, protetor, repelente</li>
+              <li>Chapéu/óculos</li>
+              <li>Lanche</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/pantanal-onca.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nobres: Flutuação com Snorkel -->
+    <div class="carousel-card">
+      <img src="assets/images/snorkel.jpg" alt="Flutuação com Snorkel" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Nobres: Flutuação no Rio com Snorkel</h3>
+        <p>Experiência mágica em águas cristalinas entre peixes e vegetação.</p>
+        <button class="more-btn" data-tour="snorkel">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="snorkel" hidden>
+        <img class="tour-cover" src="assets/images/snorkel.jpg" alt="Flutuação em Nobres" loading="lazy">
+        <h3 class="tour-title">Nobres — Flutuação no Rio</h3>
+        <p class="tour-sub">Duração: 2–3h · Nível: Leve · Equipamento incluso</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trecho guiado por correnteza leve.</li>
+              <li>Orientação e segurança antes da atividade.</li>
+              <li>Água de visibilidade excepcional.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Máscara, snorkel e colete</li>
+              <li>Guia credenciado</li>
+              <li>Seguro</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupa de banho</li>
+              <li>Toalha e chinelo</li>
+              <li>Protetor solar</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/nobres-flutuacao.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Morro São Gerônimo -->
+    <div class="carousel-card">
+      <img src="assets/images/geronimo.jpg" alt="Morro São Gerônimo" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Morro São Gerônimo</h3>
+        <p>Trilha intensa ao ponto mais alto, com visuais panorâmicos.</p>
+        <button class="more-btn" data-tour="geronimo">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="geronimo" hidden>
+        <img class="tour-cover" src="assets/images/geronimo.jpg" alt="Morro São Gerônimo" loading="lazy">
+        <h3 class="tour-title">Chapada — Morro São Gerônimo</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Moderado a intenso · Desnível acumulado</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Subida com trechos de lajeado e mirantes.</li>
+              <li>Paradas para descanso e lanche.</li>
+              <li>Vista de 360° no cume (clima mediante).</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Kit primeiros socorros</li>
+              <li>Orientações de segurança</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>2L de água, lanche, capa de chuva</li>
+              <li>Calçado aderente</li>
+              <li>Boné/protetor</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-geronimo.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Cavernas + Ponte de Pedra -->
+    <div class="carousel-card">
+      <img src="assets/images/chapada-lagoa.jpg" alt="Lagoa azul e cavernas" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Cavernas e Ponte de Pedra</h3>
+        <p>Tour por 4 cavernas, lagoa azul e ponte natural de pedra.</p>
+        <button class="more-btn" data-tour="cavernas">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cavernas" hidden>
+        <img class="tour-cover" src="assets/images/chapada-lagoa.jpg" alt="Circuito cavernas e lagoa azul" loading="lazy">
+        <h3 class="tour-title">Chapada — Cavernas + Ponte de Pedra</h3>
+        <p class="tour-sub">Duração: 4–6h · Nível: Leve a moderado · Caminhadas e contemplação</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Visita guiada a formações rochosas.</li>
+              <li>Pausa para fotos na lagoa (sem banho, quando aplicável).</li>
+              <li>Ponte de Pedra e mirantes naturais.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Ingressos (quando aplicável)</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Tênis/ bota leve</li>
+              <li>Protetor/repelente</li>
+              <li>Garrafa d’água</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-cavernas-ponte.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Circuito das 5 Cachoeiras -->
+    <div class="carousel-card">
+      <img src="assets/images/cachoeira1.jpg" alt="Circuito 5 cachoeiras" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Circuito das 5 Cachoeiras</h3>
+        <p>Rota de média intensidade com quedas d’água revitalizantes.</p>
+        <button class="more-btn" data-tour="cacho5">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="cacho5" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira1.jpg" alt="Trilha das 5 cachoeiras" loading="lazy">
+        <h3 class="tour-title">Chapada — Circuito das 5 Cachoeiras</h3>
+        <p class="tour-sub">Duração: 5–7h · Nível: Moderado · Paradas para banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Sequência de cachoeiras com trechos de pedra.</li>
+              <li>Piscinas naturais para banho.</li>
+              <li>Trechos escorregadios: atenção redobrada.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Orientações de segurança</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calçado aderente</li>
+              <li>Toalha/roupa de banho</li>
+              <li>Lanche/água extra</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-circuito-5-cachoeiras.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Águas do Cerrado (7 cachoeiras) -->
+    <div class="carousel-card">
+      <img src="assets/images/cachoeira2.jpg" alt="Águas do Cerrado (7 cachoeiras)" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Águas do Cerrado (7 Cachoeiras)</h3>
+        <p>Percurso imersivo por nascentes e cachoeiras com poços para banho.</p>
+        <button class="more-btn" data-tour="aguas">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="aguas" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira2.jpg" alt="Águas do Cerrado" loading="lazy">
+        <h3 class="tour-title">Chapada — Águas do Cerrado (7 Cachoeiras)</h3>
+        <p class="tour-sub">Duração: 6–8h · Nível: Moderado · Pontos de banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trilha com alternância de subidas/descidas.</li>
+              <li>Visuais de cânions e poços.</li>
+              <li>Banhos em locais autorizados.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Kit primeiros socorros</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Calçado de trilha</li>
+              <li>Lanche reforçado</li>
+              <li>Roupas de banho</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-aguas-do-cerrado.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Circuito Paraíso (4 cachoeiras) -->
+    <div class="carousel-card">
+      <img src="assets/images/cachoeira3.jpg" alt="Circuito Paraíso" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Circuito Paraíso (4 Cachoeiras)</h3>
+        <p>Trilha leve para todas as idades, com cachoeiras acessíveis.</p>
+        <button class="more-btn" data-tour="paraiso">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="paraiso" hidden>
+        <img class="tour-cover" src="assets/images/cachoeira3.jpg" alt="Circuito Paraíso" loading="lazy">
+        <h3 class="tour-title">Chapada — Circuito Paraíso (4 Cachoeiras)</h3>
+        <p class="tour-sub">Duração: 3–5h · Nível: Leve · Paradas para banho</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Trechos curtos e acessíveis.</li>
+              <li>Pontos de banho e contemplação.</li>
+              <li>Ideal para famílias.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia local</li>
+              <li>Orientações de segurança</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Chinelo/toalha</li>
+              <li>Protetor/repelente</li>
+              <li>Lanche</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-circuito-paraiso.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Cidade de Pedras + Vale do Rio Claro -->
+    <div class="carousel-card">
+      <img src="assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Cidade de Pedras + Vale do Rio Claro</h3>
+        <p>Exploração completa com flutuação, mirantes e trechos 4x4.</p>
+        <button class="more-btn" data-tour="vale">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="vale" hidden>
+        <img class="tour-cover" src="assets/images/pedra.jpg" alt="Cidade de Pedras e Vale do Rio Claro" loading="lazy">
+        <h3 class="tour-title">Chapada — Cidade de Pedras + Vale do Rio Claro</h3>
+        <p class="tour-sub">Duração: Dia inteiro · Nível: Leve a moderado · 4x4 incluso</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Mirantes, formações rochosas e flutuação.</li>
+              <li>Trechos de 4x4 com guia.</li>
+              <li>Paradas para fotos e banho (locais permitidos).</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Guia + 4x4</li>
+              <li>Máscara/snorkel (quando aplicável)</li>
+              <li>Água</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>2L de água, lanche</li>
+              <li>Chinelo/toalha</li>
+              <li>Protetor/repelente</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-vale-rio-claro.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapada: Ritual de Ayahuasca -->
+    <div class="carousel-card">
+      <img src="assets/images/ayahuasca.jpg" alt="Ritual de Ayahuasca" loading="lazy" decoding="async">
+      <div class="info">
+        <h3>Chapada: Ritual de Ayahuasca</h3>
+        <p>Vivência espiritual conduzida por facilitadores autorizados.</p>
+        <button class="more-btn" data-tour="ayahuasca">Mais informações</button>
+      </div>
+
+      <div class="more-info" data-tour="ayahuasca" hidden>
+        <img class="tour-cover" src="assets/images/ayahuasca.jpg" alt="Ritual de Ayahuasca" loading="lazy">
+        <h3 class="tour-title">Chapada — Ritual de Ayahuasca</h3>
+        <p class="tour-sub">Duração: 4–6h · Pré-requisitos: triagem/termo · Ambiente seguro</p>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <h4>Descrição</h4>
+            <ul>
+              <li>Condução por equipe autorizada.</li>
+              <li>Orientações prévias e pós-experiência.</li>
+              <li>Ambiente preparado e acolhimento.</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Inclui</h4>
+            <ul>
+              <li>Facilitadores</li>
+              <li>Estrutura do local</li>
+              <li>Suporte durante a vivência</li>
+            </ul>
+          </div>
+          <div class="tour-card">
+            <h4>Levar</h4>
+            <ul>
+              <li>Roupas confortáveis</li>
+              <li>Garrafa d’água</li>
+              <li>Agasalho leve</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <a href="/passeios/chapada-ayahuasca.html">Ver página do passeio</a>
+          <a class="whats-btn" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <section class="about" id="sobre">
     <h2>Sobre o Guia</h2>
@@ -291,6 +869,15 @@
   </section>
 
   <footer>Site desenvolvido por NoHeroes Studio © 2025</footer>
+
+<div id="tourModal" class="tour-modal" aria-hidden="true">
+  <div class="tour-backdrop" data-close="1"></div>
+  <div class="tour-box" role="dialog" aria-modal="true" tabindex="-1">
+    <button class="tour-close" aria-label="Fechar" data-close="1">×</button>
+    <!-- O conteúdo é injetado aqui via JS -->
+    <div id="tourContent"></div>
+  </div>
+</div>
 
   <script>
     // ===== Menu lateral =====
@@ -348,6 +935,66 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !depoModal.classList.contains('hidden')) closeDepoModal();
     });
-  </script>
+
+const tourModal = document.getElementById('tourModal');
+const tourContent = document.getElementById('tourContent');
+
+// Monta link de WhatsApp com mensagem
+function buildWhatsLink(title) {
+  const phone = '5565999999999'; // << coloque seu número com DDI/DDD
+  const msg = encodeURIComponent(`Olá! Tenho interesse no passeio: ${title}. Pode me passar disponibilidade e valores?`);
+  return `https://wa.me/${phone}?text=${msg}`;
+}
+
+// Abre modal com base no data-tour do botão
+function openTourModal(key) {
+  // pega o bloco .more-info correspondente
+  const source = document.querySelector(`.more-info[data-tour="${key}"]`);
+  if (!source) return;
+
+  // clona o conteúdo para o modal
+  tourContent.innerHTML = '';
+  const cloned = source.cloneNode(true);
+  cloned.hidden = false;
+
+  // atualiza link do WhatsApp dinâmico
+  const title = cloned.querySelector('.tour-title')?.textContent?.trim() || 'Passeio';
+  const whats = cloned.querySelector('.whats-btn');
+  if (whats) whats.href = buildWhatsLink(title);
+
+  tourContent.appendChild(cloned);
+
+  // exibe modal
+  tourModal.classList.add('active');
+  tourModal.setAttribute('aria-hidden', 'false');
+  // foco acessível
+  tourModal.querySelector('.tour-box').focus();
+}
+
+// Fecha modal
+function closeTourModal() {
+  tourModal.classList.remove('active');
+  tourModal.setAttribute('aria-hidden', 'true');
+  tourContent.innerHTML = '';
+}
+
+// Delegação de eventos: botões “Mais informações”
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.more-btn');
+  if (btn && btn.dataset.tour) {
+    openTourModal(btn.dataset.tour);
+  }
+  if (e.target.dataset.close === '1' || e.target === tourModal) {
+    closeTourModal();
+  }
+});
+
+// ESC para fechar
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && tourModal.classList.contains('active')) {
+    closeTourModal();
+  }
+});
+</script>
 </body>
 </html>

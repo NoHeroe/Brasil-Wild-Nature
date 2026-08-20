@@ -1,0 +1,15 @@
+# build
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# ambiente
+.env
+.env.production
+*.local
+
+# sistema
+.DS_Store
+Thumbs.db

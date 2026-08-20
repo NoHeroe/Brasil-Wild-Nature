@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import { Image, getImage } from 'astro:assets';
+import { getLocale, useTranslations } from '../../i18n/utils';
+import Icon from '../Icon.astro';
+
+import oncaPedra from '../../assets/gallery/onca-pedra.jpg';
+import filhotes from '../../assets/gallery/filhotes.jpg';
+import tucano from '../../assets/gallery/tucano.jpg';
+import jacare from '../../assets/gallery/jacare.jpg';
+import arara from '../../assets/arara.jpg';
+import sunset from '../../assets/sunset.jpg';
+import pantanal from '../../assets/destino-pantanal.jpg';
+import chapada from '../../assets/destino-chapada.jpg';
+import pedra from '../../assets/tours/pedra.jpg';
+import geronimo from '../../assets/tours/geronimo.jpg';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+
+async function withFull(list: { img: ImageMetadata; alt: string }[]) {
+  return Promise.all(
+    list.map(async (s) => ({ ...s, full: (await getImage({ src: s.img, width: 1600, format: 'webp' })).src }))
+  );
+}
+
+const pantanalShots = await withFull([
+  { img: oncaPedra, alt: t('alt.oncaPedra') },
+  { img: filhotes, alt: t('alt.filhotes') },
+  { img: tucano, alt: t('alt.tucano') },
+  { img: jacare, alt: t('alt.jacare') },
+  { img: arara, alt: t('alt.arara') },
+  { img: sunset, alt: t('alt.sunset') },
+  { img: pantanal, alt: t('alt.pantanal') },
+]);
+const chapadaShots = await withFull([
+  { img: chapada, alt: t('alt.chapada') },
+  { img: pedra, alt: t('alt.pedra') },
+  { img: geronimo, alt: t('alt.geronimo') },
+]);
+
+const groups = [
+  { title: t('destinos.pantanal.title'), shots: pantanalShots },
+  { title: t('destinos.chapada.title'), shots: chapadaShots },
+];
+---
+<Base title={t('nav.galeria')} description={t('galeria.lead')} pageKey="galeria">
+  <section class="mx-auto max-w-6xl px-4 pb-8 pt-36 sm:px-6">
+    <p class="eyebrow" data-reveal>{t('nav.galeria')}</p>
+    <h1 class="mt-3 font-display text-4xl text-osso sm:text-5xl" data-reveal>{t('galeria.title')}</h1>
+    <p class="prose-measure mt-4 text-lg text-osso/90" data-reveal>{t('galeria.lead')}</p>
+  </section>
+
+  {groups.map((g) => (
+    <section class="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
+      <h2 class="mb-5 font-display text-2xl text-osso">{g.title}</h2>
+      <div class="columns-2 gap-4 md:columns-3">
+        {g.shots.map((s) => (
+          <button type="button" class="gallery-thumb mb-4 block w-full overflow-hidden rounded-xl border border-osso/10 bg-barro"
+                  data-full={s.full} data-alt={s.alt} aria-label={s.alt}>
+            <Image src={s.img} alt={s.alt} widths={[300, 500, 700]} sizes="(max-width: 768px) 50vw, 33vw" loading="lazy"
+                   class="w-full object-cover transition-transform duration-500 hover:scale-105" />
+          </button>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
+    <div class="flex items-center gap-3 rounded-xl border border-dashed border-osso/15 bg-barro p-5 text-osso-dim">
+      <Icon name="rosette" size={28} class="text-arenito/60" />
+      <span><strong class="text-osso">{t('destinos.nobres.title')}</strong> — {t('destinos.nobres.badge')}</span>
+    </div>
+  </section>
+
+  <div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label={t('nav.galeria')}>
+    <button id="lb-close" type="button" aria-label={t('lightbox.close')}
+            class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-osso hover:bg-white/20">
+      <Icon name="close" size={24} />
+    </button>
+    <button id="lb-prev" type="button" aria-label={t('lightbox.prev')}
+            class="absolute left-2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-2xl text-osso hover:bg-white/20 sm:left-6">‹</button>
+    <img id="lb-img" src="" alt="" class="max-h-[86vh] max-w-[92vw] rounded-lg object-contain" />
+    <button id="lb-next" type="button" aria-label={t('lightbox.next')}
+            class="absolute right-2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-2xl text-osso hover:bg-white/20 sm:right-6">›</button>
+  </div>
+
+  <script>
+    const thumbs = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-thumb'));
+    const items = thumbs.map((b) => ({ full: b.dataset.full ?? '', alt: b.dataset.alt ?? '' }));
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lb-img') as HTMLImageElement | null;
+    const btnClose = document.getElementById('lb-close');
+    const btnPrev = document.getElementById('lb-prev');
+    const btnNext = document.getElementById('lb-next');
+    let idx = 0;
+    function show() { if (img) { img.src = items[idx].full; img.alt = items[idx].alt; } }
+    function open(i: number) {
+      idx = i; show();
+      lb?.classList.remove('hidden'); lb?.classList.add('flex');
+      document.body.style.overflow = 'hidden'; btnClose?.focus();
+    }
+    function close() {
+      lb?.classList.add('hidden'); lb?.classList.remove('flex');
+      document.body.style.overflow = ''; if (img) img.src = '';
+    }
+    const prev = () => { idx = (idx - 1 + items.length) % items.length; show(); };
+    const next = () => { idx = (idx + 1) % items.length; show(); };
+    thumbs.forEach((b, i) => b.addEventListener('click', () => open(i)));
+    btnClose?.addEventListener('click', close);
+    btnPrev?.addEventListener('click', prev);
+    btnNext?.addEventListener('click', next);
+    lb?.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb?.classList.contains('hidden')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'ArrowRight') next();
+    });
+  </script>
+</Base>

@@ -1,0 +1,59 @@
+---
+import { site } from '../config/site';
+import { getLocale, useTranslations, pathTo } from '../i18n/utils';
+import { waLink, mailLink, instagramLink } from '../lib/links';
+import Icon from './Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+const wa = waLink(t('wa.home'));
+const mail = mailLink();
+const ig = instagramLink();
+const home = pathTo('home', locale);
+---
+<footer class="border-t border-osso/10 bg-[color:var(--color-igapo)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid gap-10 md:grid-cols-3">
+    <div>
+      <a href={home} class="flex items-center gap-2 mb-3">
+        <Icon name="rosette" size={24} class="text-sol" />
+        <span class="font-display text-lg font-semibold text-osso">Brasil Wild Nature</span>
+      </a>
+      <p class="text-sm text-osso-dim max-w-xs">{t('footer.tagline')}</p>
+      <p class="text-xs text-osso-dim/80 mt-3">{site.region}</p>
+    </div>
+
+    <div class="md:justify-self-center">
+      <p class="eyebrow mb-3">{t('nav.contato')}</p>
+      <ul class="flex flex-col gap-2 text-sm">
+        {wa && (
+          <li><a href={wa} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-osso/85 hover:text-sol transition-colors">
+            <Icon name="whatsapp" size={18} /> {site.contact.whatsappDisplay}
+          </a></li>
+        )}
+        {mail && (
+          <li><a href={mail} class="inline-flex items-center gap-2 text-osso/85 hover:text-sol transition-colors">
+            <Icon name="mail" size={18} /> {site.contact.email}
+          </a></li>
+        )}
+        {ig && (
+          <li><a href={ig} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-osso/85 hover:text-sol transition-colors">
+            <Icon name="instagram" size={18} /> Instagram
+          </a></li>
+        )}
+      </ul>
+    </div>
+
+    <div class="md:justify-self-end md:text-right max-w-xs">
+      <p class="eyebrow mb-3">{t('footer.disclaimer').split('—')[0].trim()}</p>
+      <p class="text-sm text-osso-dim">{t('footer.disclaimer')}</p>
+    </div>
+  </div>
+
+  <div class="border-t border-osso/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-osso-dim/80">
+      <p>© {year} Brasil Wild Nature. {t('footer.rights')}</p>
+      <p>{t('footer.madeby')} {site.credit.label}.</p>
+    </div>
+  </div>
+</footer>

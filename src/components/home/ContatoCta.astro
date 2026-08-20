@@ -1,0 +1,35 @@
+---
+import { getLocale, useTranslations } from '../../i18n/utils';
+import { waLink, mailLink } from '../../lib/links';
+import Icon from '../Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const wa = waLink(t('wa.home'));
+const mail = mailLink();
+---
+<section id="contato" class="relative overflow-hidden scroll-mt-20">
+  <div class="absolute inset-0" style="background:radial-gradient(90% 120% at 50% 0%, color-mix(in oklab, var(--color-sol) 10%, transparent), transparent 60%);"></div>
+  <div class="relative mx-auto max-w-3xl px-4 sm:px-6 py-24 sm:py-32 text-center" data-reveal>
+    <p class="eyebrow">{t('contato.kicker')}</p>
+    <h2 class="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl text-osso">{t('contato.title')}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-osso-dim">{t('contato.lead')}</p>
+
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-lg bg-sol px-7 py-3.5 font-semibold text-[color:var(--color-sol-escuro)] hover:brightness-95 transition">
+          <Icon name="whatsapp" size={22} /> {t('cta.whats')}
+        </a>
+      )}
+      {mail && (
+        <a href={mail}
+           class="inline-flex items-center gap-2 rounded-lg border border-osso/25 px-7 py-3.5 font-semibold text-osso hover:border-sol hover:text-sol transition">
+          <Icon name="mail" size={20} /> E-mail
+        </a>
+      )}
+    </div>
+
+    <p class="mt-6 font-mono text-xs text-osso-dim/80">{t('contato.note')}</p>
+  </div>
+</section>

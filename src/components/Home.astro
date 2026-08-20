@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './home/Hero.astro';
+import Pillars from './home/Pillars.astro';
+import Destinos from './home/Destinos.astro';
+import Galeria from './home/Galeria.astro';
+import Depoimentos from './home/Depoimentos.astro';
+import ContatoCta from './home/ContatoCta.astro';
+import { getLocale, useTranslations } from '../i18n/utils';
+import { organizationLd, websiteLd } from '../lib/jsonld';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const title = `Brasil Wild Nature — ${t('hero.title')}`;
+const description = t('hero.sub');
+---
+<Base title={title} description={description} pageKey="home" jsonLd={[websiteLd(), organizationLd()]}>
+  <Hero />
+  <Pillars />
+  <Destinos />
+  <Galeria />
+  <Depoimentos />
+  <ContatoCta />
+</Base>

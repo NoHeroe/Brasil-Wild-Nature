@@ -1,0 +1,129 @@
+---
+import { getLocale, useTranslations } from '../i18n/utils';
+import { LOCALES, LOCALE_META } from '../i18n/config';
+import { waLink } from '../lib/links';
+import Icon from './Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const formKey = import.meta.env.PUBLIC_FORM_KEY ?? '';
+const wa = waLink(t('wa.home'));
+
+const field =
+  'mt-1 w-full rounded-lg border border-osso/20 bg-[color:var(--color-igapo)] px-4 py-3 text-osso ' +
+  'placeholder:text-osso-dim/50 focus:border-sol focus:outline-none focus:ring-2 focus:ring-sol/40';
+const labelCls = 'block text-sm font-medium text-osso/90';
+
+const passeios = [
+  { value: 'pantanal', label: t('destinos.pantanal.title') },
+  { value: 'chapada', label: t('destinos.chapada.title') },
+  { value: 'nobres', label: t('destinos.nobres.title') },
+  { value: 'nao-sei', label: t('form.opcaoNaoSei') },
+];
+---
+{formKey ? (
+  <form
+    id="contact-form"
+    action="https://api.web3forms.com/submit"
+    method="POST"
+    class="grid gap-5 sm:grid-cols-2"
+    data-sending={t('form.enviando')}
+    data-success={t('form.sucesso')}
+    data-error={t('form.erro')}
+  >
+    <input type="hidden" name="access_key" value={formKey} />
+    <input type="hidden" name="subject" value={t('form.subject')} />
+    <input type="hidden" name="from_name" value="Brasil Wild Nature" />
+    <input type="hidden" name="site_lang" value={locale} />
+    <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-nome">{t('form.nome')} *</label>
+      <input class={field} id="f-nome" name="name" type="text" required autocomplete="name" />
+    </div>
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-email">{t('form.email')} *</label>
+      <input class={field} id="f-email" name="email" type="email" required autocomplete="email" />
+    </div>
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-whats">{t('form.whats')}</label>
+      <input class={field} id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" />
+    </div>
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-idioma">{t('form.idioma')}</label>
+      <select class={field} id="f-idioma" name="preferred_language">
+        {LOCALES.map((l) => (
+          <option value={LOCALE_META[l].label} selected={l === locale}>{LOCALE_META[l].label}</option>
+        ))}
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-passeio">{t('form.passeio')}</label>
+      <select class={field} id="f-passeio" name="tour">
+        <option value="" selected>{t('form.selecione')}</option>
+        {passeios.map((p) => <option value={p.value}>{p.label}</option>)}
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class={labelCls} for="f-pessoas">{t('form.pessoas')}</label>
+      <input class={field} id="f-pessoas" name="people" type="number" min="1" inputmode="numeric" />
+    </div>
+    <div class="sm:col-span-2">
+      <label class={labelCls} for="f-datas">{t('form.datas')}</label>
+      <input class={field} id="f-datas" name="dates" type="text" />
+    </div>
+    <div class="sm:col-span-2">
+      <label class={labelCls} for="f-msg">{t('form.mensagem')} *</label>
+      <textarea class={field} id="f-msg" name="message" rows="5" required></textarea>
+    </div>
+
+    <div class="sm:col-span-2 flex flex-col gap-3">
+      <button type="submit"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-sol px-6 py-3.5 font-semibold text-[color:var(--color-sol-escuro)] transition hover:brightness-95 disabled:opacity-60 sm:w-auto">
+        {t('form.enviar')}
+      </button>
+      <p id="form-status" role="status" aria-live="polite" class="text-sm"></p>
+      <p class="font-mono text-[11px] text-osso-dim/70">{t('form.privacidade')}</p>
+    </div>
+  </form>
+) : (
+  <div class="rounded-2xl border border-dashed border-osso/20 bg-barro p-6 text-center">
+    <p class="text-osso-dim">{t('contato.semForm')}</p>
+    {wa && (
+      <a href={wa} target="_blank" rel="noopener"
+         class="mt-4 inline-flex items-center gap-2 rounded-lg bg-sol px-6 py-3 font-semibold text-[color:var(--color-sol-escuro)] hover:brightness-95 transition">
+        <Icon name="whatsapp" size={20} /> {t('cta.whats')}
+      </a>
+    )}
+  </div>
+)}
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = document.getElementById('form-status');
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const btnLabel = btn?.textContent ?? '';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (status) { status.textContent = form.dataset.sending ?? ''; status.style.color = 'var(--color-osso-dim)'; }
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success !== false) {
+          if (status) { status.textContent = form.dataset.success ?? ''; status.style.color = 'var(--color-sol)'; }
+          form.reset();
+        } else {
+          throw new Error('fail');
+        }
+      } catch {
+        if (status) { status.textContent = form.dataset.error ?? ''; status.style.color = 'var(--color-colhereiro)'; }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btnLabel;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,124 @@
+---
+import { getLocale, useTranslations, pathTo } from '../i18n/utils';
+import { waLink } from '../lib/links';
+import LangSwitcher from './LangSwitcher.astro';
+import Icon from './Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const home = pathTo('home', locale);
+const wa = waLink(t('wa.home'));
+
+// Navegação principal (páginas reais). Galeria e Contato entram no menu mobile.
+const nav = [
+  { label: t('nav.pantanal'), href: pathTo('pantanal', locale) },
+  { label: t('nav.chapada'), href: pathTo('chapada', locale) },
+  { label: t('nav.nobres'), href: pathTo('nobres', locale) },
+  { label: t('nav.sobre'), href: pathTo('sobre', locale) },
+];
+const navMobile = [
+  ...nav,
+  { label: t('nav.galeria'), href: pathTo('galeria', locale) },
+  { label: t('nav.contato'), href: pathTo('contato', locale) },
+];
+---
+<header
+  id="site-header"
+  class="fixed top-0 inset-x-0 z-50 transition-colors duration-300"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 h-[var(--spacing-header)]">
+    <a href={home} class="flex items-center gap-2 group" aria-label="Brasil Wild Nature — início">
+      <Icon name="rosette" size={26} class="text-sol shrink-0" />
+      <span class="font-display text-lg sm:text-xl font-semibold tracking-wide text-osso leading-none">
+        Brasil <span class="text-sol">Wild</span> Nature
+      </span>
+    </a>
+
+    <!-- Desktop -->
+    <nav class="hidden md:flex items-center gap-7 text-sm" aria-label="Principal">
+      {nav.map((item) => (
+        <a href={item.href} class="text-osso/85 hover:text-sol transition-colors">{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="hidden md:flex items-center gap-4">
+      <LangSwitcher />
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="rounded-lg bg-sol px-4 py-2 text-sm font-semibold text-[color:var(--color-sol-escuro)] hover:brightness-95 transition">
+          {t('cta.orcamento')}
+        </a>
+      )}
+    </div>
+
+    <!-- Mobile toggle -->
+    <button id="menu-btn" type="button"
+      class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-osso"
+      aria-label={t('menu.open')} aria-expanded="false" aria-controls="mobile-menu">
+      <Icon name="menu" size={26} />
+    </button>
+  </div>
+
+  <!-- Mobile panel -->
+  <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+    <div id="menu-backdrop" class="absolute inset-0 bg-black/60"></div>
+    <div id="menu-panel"
+      class="absolute right-0 top-0 h-full w-[80%] max-w-xs bg-barro border-l border-osso/10 p-6 pt-5
+             translate-x-full transition-transform duration-300 ease-out flex flex-col">
+      <div class="flex items-center justify-between mb-8">
+        <span class="eyebrow">{t('lang.title')}</span>
+        <button id="menu-close" type="button" class="w-11 h-11 -mr-2 inline-flex items-center justify-center rounded-lg text-osso" aria-label={t('menu.close')}>
+          <Icon name="close" size={24} />
+        </button>
+      </div>
+      <div class="mb-6"><LangSwitcher /></div>
+      <nav class="flex flex-col gap-1 text-lg" aria-label="Principal (mobile)">
+        {navMobile.map((item) => (
+          <a href={item.href} class="menu-link py-3 border-b border-osso/10 text-osso hover:text-sol transition-colors">{item.label}</a>
+        ))}
+      </nav>
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="mt-auto rounded-lg bg-sol px-4 py-3 text-center font-semibold text-[color:var(--color-sol-escuro)]">
+          {t('cta.orcamento')}
+        </a>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  #site-header { background: color-mix(in oklab, var(--color-igapo) 55%, transparent); }
+  #site-header.is-scrolled {
+    background: color-mix(in oklab, var(--color-igapo) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-osso) 10%, transparent);
+  }
+  #mobile-menu:not(.hidden) #menu-panel { transform: none; }
+</style>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('menu-close');
+  const backdrop = document.getElementById('menu-backdrop');
+  const links = menu?.querySelectorAll('.menu-link');
+
+  function open() {
+    menu?.classList.remove('hidden');
+    btn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    menu?.classList.add('hidden');
+    btn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  btn?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  links?.forEach((l) => l.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) close();
+  });
+</script>

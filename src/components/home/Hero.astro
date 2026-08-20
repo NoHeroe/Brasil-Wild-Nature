@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import hero from '../../assets/hero-onca.jpg';
+import { getLocale, useTranslations, pathTo } from '../../i18n/utils';
+import { waLink } from '../../lib/links';
+import Icon from '../Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const wa = waLink(t('wa.home'));
+const destinos = `${pathTo('home', locale)}#destinos`;
+---
+<section class="relative min-h-[100svh] flex items-end overflow-hidden" id="top">
+  <div class="absolute inset-0">
+    <Picture
+      src={hero}
+      formats={['avif', 'webp']}
+      alt={t('alt.hero')}
+      widths={[540, 800, 1200, 1800]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="h-full w-full object-cover object-[50%_35%]"
+      pictureAttributes={{ class: 'absolute inset-0 block h-full w-full' }}
+    />
+    <div class="absolute inset-0" style="background:linear-gradient(to top, var(--color-igapo) 4%, color-mix(in oklab, var(--color-igapo) 55%, transparent) 34%, transparent 68%);"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(120% 80% at 80% 10%, transparent 40%, color-mix(in oklab, var(--color-igapo) 45%, transparent) 100%);"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-16 sm:pb-24 pt-28">
+    <p class="eyebrow" data-reveal>{t('hero.kicker')}</p>
+    <h1 class="mt-3 font-display font-semibold text-osso text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-7xl max-w-[16ch]" data-reveal>
+      {t('hero.title')}
+    </h1>
+    <p class="mt-5 max-w-xl text-lg text-osso/90" data-reveal>{t('hero.sub')}</p>
+    <div class="mt-8 flex flex-wrap items-center gap-3" data-reveal>
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-lg bg-sol px-6 py-3 font-semibold text-[color:var(--color-sol-escuro)] hover:brightness-95 transition">
+          <Icon name="whatsapp" size={20} /> {t('cta.orcamento')}
+        </a>
+      )}
+      <a href={destinos}
+         class="inline-flex items-center gap-2 rounded-lg border border-osso/30 px-6 py-3 font-semibold text-osso hover:border-sol hover:text-sol transition">
+        {t('cta.verDestinos')} <Icon name="arrow" size={18} />
+      </a>
+    </div>
+  </div>
+</section>

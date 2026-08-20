@@ -1,0 +1,22 @@
+---
+import { getLocale, useTranslations } from '../i18n/utils';
+import { waLink } from '../lib/links';
+import Icon from './Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const wa = waLink(t('wa.home'));
+---
+{wa && (
+  <a
+    href={wa}
+    target="_blank"
+    rel="noopener"
+    aria-label={t('cta.whats')}
+    class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 inline-flex items-center justify-center
+           w-14 h-14 rounded-full bg-sol text-[color:var(--color-sol-escuro)] shadow-lg shadow-black/40
+           hover:scale-105 active:scale-95 transition-transform"
+  >
+    <Icon name="whatsapp" size={30} />
+  </a>
+)}

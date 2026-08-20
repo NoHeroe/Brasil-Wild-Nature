@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Brasil Wild Nature — tokens de design
+   Paleta tirada do bioma: água de rio, arenito, aguapé, hora dourada, onça.
+   ========================================================================== */
+@theme {
+  /* Cores */
+  --color-igapo: #17120e;      /* fundo (água escura de rio) */
+  --color-barro: #241a13;      /* superfícies elevadas */
+  --color-barro-2: #2e2219;    /* superfícies / trilhos */
+  --color-osso: #ece3d2;       /* texto claro */
+  --color-osso-dim: #b9ae99;   /* texto secundário */
+  --color-arenito: #c08552;    /* estrutura / hairlines / labels */
+  --color-aguape: #7c894f;     /* verde da cheia (secundário) */
+  --color-sol: #e3a24b;        /* âmbar hora dourada — acento / CTA */
+  --color-sol-escuro: #20160b; /* texto sobre o âmbar */
+  --color-colhereiro: #ce6e7a; /* pop raro (rosa colhereiro/ipê) */
+
+  /* Tipografia */
+  --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Instrument Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "Cascadia Code", monospace;
+
+  /* Larguras / ritmo */
+  --spacing-header: 4.5rem;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { scroll-behavior: auto; }
+}
+
+html {
+  /* compensa o header fixo ao ancorar */
+  scroll-padding-top: var(--spacing-header);
+}
+
+body {
+  background-color: var(--color-igapo);
+  color: var(--color-osso);
+  font-family: var(--font-sans);
+  font-size: 1rem;            /* nunca abaixo de 16px no corpo */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+  overflow-x: hidden;         /* nunca scroll horizontal na página */
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Alvos de toque e foco acessível */
+a, button { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible {
+  outline: 2px solid var(--color-sol);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Pular para o conteúdo (teclado) */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  z-index: 100;
+  background: var(--color-sol);
+  color: var(--color-sol-escuro);
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* ==========================================================================
+   Utilitários próprios
+   ========================================================================== */
+
+/* Rótulo "dado de campo" (mono) */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-arenito);
+}
+
+/* Largura de leitura */
+.prose-measure { max-width: 46rem; }
+
+/* Reveal no scroll — sutil, respeita reduced-motion */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}

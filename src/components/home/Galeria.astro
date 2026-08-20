@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import arara from '../../assets/arara.jpg';
+import sunset from '../../assets/sunset.jpg';
+import pantanal from '../../assets/destino-pantanal.jpg';
+import chapada from '../../assets/destino-chapada.jpg';
+import tucano from '../../assets/gallery/tucano.jpg';
+import oncaPedra from '../../assets/gallery/onca-pedra.jpg';
+import filhotes from '../../assets/gallery/filhotes.jpg';
+import jacare from '../../assets/gallery/jacare.jpg';
+import { getLocale, useTranslations } from '../../i18n/utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+
+const shots = [
+  { img: oncaPedra, alt: t('alt.oncaPedra') },
+  { img: arara, alt: t('alt.arara') },
+  { img: pantanal, alt: t('alt.pantanal') },
+  { img: sunset, alt: t('alt.sunset') },
+  { img: filhotes, alt: t('alt.filhotes') },
+  { img: chapada, alt: t('alt.chapada') },
+  { img: tucano, alt: t('alt.tucano') },
+  { img: jacare, alt: t('alt.jacare') },
+];
+---
+<section id="galeria" class="mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28 scroll-mt-20">
+  <div class="max-w-3xl" data-reveal>
+    <p class="eyebrow">{t('nav.galeria')}</p>
+    <h2 class="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl text-osso">{t('galeria.title')}</h2>
+    <p class="mt-4 text-osso-dim">{t('galeria.lead')}</p>
+  </div>
+
+  <div class="mt-10 gap-4 columns-2 md:columns-3 lg:columns-4" data-reveal>
+    {shots.map((s) => (
+      <figure class="mb-4 break-inside-avoid overflow-hidden rounded-xl border border-osso/10 bg-barro">
+        <Picture
+          src={s.img}
+          formats={['avif', 'webp']}
+          alt={s.alt}
+          widths={[300, 500, 700]}
+          sizes="(max-width: 768px) 50vw, 25vw"
+          loading="lazy"
+          class="w-full object-cover transition-transform duration-700 hover:scale-105"
+        />
+      </figure>
+    ))}
+  </div>
+</section>

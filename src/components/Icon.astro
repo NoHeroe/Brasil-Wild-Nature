@@ -1,0 +1,36 @@
+---
+interface Props {
+  name: 'whatsapp' | 'instagram' | 'menu' | 'close' | 'arrow' | 'rosette' | 'mail' | 'globe';
+  class?: string;
+  size?: number;
+}
+const { name, class: className = '', size = 24 } = Astro.props;
+const common = { width: size, height: size, viewBox: '0 0 24 24', 'aria-hidden': 'true', class: className };
+---
+{name === 'whatsapp' && (
+  <svg {...common} fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.7-.83-1.95-.93-.26-.1-.45-.15-.64.15-.19.28-.73.92-.9 1.11-.16.19-.33.21-.61.07-1.66-.83-2.75-1.48-3.85-3.36-.29-.5.29-.46.83-1.54.09-.19.05-.35-.02-.49-.07-.14-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.38s1.02 2.76 1.17 2.95c.14.19 2.01 3.06 4.87 4.29 1.81.78 2.52.85 3.43.71.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33Z"/><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+)}
+{name === 'instagram' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+)}
+{name === 'mail' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+)}
+{name === 'menu' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+)}
+{name === 'close' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+)}
+{name === 'arrow' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+)}
+{name === 'globe' && (
+  <svg {...common} fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+)}
+{name === 'rosette' && (
+  <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" class={className} fill="none" stroke="currentColor" stroke-width="1.4">
+    <circle cx="50" cy="50" r="9"/>
+    <path d="M50 30a7 7 0 1 0 .1 0M70 44a7 7 0 1 0 .1 0M64 68a7 7 0 1 0 .1 0M36 68a7 7 0 1 0 .1 0M30 44a7 7 0 1 0 .1 0"/>
+  </svg>
+)}

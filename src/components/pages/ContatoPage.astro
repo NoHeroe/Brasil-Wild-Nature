@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../config/site';
+import { getLocale, useTranslations } from '../../i18n/utils';
+import { waLink, mailLink } from '../../lib/links';
+import ContactForm from '../ContactForm.astro';
+import Icon from '../Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const wa = waLink(t('wa.home'));
+const mail = mailLink();
+---
+<Base title={t('contato.title')} description={t('contato.lead')} pageKey="contato">
+  <section class="mx-auto max-w-3xl px-4 pb-8 pt-36 sm:px-6">
+    <p class="eyebrow" data-reveal>{t('contato.kicker')}</p>
+    <h1 class="mt-3 font-display text-4xl text-osso sm:text-5xl" data-reveal>{t('contato.title')}</h1>
+    <p class="prose-measure mt-4 text-lg text-osso/90" data-reveal>{t('contato.lead')}</p>
+
+    <div class="mt-8 flex flex-wrap gap-3" data-reveal>
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-lg bg-sol px-6 py-3 font-semibold text-[color:var(--color-sol-escuro)] transition hover:brightness-95">
+          <Icon name="whatsapp" size={20} /> {site.contact.whatsappDisplay}
+        </a>
+      )}
+      {mail && (
+        <a href={mail}
+           class="inline-flex items-center gap-2 rounded-lg border border-osso/25 px-6 py-3 font-semibold text-osso transition hover:border-sol hover:text-sol">
+          <Icon name="mail" size={20} /> {site.contact.email}
+        </a>
+      )}
+    </div>
+    <p class="mt-4 font-mono text-xs text-osso-dim">{site.region}</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-24 sm:px-6" data-reveal>
+    <h2 class="mb-6 font-display text-2xl text-osso">{t('contato.formTitle')}</h2>
+    <ContactForm />
+  </section>
+</Base>

@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getLocale, useTranslations } from '../../i18n/utils';
+import { waLink } from '../../lib/links';
+import Icon from '../Icon.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const wa = waLink(t('wa.home'));
+const blocks = [
+  { title: t('sobre.b1.title'), body: t('sobre.b1.body') },
+  { title: t('sobre.b2.title'), body: t('sobre.b2.body') },
+  { title: t('sobre.b3.title'), body: t('sobre.b3.body') },
+];
+---
+<Base title={t('sobre.title')} description={t('sobre.lead')} pageKey="sobre">
+  <section class="mx-auto max-w-3xl px-4 pb-16 pt-36 sm:px-6">
+    <p class="eyebrow" data-reveal>{t('sobre.kicker')}</p>
+    <h1 class="mt-3 font-display text-4xl text-osso sm:text-5xl" data-reveal>{t('sobre.title')}</h1>
+    <p class="prose-measure mt-6 text-lg leading-relaxed text-osso/90" data-reveal>{t('sobre.lead')}</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl space-y-10 px-4 pb-20 sm:px-6">
+    {blocks.map((b, i) => (
+      <div class="border-l-2 border-sol/40 pl-5" data-reveal style={`transition-delay:${i * 80}ms`}>
+        <h2 class="font-display text-2xl text-osso">{b.title}</h2>
+        <p class="mt-2 leading-relaxed text-osso-dim">{b.body}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="border-t border-osso/10">
+    <div class="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
+      <p class="mx-auto max-w-xl font-mono text-xs leading-relaxed text-osso-dim">{t('footer.disclaimer')}</p>
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener"
+           class="mt-6 inline-flex items-center gap-2 rounded-lg bg-sol px-6 py-3 font-semibold text-[color:var(--color-sol-escuro)] transition hover:brightness-95">
+          <Icon name="whatsapp" size={20} /> {t('cta.orcamento')}
+        </a>
+      )}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,104 @@
+---
+import '../styles/global.css';
+import '@fontsource-variable/newsreader';
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+
+import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n/utils';
+import { LOCALE_META } from '../i18n/config';
+import { alternatesFor, localizedPath, type PageKey } from '../i18n/routes';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pageKey: PageKey;
+  ogImage?: string;
+  jsonLd?: object | object[];
+}
+const { title, description, pageKey, ogImage, jsonLd } = Astro.props;
+const jsonLdArr = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const meta = LOCALE_META[locale];
+const baseUrl = site.url.replace(/\/$/, '');
+const canonical = baseUrl + localizedPath(pageKey, locale);
+const alternates = alternatesFor(pageKey, site.url);
+const fullTitle = pageKey === 'home' ? title : `${title} · ${site.name}`;
+const ogImageUrl = ogImage ? new URL(ogImage, baseUrl + '/').href : undefined;
+---
+<!doctype html>
+<html lang={meta.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#17120e" />
+    <meta name="robots" content="index, follow" />
+
+    {/* hreflang para todas as línguas + x-default */}
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {jsonLdArr.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('skip')}</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+
+    <script>
+      // Reveal sutil no scroll (respeita prefers-reduced-motion via CSS)
+      const els = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && els.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // Header ganha fundo ao rolar
+      const header = document.getElementById('site-header');
+      const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
+  </body>
+</html>

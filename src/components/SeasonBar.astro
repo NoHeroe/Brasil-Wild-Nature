@@ -1,0 +1,23 @@
+---
+import { getLocale, useTranslations } from '../i18n/utils';
+
+interface Props {
+  months: number[]; // 1..12 destacados (pico)
+}
+const { months } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const letters = t('months').split(',');
+const peak = new Set(months);
+---
+<div>
+  <p class="eyebrow">{t('season.title')}</p>
+  <div class="mt-2 grid grid-cols-12 gap-1" aria-hidden="true">
+    {letters.map((l) => <div class="text-center font-mono text-[10px] text-osso-dim">{l}</div>)}
+  </div>
+  <div class="mt-1 grid grid-cols-12 gap-1">
+    {letters.map((_, i) => (
+      <div class:list={['h-5 rounded-sm', peak.has(i + 1) ? 'bg-sol' : 'bg-barro-2']}></div>
+    ))}
+  </div>
+</div>

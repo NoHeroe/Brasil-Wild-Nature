@@ -1,0 +1,26 @@
+---
+import { LOCALES, LOCALE_META } from '../i18n/config';
+import { translatePath } from '../i18n/routes';
+import { getLocale, useTranslations } from '../i18n/utils';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const current = Astro.url.pathname;
+---
+<nav aria-label={t('lang.title')} class="flex items-center gap-1 font-mono text-xs">
+  {LOCALES.map((loc) => {
+    const active = loc === locale;
+    return (
+      <a
+        href={translatePath(current, loc)}
+        hreflang={LOCALE_META[loc].htmlLang}
+        aria-current={active ? 'true' : undefined}
+        title={LOCALE_META[loc].label}
+        class:list={[
+          'px-1.5 py-1 rounded transition-colors',
+          active ? 'text-sol font-bold' : 'text-osso-dim hover:text-osso',
+        ]}
+      >{LOCALE_META[loc].short}</a>
+    );
+  })}
+</nav>

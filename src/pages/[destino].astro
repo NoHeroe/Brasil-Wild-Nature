@@ -1,0 +1,12 @@
+---
+import DestinoPage from '../components/pages/DestinoPage.astro';
+export function getStaticPaths() {
+  return [
+    { params: { destino: 'pantanal' } },
+    { params: { destino: 'chapada' } },
+    { params: { destino: 'nobres' } },
+  ];
+}
+const { destino } = Astro.params;
+---
+<DestinoPage destino={destino as 'pantanal' | 'chapada' | 'nobres'} />

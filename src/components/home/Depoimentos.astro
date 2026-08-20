@@ -1,0 +1,32 @@
+---
+import { getLocale, useTranslations } from '../../i18n/utils';
+import { testimonials } from '../../data/testimonials';
+
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+---
+<section class="border-y border-osso/10 bg-barro">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28">
+    <div class="max-w-3xl" data-reveal>
+      <p class="eyebrow">{t('depo.kicker')}</p>
+      <h2 class="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl text-osso">{t('depo.title')}</h2>
+      <p class="mt-3 font-mono text-xs text-osso-dim">{t('depo.note')}</p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {testimonials.slice(0, 6).map((d, i) => (
+        <figure
+          class="flex flex-col rounded-2xl border border-osso/10 bg-[color:var(--color-igapo)] p-6"
+          data-reveal
+          style={`transition-delay:${i * 70}ms`}
+        >
+          <div class="mb-3 text-sol" aria-label={`${d.rating} de 5`}>{'★'.repeat(d.rating)}</div>
+          <blockquote class="flex-1 leading-relaxed text-osso/90">“{d.text}”</blockquote>
+          <figcaption class="mt-4 font-mono text-xs text-osso-dim">
+            {d.author} · {d.source}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

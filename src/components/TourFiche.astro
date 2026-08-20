@@ -1,0 +1,107 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getLocale, useTranslations } from '../i18n/utils';
+import { waLink } from '../lib/links';
+import { tourImages } from '../lib/tourImages';
+import Icon from './Icon.astro';
+import SeasonBar from './SeasonBar.astro';
+
+interface Props {
+  entry: CollectionEntry<'tours'>;
+  fallbackImg?: ImageMetadata;
+}
+const { entry, fallbackImg } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const d = entry.data;
+const { Content } = await render(entry);
+const img = tourImages[d.tour] ?? fallbackImg;
+const wa = waLink(`${t('wa.interest')} ${d.title}`);
+const na = t('ficha.confirmar');
+---
+<article id={d.tour} class="scroll-mt-24 overflow-hidden rounded-2xl border border-osso/10 bg-barro" data-reveal>
+  <div class="grid md:grid-cols-2">
+    {img && (
+      <div class="relative aspect-[4/3] overflow-hidden bg-barro-2 md:aspect-auto">
+        <Image src={img} alt={d.title} widths={[400, 700, 1000]} sizes="(max-width: 768px) 100vw, 42vw"
+               class="h-full w-full object-cover" loading="lazy" />
+        {d.premium && (
+          <span class="absolute left-3 top-3 rounded-full bg-sol px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[color:var(--color-sol-escuro)]">
+            {t('ficha.premium')}
+          </span>
+        )}
+      </div>
+    )}
+
+    <div class="p-6 sm:p-8">
+      <h3 class="font-display text-2xl text-osso sm:text-3xl">{d.title}</h3>
+      <p class="mt-2 text-osso-dim">{d.summary}</p>
+      <div class="mt-4 leading-relaxed text-osso/90"><Content /></div>
+
+      <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-y border-dashed border-osso/20 py-4 font-mono text-xs">
+        <div><dt class="text-arenito">{t('ficha.duracao')}</dt><dd class="mt-0.5 text-osso">{d.duration ?? na}</dd></div>
+        <div><dt class="text-arenito">{t('ficha.esforco')}</dt><dd class="mt-0.5 text-osso">{d.effort ?? na}</dd></div>
+        <div><dt class="text-arenito">{t('ficha.epoca')}</dt><dd class="mt-0.5 text-osso">{d.season ?? na}</dd></div>
+        <div><dt class="text-arenito">{t('ficha.preco')}</dt><dd class="mt-0.5 text-osso">{t('ficha.precoValor')}</dd></div>
+        <div class="col-span-2"><dt class="text-arenito">{t('ficha.encontro')}</dt><dd class="mt-0.5 text-osso">{d.meeting ?? na}</dd></div>
+      </dl>
+
+      {d.species.length > 0 && (
+        <div class="mt-5">
+          <p class="eyebrow">{t('ficha.especies')}</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {d.species.map((s) => (
+              <span class="rounded-full border border-arenito/60 px-3 py-1 font-mono text-[11px] text-arenito">{s}</span>
+            ))}
+          </div>
+          <p class="mt-3 inline-block -rotate-1 rounded border border-dashed border-colhereiro/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-colhereiro">
+            {t('ficha.disclaimer')}
+          </p>
+        </div>
+      )}
+
+      <div class="mt-5 grid gap-5 text-sm sm:grid-cols-3">
+        <div>
+          <p class="eyebrow text-aguape">{t('ficha.inclui')}</p>
+          <ul class="mt-2 space-y-1 text-osso/85">{d.includes.map((x) => <li>+ {x}</li>)}</ul>
+        </div>
+        {d.excludes.length > 0 && (
+          <div>
+            <p class="eyebrow">{t('ficha.naoInclui')}</p>
+            <ul class="mt-2 space-y-1 text-osso-dim">{d.excludes.map((x) => <li>– {x}</li>)}</ul>
+          </div>
+        )}
+        <div>
+          <p class="eyebrow">{t('ficha.levar')}</p>
+          <ul class="mt-2 space-y-1 text-osso/85">{d.bring.map((x) => <li>· {x}</li>)}</ul>
+        </div>
+      </div>
+
+      {d.seasonMonths && d.seasonMonths.length > 0 && (
+        <div class="mt-6"><SeasonBar months={d.seasonMonths} /></div>
+      )}
+
+      {d.notice && (
+        <p class="mt-6 flex items-start gap-2 rounded-lg border border-colhereiro/40 bg-colhereiro/10 p-3 text-xs leading-relaxed text-osso/90">
+          <Icon name="rosette" size={16} class="mt-0.5 shrink-0 text-colhereiro" /> <span>{d.notice}</span>
+        </p>
+      )}
+
+      {wa && (
+        <div class="mt-6">
+          <a href={wa} target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 rounded-lg bg-sol px-5 py-2.5 text-sm font-semibold text-[color:var(--color-sol-escuro)] transition hover:brightness-95">
+            <Icon name="whatsapp" size={18} /> {t('cta.orcamento')}
+          </a>
+        </div>
+      )}
+
+      {d.confirm && (
+        <p class="mt-4 font-mono text-[10px] text-osso-dim/60">* {t('ficha.confirmar')}</p>
+      )}
+    </div>
+  </div>
+</article>

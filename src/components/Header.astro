@@ -27,10 +27,10 @@ const navMobile = [
   class="fixed top-0 inset-x-0 z-50 transition-colors duration-300"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 h-[var(--spacing-header)]">
-    <a href={home} class="flex items-center gap-2 group" aria-label="Brasil Wild Nature — início">
+    <a href={home} class="flex items-center gap-2 group" aria-label="Brazil Wild Nature — início">
       <Icon name="rosette" size={26} class="text-sol shrink-0" />
       <span class="font-display text-lg sm:text-xl font-semibold tracking-wide text-osso leading-none">
-        Brasil <span class="text-sol">Wild</span> Nature
+        Brazil <span class="text-sol">Wild</span> Nature
       </span>
     </a>
 
@@ -63,8 +63,7 @@ const navMobile = [
   <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
     <div id="menu-backdrop" class="absolute inset-0 bg-black/60"></div>
     <div id="menu-panel"
-      class="absolute right-0 top-0 h-full w-[80%] max-w-xs bg-barro border-l border-osso/10 p-6 pt-5
-             translate-x-full transition-transform duration-300 ease-out flex flex-col">
+      class="menu-panel absolute right-0 top-0 h-full w-[80%] max-w-xs bg-barro border-l border-osso/10 p-6 pt-5 flex flex-col">
       <div class="flex items-center justify-between mb-8">
         <span class="eyebrow">{t('lang.title')}</span>
         <button id="menu-close" type="button" class="w-11 h-11 -mr-2 inline-flex items-center justify-center rounded-lg text-osso" aria-label={t('menu.close')}>
@@ -94,7 +93,10 @@ const navMobile = [
     backdrop-filter: blur(8px);
     border-bottom: 1px solid color-mix(in oklab, var(--color-osso) 10%, transparent);
   }
-  #mobile-menu:not(.hidden) #menu-panel { transform: none; }
+  /* Painel controlado por transform (evita conflito com a prop. `translate` do Tailwind v4) */
+  .menu-panel { transform: translateX(100%); transition: transform .3s ease-out; }
+  #mobile-menu:not(.hidden) .menu-panel { transform: translateX(0); }
+  @media (prefers-reduced-motion: reduce) { .menu-panel { transition: none; } }
 </style>
 
 <script>

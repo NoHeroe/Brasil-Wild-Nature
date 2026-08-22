@@ -1,4 +1,4 @@
-# Brasil Wild Nature — site
+# Brazil Wild Nature — site
 
 Site de turismo ecológico (Pantanal, Chapada dos Guimarães e Nobres), em 4 idiomas (PT, EN, DE, ES). Feito em **Astro + Tailwind**, publica de graça no **Cloudflare Pages**.
 
@@ -117,7 +117,7 @@ npm run build
 4. Em **Settings → Environment variables**, adicione `PUBLIC_FORM_KEY`.
 5. **Deploy**. Cada atualização é só subir de novo (ou dar `git push`).
 
-**Domínio próprio:** em **Custom domains**, aponte seu domínio (ex.: `brasilwildnature.com`).
+**Domínio próprio:** em **Custom domains**, aponte seu domínio (ex.: `brazilwildjaguars.com`).
 
 ### Ativar o formulário de contato
 1. Entre em [web3forms.com](https://web3forms.com), informe o **e-mail que vai receber os contatos** e copie o **Access Key**.

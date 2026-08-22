@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// Domínio final: TODO(cliente) — trocar quando definir (ex.: brasilwildnature.com)
-const SITE = 'https://brasilwildnature.com';
+// Domínio final do site.
+const SITE = 'https://brazilwildjaguars.com';
 
 export default defineConfig({
   site: SITE,

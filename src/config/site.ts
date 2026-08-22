@@ -8,12 +8,12 @@
  */
 
 export const site = {
-  name: 'Brasil Wild Nature',
-  /** Domínio final. TODO(cliente): confirmar. */
-  url: 'https://brasilwildnature.com',
+  name: 'Brazil Wild Nature',
+  /** Domínio final do site. */
+  url: 'https://brazilwildjaguars.com',
 
   /** Local/base de operação (aparece no rodapé e no SEO). */
-  region: 'Chapada dos Guimarães · Pantanal · Nobres — Mato Grosso, Brasil',
+  region: 'Chapada dos Guimarães · Pantanal · Nobres — Mato Grosso, Brazil',
 
   contact: {
     /**

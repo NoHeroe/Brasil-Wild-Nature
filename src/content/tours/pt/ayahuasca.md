@@ -23,4 +23,4 @@ notice: "Vivência conduzida por facilitadores autorizados, com triagem prévia 
 confirm: true
 ---
 
-Uma vivência de tradição, em ambiente preparado e com acolhimento antes, durante e depois. Não é passeio turístico: exige triagem e disposição para a experiência. A condução é de equipe autorizada; a Brasil Wild Nature faz a ponte e a logística.
+Uma vivência de tradição, em ambiente preparado e com acolhimento antes, durante e depois. Não é passeio turístico: exige triagem e disposição para a experiência. A condução é de equipe autorizada; a Brazil Wild Nature faz a ponte e a logística.

@@ -29,7 +29,7 @@ export const ui = {
     'hero.sub': 'Turismo ecológico conduzido por quem lê a mata: fauna, flora e os rios de Mato Grosso, de perto e com quem conhece.',
     'hero.scroll': 'Role para explorar',
 
-    'pillars.kicker': 'Por que a Brasil Wild Nature',
+    'pillars.kicker': 'Por que a Brazil Wild Nature',
     'pillars.title': 'Não é uma van com motorista. É natureza com quem entende dela.',
     'pillars.p1.title': 'Conhecimento de verdade',
     'pillars.p1.desc': 'Leitura de fauna e flora no campo — nomes, comportamento, rastros e a hora certa de cada bicho.',
@@ -81,7 +81,7 @@ export const ui = {
     'alt.filhotes': 'Dois filhotes de onça-pintada brincando sobre um tronco',
     'alt.jacare': 'Jacaré com a boca aberta na superfície da água',
 
-    'wa.home': 'Olá! Vim pelo site e quero saber mais sobre os roteiros da Brasil Wild Nature.',
+    'wa.home': 'Olá! Vim pelo site e quero saber mais sobre os roteiros da Brazil Wild Nature.',
     'wa.interest': 'Olá! Tenho interesse no destino:',
 
     'ficha.duracao': 'Duração',
@@ -104,7 +104,7 @@ export const ui = {
     'destino.intro.pantanal': 'A maior planície alagável do planeta e o melhor lugar do mundo para ver a onça-pintada na natureza. Na seca, o rio baixa e a vida se concentra nas margens.',
     'destino.intro.chapada': 'O planalto que ergue o cerrado a 800 metros: cânions de arenito, cavernas, lagoa azul, cachoeiras e mirantes de tirar o fôlego.',
     'destino.intro.nobres': 'Nascentes de calcário que deixam a água quase invisível. Você flutua rio abaixo entre cardumes, como num aquário natural.',
-    'sobre.kicker': 'Sobre a Brasil Wild Nature',
+    'sobre.kicker': 'Sobre a Brazil Wild Nature',
     'sobre.title': 'Natureza com quem entende dela',
     'sobre.lead': 'Somos uma agência de turismo ecológico de Mato Grosso. Trabalhamos com quem lê a mata de verdade — não motorista com van, e sim naturalista que conhece fauna, flora e o tempo de cada bicho.',
     'sobre.b1.title': 'Conhecimento de campo',
@@ -131,7 +131,7 @@ export const ui = {
     'form.selecione': 'Selecione…',
     'form.opcaoNaoSei': 'Ainda não sei',
     'form.privacidade': 'Usamos seus dados só para responder este contato. Nada de spam.',
-    'form.subject': 'Novo contato pelo site — Brasil Wild Nature',
+    'form.subject': 'Novo contato pelo site — Brazil Wild Nature',
     'alt.pedra': 'Paredões de arenito da Cidade de Pedra, na Chapada dos Guimarães',
     'alt.geronimo': 'Vista panorâmica do Morro São Jerônimo, na Chapada dos Guimarães',
     'lightbox.close': 'Fechar',
@@ -163,7 +163,7 @@ export const ui = {
     'hero.sub': 'Ecological tours led by someone who reads the wild: the wildlife, plants and rivers of Mato Grosso, up close.',
     'hero.scroll': 'Scroll to explore',
 
-    'pillars.kicker': 'Why Brasil Wild Nature',
+    'pillars.kicker': 'Why Brazil Wild Nature',
     'pillars.title': 'Not a van with a driver. Nature, with someone who truly knows it.',
     'pillars.p1.title': 'Real knowledge',
     'pillars.p1.desc': 'Reading wildlife and plants in the field — names, behaviour, tracks and the right moment for each animal.',
@@ -215,7 +215,7 @@ export const ui = {
     'alt.filhotes': 'Two jaguar cubs playing on a fallen tree',
     'alt.jacare': 'Caiman with its mouth open at the water surface',
 
-    'wa.home': 'Hello! I came from your website and would like to know more about Brasil Wild Nature tours.',
+    'wa.home': 'Hello! I came from your website and would like to know more about Brazil Wild Nature tours.',
     'wa.interest': 'Hello! I am interested in the destination:',
 
     'ficha.duracao': 'Duration',
@@ -238,7 +238,7 @@ export const ui = {
     'destino.intro.pantanal': "The planet's largest wetland and the best place in the world to see the jaguar in the wild. In the dry season the river drops and life gathers along the banks.",
     'destino.intro.chapada': 'The plateau that lifts the cerrado to 800 metres: sandstone canyons, caves, a blue lagoon, waterfalls and breathtaking lookouts.',
     'destino.intro.nobres': 'Limestone springs that turn the water almost invisible. You drift downriver among shoals of fish, as in a natural aquarium.',
-    'sobre.kicker': 'About Brasil Wild Nature',
+    'sobre.kicker': 'About Brazil Wild Nature',
     'sobre.title': 'Nature, with someone who truly knows it',
     'sobre.lead': 'We are an ecological tourism agency in Mato Grosso, Brazil. We work the way a naturalist does — not a driver with a van, but someone who knows the wildlife, the plants and the timing of every animal.',
     'sobre.b1.title': 'Field knowledge',
@@ -265,7 +265,7 @@ export const ui = {
     'form.selecione': 'Select…',
     'form.opcaoNaoSei': 'Not sure yet',
     'form.privacidade': 'We use your details only to reply to this message. No spam.',
-    'form.subject': 'New website enquiry — Brasil Wild Nature',
+    'form.subject': 'New website enquiry — Brazil Wild Nature',
     'alt.pedra': 'Sandstone cliffs of Cidade de Pedra, in Chapada dos Guimarães',
     'alt.geronimo': 'Panoramic view of Morro São Jerônimo, in Chapada dos Guimarães',
     'lightbox.close': 'Close',
@@ -297,7 +297,7 @@ export const ui = {
     'hero.sub': 'Ökotouren, geführt von jemandem, der die Wildnis liest: Tiere, Pflanzen und Flüsse von Mato Grosso, hautnah.',
     'hero.scroll': 'Zum Entdecken scrollen',
 
-    'pillars.kicker': 'Warum Brasil Wild Nature',
+    'pillars.kicker': 'Warum Brazil Wild Nature',
     'pillars.title': 'Kein Van mit Fahrer. Natur, mit jemandem, der sie wirklich kennt.',
     'pillars.p1.title': 'Echtes Wissen',
     'pillars.p1.desc': 'Tiere und Pflanzen im Feld lesen — Namen, Verhalten, Spuren und der richtige Moment für jedes Tier.',
@@ -349,7 +349,7 @@ export const ui = {
     'alt.filhotes': 'Zwei Jaguar-Jungtiere spielen auf einem umgestürzten Baum',
     'alt.jacare': 'Kaiman mit geöffnetem Maul an der Wasseroberfläche',
 
-    'wa.home': 'Hallo! Ich komme über Ihre Website und möchte mehr über die Touren von Brasil Wild Nature erfahren.',
+    'wa.home': 'Hallo! Ich komme über Ihre Website und möchte mehr über die Touren von Brazil Wild Nature erfahren.',
     'wa.interest': 'Hallo! Ich interessiere mich für das Reiseziel:',
 
     'ficha.duracao': 'Dauer',
@@ -372,7 +372,7 @@ export const ui = {
     'destino.intro.pantanal': 'Das größte Feuchtgebiet der Erde und der beste Ort weltweit, um den Jaguar in freier Wildbahn zu sehen. In der Trockenzeit sinkt der Fluss und das Leben sammelt sich an den Ufern.',
     'destino.intro.chapada': 'Das Hochplateau, das den Cerrado auf 800 Meter hebt: Sandstein-Canyons, Höhlen, eine blaue Lagune, Wasserfälle und atemberaubende Aussichtspunkte.',
     'destino.intro.nobres': 'Kalksteinquellen, die das Wasser fast unsichtbar machen. Du treibst flussabwärts zwischen Fischschwärmen wie in einem natürlichen Aquarium.',
-    'sobre.kicker': 'Über Brasil Wild Nature',
+    'sobre.kicker': 'Über Brazil Wild Nature',
     'sobre.title': 'Natur, mit jemandem, der sie wirklich kennt',
     'sobre.lead': 'Wir sind eine Agentur für Ökotourismus in Mato Grosso, Brasilien. Wir arbeiten wie ein Naturkundler — kein Fahrer mit Van, sondern jemand, der die Tiere, die Pflanzen und den richtigen Moment jedes Tieres kennt.',
     'sobre.b1.title': 'Wissen aus dem Feld',
@@ -399,7 +399,7 @@ export const ui = {
     'form.selecione': 'Auswählen…',
     'form.opcaoNaoSei': 'Weiß noch nicht',
     'form.privacidade': 'Wir nutzen deine Daten nur, um auf diese Nachricht zu antworten. Kein Spam.',
-    'form.subject': 'Neue Anfrage über die Website — Brasil Wild Nature',
+    'form.subject': 'Neue Anfrage über die Website — Brazil Wild Nature',
     'alt.pedra': 'Sandsteinfelsen der Cidade de Pedra, in Chapada dos Guimarães',
     'alt.geronimo': 'Panoramablick auf den Morro São Jerônimo, in Chapada dos Guimarães',
     'lightbox.close': 'Schließen',
@@ -431,7 +431,7 @@ export const ui = {
     'hero.sub': 'Turismo ecológico guiado por quien sabe leer la naturaleza: fauna, flora y los ríos de Mato Grosso, de cerca.',
     'hero.scroll': 'Desplázate para explorar',
 
-    'pillars.kicker': 'Por qué Brasil Wild Nature',
+    'pillars.kicker': 'Por qué Brazil Wild Nature',
     'pillars.title': 'No es una van con chofer. Es naturaleza con quien de verdad la conoce.',
     'pillars.p1.title': 'Conocimiento real',
     'pillars.p1.desc': 'Leer fauna y flora en el campo — nombres, comportamiento, rastros y el momento justo de cada animal.',
@@ -483,7 +483,7 @@ export const ui = {
     'alt.filhotes': 'Dos cachorros de jaguar jugando sobre un tronco caído',
     'alt.jacare': 'Yacaré con la boca abierta en la superficie del agua',
 
-    'wa.home': '¡Hola! Vengo desde su sitio web y quiero saber más sobre los recorridos de Brasil Wild Nature.',
+    'wa.home': '¡Hola! Vengo desde su sitio web y quiero saber más sobre los recorridos de Brazil Wild Nature.',
     'wa.interest': '¡Hola! Me interesa el destino:',
 
     'ficha.duracao': 'Duración',
@@ -506,7 +506,7 @@ export const ui = {
     'destino.intro.pantanal': 'La mayor llanura inundable del planeta y el mejor lugar del mundo para ver al jaguar en la naturaleza. En la seca el río baja y la vida se concentra en las orillas.',
     'destino.intro.chapada': 'La meseta que eleva el cerrado a 800 metros: cañones de arenisca, cuevas, laguna azul, cascadas y miradores impresionantes.',
     'destino.intro.nobres': 'Manantiales de caliza que vuelven el agua casi invisible. Flotas río abajo entre cardúmenes, como en un acuario natural.',
-    'sobre.kicker': 'Sobre Brasil Wild Nature',
+    'sobre.kicker': 'Sobre Brazil Wild Nature',
     'sobre.title': 'Naturaleza con quien de verdad la conoce',
     'sobre.lead': 'Somos una agencia de turismo ecológico de Mato Grosso, Brasil. Trabajamos como lo hace un naturalista — no un chofer con van, sino quien conoce la fauna, la flora y el momento de cada animal.',
     'sobre.b1.title': 'Conocimiento de campo',
@@ -533,7 +533,7 @@ export const ui = {
     'form.selecione': 'Seleccionar…',
     'form.opcaoNaoSei': 'Aún no lo sé',
     'form.privacidade': 'Usamos tus datos solo para responder este mensaje. Nada de spam.',
-    'form.subject': 'Nueva consulta desde el sitio — Brasil Wild Nature',
+    'form.subject': 'Nueva consulta desde el sitio — Brazil Wild Nature',
     'alt.pedra': 'Farallones de arenisca de la Cidade de Pedra, en Chapada dos Guimarães',
     'alt.geronimo': 'Vista panorámica del Morro São Jerônimo, en Chapada dos Guimarães',
     'lightbox.close': 'Cerrar',

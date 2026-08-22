@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brasilwildnature.com/sitemap-index.xml
+Sitemap: https://brazilwildjaguars.com/sitemap-index.xml

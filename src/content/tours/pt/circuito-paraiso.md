@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-paraiso
 title: "Circuito Paraíso (4 Cachoeiras)"
 summary: "Trilha leve, acessível para todas as idades, com cachoeiras próximas."
-order: 6
+order: 5
 duration: "3–5 h"
 effort: "Leve"
 season: "O ano todo"

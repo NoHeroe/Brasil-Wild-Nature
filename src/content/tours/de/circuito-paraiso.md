@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-paraiso
 title: "Paraíso-Rundweg (4 Wasserfälle)"
 summary: "Ein leichter Weg, für alle Altersgruppen geeignet, mit nahen Wasserfällen."
-order: 6
+order: 5
 duration: "3–5 h"
 effort: "Leicht"
 season: "Ganzjährig"

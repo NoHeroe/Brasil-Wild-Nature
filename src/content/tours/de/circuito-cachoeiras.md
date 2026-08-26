@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-cachoeiras
 title: "Rundweg der 5 Wasserfälle"
 summary: "Eine Abfolge von Wasserfällen und natürlichen Becken, mit Badestopps."
-order: 4
+order: 3
 duration: "5–7 h"
 effort: "Mittel"
 season: "Ganzjährig"

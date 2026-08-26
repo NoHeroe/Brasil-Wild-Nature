@@ -4,7 +4,7 @@ destino: chapada
 tour: cavernas-lagoa-azul
 title: "Höhlen und die Steinbrücke"
 summary: "Ein Rundweg durch Sandsteinhöhlen, eine blaue Lagune und die natürliche Steinbrücke."
-order: 1
+order: 6
 duration: "4–6 h"
 effort: "Leicht bis mittel"
 season: "Ganzjährig"

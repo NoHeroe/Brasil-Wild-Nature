@@ -2,28 +2,28 @@
 locale: pt
 destino: chapada
 tour: cidade-pedra-vale-rio-claro
-title: "Cidade de Pedra e Vale do Rio Claro"
-summary: "Mirantes, formações de arenito e flutuação, com trechos de 4x4."
-order: 3
+title: "Cidade de Pedra"
+summary: "As formações de arenito mais icônicas da Chapada, de 4x4 até os mirantes."
+order: 1
 duration: "Dia inteiro"
 effort: "Leve a moderado"
 season: "O ano todo"
 includes:
-  - "Guia e 4x4"
-  - "Máscara e snorkel, quando aplicável"
+  - "Guia"
+  - "Transporte 4x4"
   - "Água"
 excludes:
   - "Traslados e hospedagem"
   - "Refeições"
 bring:
   - "2 L de água e lanche"
-  - "Chinelo e toalha"
-  - "Protetor e repelente"
+  - "Calçado confortável"
+  - "Protetor, boné e casaco leve (para o pôr do sol)"
 species:
   - "Aves de paredão"
-  - "Peixes de rio"
-  - "Flora do cerrado"
+  - "Araras"
+  - "Flora rupestre"
 confirm: true
 ---
 
-As formações da Cidade de Pedra parecem uma cidade esculpida pelo tempo. Descemos ao Vale do Rio Claro para uma flutuação e emendamos mirantes e trechos de 4x4 — um dia inteiro percorrendo os contrastes do planalto.
+As paredes e torres de arenito da Cidade de Pedra parecem uma cidade esculpida pelo tempo. Subimos de 4x4 até os mirantes, com paradas para fotos e para ler a paisagem do alto do planalto — e, no fim do dia, um pôr do sol que abre o horizonte da Chapada.

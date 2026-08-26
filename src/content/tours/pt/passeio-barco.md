@@ -28,4 +28,4 @@ species:
 confirm: true
 ---
 
-Um passeio contemplativo pelos corixos e baías, no ritmo do rio. Bom para quem quer entender o Pantanal por dentro: a dinâmica da água, as aves de margem e a rotina dos bichos ao entardecer.
+Um passeio contemplativo pelos corixos e baías, no ritmo do rio. Bom para quem quer entender o Pantanal por dentro: a dinâmica da água, as aves de margem e a rotina dos animais ao entardecer.

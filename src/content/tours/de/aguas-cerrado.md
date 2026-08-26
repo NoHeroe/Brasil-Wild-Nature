@@ -4,7 +4,7 @@ destino: chapada
 tour: aguas-cerrado
 title: "Wasser des Cerrado (7 Wasserfälle)"
 summary: "Eine intensive Route durch Quellen, Canyons und Badebecken."
-order: 5
+order: 4
 duration: "6–8 h"
 effort: "Mittel"
 season: "Ganzjährig"

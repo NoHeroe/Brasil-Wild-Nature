@@ -4,7 +4,7 @@ destino: chapada
 tour: aguas-cerrado
 title: "Águas do Cerrado (7 Cachoeiras)"
 summary: "Percurso imersivo por nascentes, cânions e poços para banho."
-order: 5
+order: 4
 duration: "6–8 h"
 effort: "Moderado"
 season: "O ano todo"

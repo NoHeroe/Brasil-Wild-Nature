@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-paraiso
 title: "Circuito Paraíso (4 Cascadas)"
 summary: "Un sendero fácil, accesible para todas las edades, con cascadas cercanas."
-order: 6
+order: 5
 duration: "3–5 h"
 effort: "Ligero"
 season: "Todo el año"

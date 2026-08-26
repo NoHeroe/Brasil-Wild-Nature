@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-cachoeiras
 title: "Circuito de las 5 Cascadas"
 summary: "Una secuencia de cascadas y pozos naturales, con paradas para bañarse."
-order: 4
+order: 3
 duration: "5–7 h"
 effort: "Moderado"
 season: "Todo el año"

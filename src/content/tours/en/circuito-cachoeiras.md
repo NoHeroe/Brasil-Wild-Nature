@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-cachoeiras
 title: "The 5 Waterfalls Circuit"
 summary: "A sequence of waterfalls and natural pools, with stops to swim."
-order: 4
+order: 3
 duration: "5–7 h"
 effort: "Moderate"
 season: "Year-round"

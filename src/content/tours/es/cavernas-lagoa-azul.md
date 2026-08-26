@@ -4,7 +4,7 @@ destino: chapada
 tour: cavernas-lagoa-azul
 title: "Cuevas y el Puente de Piedra"
 summary: "Un circuito por cuevas de arenisca, laguna azul y el puente natural de piedra."
-order: 1
+order: 6
 duration: "4–6 h"
 effort: "Ligero a moderado"
 season: "Todo el año"

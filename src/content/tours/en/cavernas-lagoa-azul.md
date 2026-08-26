@@ -4,7 +4,7 @@ destino: chapada
 tour: cavernas-lagoa-azul
 title: "Caves and the Stone Bridge"
 summary: "A circuit through sandstone caves, a blue lagoon and the natural stone bridge."
-order: 1
+order: 6
 duration: "4–6 h"
 effort: "Light to moderate"
 season: "Year-round"

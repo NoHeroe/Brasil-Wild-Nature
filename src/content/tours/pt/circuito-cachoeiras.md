@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-cachoeiras
 title: "Circuito das 5 Cachoeiras"
 summary: "Sequência de cachoeiras e poços naturais, com paradas para banho."
-order: 4
+order: 3
 duration: "5–7 h"
 effort: "Moderado"
 season: "O ano todo"

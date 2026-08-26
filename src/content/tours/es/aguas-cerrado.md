@@ -4,7 +4,7 @@ destino: chapada
 tour: aguas-cerrado
 title: "Aguas del Cerrado (7 Cascadas)"
 summary: "Un recorrido inmersivo por manantiales, cañones y pozos para bañarse."
-order: 5
+order: 4
 duration: "6–8 h"
 effort: "Moderado"
 season: "Todo el año"

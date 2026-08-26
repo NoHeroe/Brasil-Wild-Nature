@@ -4,7 +4,7 @@ destino: chapada
 tour: cavernas-lagoa-azul
 title: "Cavernas e Ponte de Pedra"
 summary: "Circuito por cavernas de arenito, lagoa azul e a ponte natural de pedra."
-order: 1
+order: 6
 duration: "4–6 h"
 effort: "Leve a moderado"
 season: "O ano todo"

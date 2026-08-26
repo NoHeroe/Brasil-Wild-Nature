@@ -4,7 +4,7 @@ destino: chapada
 tour: circuito-paraiso
 title: "Paraíso Circuit (4 Waterfalls)"
 summary: "An easy trail, accessible to all ages, with waterfalls close by."
-order: 6
+order: 5
 duration: "3–5 h"
 effort: "Light"
 season: "Year-round"

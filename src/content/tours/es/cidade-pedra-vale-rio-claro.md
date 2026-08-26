@@ -2,28 +2,28 @@
 locale: es
 destino: chapada
 tour: cidade-pedra-vale-rio-claro
-title: "Cidade de Pedra y el Valle del Rio Claro"
-summary: "Miradores, formaciones de arenisca y flotación, con tramos 4x4."
-order: 3
+title: "Cidade de Pedra (Ciudad de Piedra)"
+summary: "Las formaciones de arenisca más icónicas de la Chapada, en 4x4 hasta los miradores."
+order: 1
 duration: "Día completo"
 effort: "Ligero a moderado"
 season: "Todo el año"
 includes:
-  - "Guía y 4x4"
-  - "Máscara y snorkel, cuando corresponda"
+  - "Guía"
+  - "Transporte 4x4"
   - "Agua"
 excludes:
   - "Traslados y alojamiento"
   - "Comidas"
 bring:
   - "2 L de agua y snack"
-  - "Chanclas y toalla"
-  - "Protector solar y repelente"
+  - "Calzado cómodo"
+  - "Protector, gorra y abrigo ligero (para el atardecer)"
 species:
   - "Aves de paredón"
-  - "Peces de río"
-  - "Flora del cerrado"
+  - "Guacamayos"
+  - "Flora rupestre"
 confirm: true
 ---
 
-Las formaciones de la Cidade de Pedra (Ciudad de Piedra) parecen una ciudad esculpida por el tiempo. Bajamos al Valle del Rio Claro para una flotación y encadenamos miradores y tramos 4x4 — un día entero recorriendo los contrastes de la meseta.
+Las paredes y torres de arenisca de la Cidade de Pedra parecen una ciudad esculpida por el tiempo. Subimos en 4x4 hasta los miradores, con paradas para fotos y para leer el paisaje desde lo alto de la meseta — y, al final del día, un atardecer que abre todo el horizonte de la Chapada.

@@ -4,7 +4,7 @@ destino: chapada
 tour: aguas-cerrado
 title: "Cerrado Waters (7 Waterfalls)"
 summary: "An immersive route through springs, canyons and pools to swim."
-order: 5
+order: 4
 duration: "6–8 h"
 effort: "Moderate"
 season: "Year-round"

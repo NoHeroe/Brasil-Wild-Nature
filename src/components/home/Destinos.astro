@@ -2,8 +2,7 @@
 import { Picture } from 'astro:assets';
 import pantanalImg from '../../assets/destino-pantanal.jpg';
 import chapadaImg from '../../assets/destino-chapada.jpg';
-import { getLocale, useTranslations } from '../../i18n/utils';
-import { waLink } from '../../lib/links';
+import { getLocale, useTranslations, pathTo } from '../../i18n/utils';
 import Icon from '../Icon.astro';
 
 const locale = getLocale(Astro.currentLocale);
@@ -11,6 +10,7 @@ const t = useTranslations(locale);
 
 const destinos = [
   {
+    key: 'pantanal' as const,
     img: pantanalImg,
     alt: t('alt.pantanal'),
     tag: t('destinos.pantanal.tag'),
@@ -19,6 +19,7 @@ const destinos = [
     featured: true,
   },
   {
+    key: 'chapada' as const,
     img: chapadaImg,
     alt: t('alt.chapada'),
     tag: t('destinos.chapada.tag'),
@@ -27,6 +28,7 @@ const destinos = [
     featured: false,
   },
   {
+    key: 'nobres' as const,
     img: null,
     alt: t('alt.nobres'),
     tag: t('destinos.nobres.tag'),
@@ -45,54 +47,49 @@ const destinos = [
   </div>
 
   <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-    {destinos.map((d, i) => {
-      const wa = waLink(`${t('wa.interest')} ${d.title}`);
-      return (
-        <article
-          class:list={[
-            'group relative flex flex-col overflow-hidden rounded-2xl border border-osso/10 bg-barro',
-            d.featured && 'md:col-span-2 lg:col-span-1',
-          ]}
-          data-reveal
-          style={`transition-delay:${i * 90}ms`}
-        >
-          <div class="relative aspect-[4/3] overflow-hidden bg-barro-2">
-            {d.img ? (
-              <Picture
-                src={d.img}
-                formats={['avif', 'webp']}
-                alt={d.alt}
-                widths={[400, 700, 1000]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                loading="lazy"
-                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            ) : (
-              <div class="flex h-full w-full flex-col items-center justify-center gap-3 text-osso-dim/60">
-                <Icon name="rosette" size={40} class="text-arenito/50" />
-                <span class="eyebrow text-arenito/70">{d.badge}</span>
-              </div>
-            )}
-            {d.featured && (
-              <span class="absolute left-3 top-3 rounded-full bg-sol px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[color:var(--color-sol-escuro)]">
-                {d.tag}
-              </span>
-            )}
-          </div>
+    {destinos.map((d, i) => (
+      <a
+        href={pathTo(d.key, locale)}
+        class:list={[
+          'group relative flex flex-col overflow-hidden rounded-2xl border border-osso/10 bg-barro transition-colors hover:border-sol/50 focus-visible:border-sol',
+          d.featured && 'md:col-span-2 lg:col-span-1',
+        ]}
+        data-reveal
+        style={`transition-delay:${i * 90}ms`}
+      >
+        <div class="relative aspect-[4/3] overflow-hidden bg-barro-2">
+          {d.img ? (
+            <Picture
+              src={d.img}
+              formats={['avif', 'webp']}
+              alt={d.alt}
+              widths={[400, 700, 1000]}
+              sizes="(max-width: 768px) 100vw, 33vw"
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div class="flex h-full w-full flex-col items-center justify-center gap-3 text-osso-dim/60">
+              <Icon name="rosette" size={40} class="text-arenito/50" />
+              <span class="eyebrow text-arenito/70">{d.badge}</span>
+            </div>
+          )}
+          {d.featured && (
+            <span class="absolute left-3 top-3 rounded-full bg-sol px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[color:var(--color-sol-escuro)]">
+              {d.tag}
+            </span>
+          )}
+        </div>
 
-          <div class="flex flex-1 flex-col p-5">
-            {!d.featured && <span class="eyebrow text-aguape">{d.tag}</span>}
-            <h3 class="mt-2 font-display text-2xl text-osso">{d.title}</h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-osso-dim">{d.desc}</p>
-            {wa && (
-              <a href={wa} target="_blank" rel="noopener"
-                 class="mt-5 inline-flex items-center gap-2 self-start text-sm font-semibold text-sol hover:gap-3 transition-all">
-                {t('cta.orcamento')} <Icon name="arrow" size={16} />
-              </a>
-            )}
-          </div>
-        </article>
-      );
-    })}
+        <div class="flex flex-1 flex-col p-5">
+          {!d.featured && <span class="eyebrow text-aguape">{d.tag}</span>}
+          <h3 class="mt-2 font-display text-2xl text-osso">{d.title}</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-osso-dim">{d.desc}</p>
+          <span class="mt-5 inline-flex items-center gap-2 self-start text-sm font-semibold text-sol transition-all group-hover:gap-3">
+            {t('cta.conhecer')} <Icon name="arrow" size={16} />
+          </span>
+        </div>
+      </a>
+    ))}
   </div>
 </section>

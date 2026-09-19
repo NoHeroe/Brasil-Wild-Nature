@@ -11,15 +11,15 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: {
-        defaultLocale: 'pt',
+        defaultLocale: 'en',
         locales: { pt: 'pt-BR', en: 'en', de: 'de', es: 'es' },
       },
     }),
   ],
-  // i18n nativo: PT na raiz, demais idiomas em /en /de /es
+  // i18n nativo: EN na raiz (padrão), demais idiomas em /pt /de /es
   i18n: {
-    locales: ['pt', 'en', 'de', 'es'],
-    defaultLocale: 'pt',
+    locales: ['en', 'pt', 'de', 'es'],
+    defaultLocale: 'en',
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,

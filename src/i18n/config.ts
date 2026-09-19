@@ -1,8 +1,8 @@
-/** Idiomas do site. PT é o padrão (fica na raiz). */
-export const LOCALES = ['pt', 'en', 'de', 'es'] as const;
+/** Idiomas do site. EN é o padrão (fica na raiz). */
+export const LOCALES = ['en', 'pt', 'de', 'es'] as const;
 export type Locale = (typeof LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = 'pt';
+export const DEFAULT_LOCALE: Locale = 'en';
 
 /** Rótulos do seletor de idioma. Nunca usar bandeira (idioma ≠ país). */
 export const LOCALE_META: Record<Locale, { label: string; short: string; htmlLang: string; ogLocale: string }> = {

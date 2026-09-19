@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getLocale, useTranslations, pathTo } from '../../i18n/utils';
+import { DEFAULT_LOCALE } from '../../i18n/config';
 import { destinoHero } from '../../lib/tourImages';
 import { touristDestinationLd } from '../../lib/jsonld';
 import { site } from '../../config/site';
@@ -19,7 +20,7 @@ const tt = (k: string) => t(k as any);
 
 const all = await getCollection('tours');
 let tours = all.filter((e) => e.data.locale === locale && e.data.destino === destino);
-if (!tours.length) tours = all.filter((e) => e.data.locale === 'pt' && e.data.destino === destino);
+if (!tours.length) tours = all.filter((e) => e.data.locale === DEFAULT_LOCALE && e.data.destino === destino);
 tours = tours.sort((a, b) => a.data.order - b.data.order);
 
 const hero = destinoHero[destino];

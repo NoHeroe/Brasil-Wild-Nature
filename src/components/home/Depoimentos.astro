@@ -11,6 +11,9 @@ const t = useTranslations(locale);
       <p class="eyebrow">{t('depo.kicker')}</p>
       <h2 class="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl text-osso">{t('depo.title')}</h2>
       <p class="mt-3 font-mono text-xs text-osso-dim">{t('depo.note')}</p>
+      {locale !== 'pt' && (
+        <p class="mt-1 font-mono text-[11px] text-osso-dim/70">{t('depo.translated')}</p>
+      )}
     </div>
 
     <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -21,7 +24,7 @@ const t = useTranslations(locale);
           style={`transition-delay:${i * 70}ms`}
         >
           <div class="mb-3 text-sol" aria-label={`${d.rating} de 5`}>{'★'.repeat(d.rating)}</div>
-          <blockquote class="flex-1 leading-relaxed text-osso/90">“{d.text}”</blockquote>
+          <blockquote class="flex-1 leading-relaxed text-osso/90">“{d.text[locale] ?? d.text.pt}”</blockquote>
           <figcaption class="mt-4 font-mono text-xs text-osso-dim">
             {d.author} · {d.source}
           </figcaption>

@@ -29,8 +29,12 @@ const common = { width: size, height: size, viewBox: '0 0 24 24', 'aria-hidden':
   <svg {...common} fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
 )}
 {name === 'rosette' && (
-  <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" class={className} fill="none" stroke="currentColor" stroke-width="1.4">
-    <circle cx="50" cy="50" r="9"/>
-    <path d="M50 30a7 7 0 1 0 .1 0M70 44a7 7 0 1 0 .1 0M64 68a7 7 0 1 0 .1 0M36 68a7 7 0 1 0 .1 0M30 44a7 7 0 1 0 .1 0"/>
+  <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" class={className} fill="none" stroke="currentColor" stroke-width="6">
+    <circle cx="50" cy="50" r="11"/>
+    <circle cx="50" cy="26" r="8"/>
+    <circle cx="74" cy="43" r="8"/>
+    <circle cx="65" cy="72" r="8"/>
+    <circle cx="35" cy="72" r="8"/>
+    <circle cx="26" cy="43" r="8"/>
   </svg>
 )}

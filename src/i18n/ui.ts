@@ -57,6 +57,7 @@ export const ui = {
     'depo.kicker': 'Quem foi, conta',
     'depo.title': 'Avaliações reais',
     'depo.note': 'Comentários reais de clientes (Google).',
+    'depo.translated': 'Depoimentos no idioma original (português).',
 
     'contato.kicker': 'Contato',
     'contato.title': 'Vamos planejar sua expedição',
@@ -191,6 +192,7 @@ export const ui = {
     'depo.kicker': 'Those who went, tell',
     'depo.title': 'Real reviews',
     'depo.note': 'Genuine guest reviews (Google).',
+    'depo.translated': 'Reviews translated from Portuguese.',
 
     'contato.kicker': 'Contact',
     'contato.title': "Let's plan your expedition",
@@ -325,6 +327,7 @@ export const ui = {
     'depo.kicker': 'Wer dabei war, erzählt',
     'depo.title': 'Echte Bewertungen',
     'depo.note': 'Echte Gästebewertungen (Google).',
+    'depo.translated': 'Bewertungen aus dem Portugiesischen übersetzt.',
 
     'contato.kicker': 'Kontakt',
     'contato.title': 'Planen wir deine Expedition',
@@ -459,6 +462,7 @@ export const ui = {
     'depo.kicker': 'Quien fue, lo cuenta',
     'depo.title': 'Reseñas reales',
     'depo.note': 'Reseñas reales de clientes (Google).',
+    'depo.translated': 'Reseñas traducidas del portugués.',
 
     'contato.kicker': 'Contacto',
     'contato.title': 'Planeemos tu expedición',

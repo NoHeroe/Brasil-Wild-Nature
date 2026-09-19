@@ -24,8 +24,8 @@ export const site = {
     whatsapp: '5565999910685',
     whatsappDisplay: '(65) 99991-0685',
 
-    /** TODO(cliente): e-mail de contato. Vazio = botão de e-mail some. */
-    email: '',
+    /** E-mail de contato. */
+    email: 'brazilwildnature@gmail.com',
 
     /** TODO(cliente): @ do Instagram (só o usuário, sem @). Vazio = ícone some. */
     instagram: '',
